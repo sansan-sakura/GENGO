@@ -6,3 +6,9 @@
 :root {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
 }
+
+@layer components {
+  .section-layout {
+    @apply max-w-[1000px] ml-10 mt-8;
+  }
+}

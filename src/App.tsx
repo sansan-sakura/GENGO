@@ -7,6 +7,10 @@ import { AppLayout } from "./ui/AppLayout";
 import { Error } from "./ui/Error";
 import { WelcomePage } from "./pages/WelcomePage";
 import { Dashboard } from "./pages/Dashboard";
+import { FlashcardPage } from "./pages/Flashcard";
+import { Settings } from "./pages/Settings";
+import { About } from "./pages/About";
+import { Contact } from "./pages/Contact";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,6 +29,31 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <Dashboard />,
+        errorElement: <Error />,
+      },
+      {
+        path: "/flashcards",
+        element: <FlashcardPage />,
+        errorElement: <Error />,
+      },
+      {
+        path: "/flashcard/:id",
+        element: <FlashcardPage />,
+        errorElement: <Error />,
+      },
+      {
+        path: "/settings",
+        element: <Settings />,
+        errorElement: <Error />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+        errorElement: <Error />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
         errorElement: <Error />,
       },
     ],

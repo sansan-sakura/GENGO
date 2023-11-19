@@ -1,7 +1,13 @@
-export const Hanko = ({ size = 14, src = "/gengo_logo.webp" }: { size?: number; src?: string }) => {
+export const Hanko = ({
+  size = "md",
+  src = "/gengo_logo.webp",
+}: {
+  size?: "md" | "sm";
+  src?: string;
+}) => {
   return (
     <div className="w-fit">
-      <img src={src} className={`w-${size}`} />
+      <img src={src} className={`${size === "sm" ? "w-6" : "w-14"}`} />
     </div>
   );
 };

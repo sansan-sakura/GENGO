@@ -1,17 +1,36 @@
+import { Link } from "react-router-dom";
+
 export const ButtonOutline = ({
   name,
   bg,
   path = "#",
+  type = "link",
 }: {
   name: string;
   bg: string;
   path: string;
+  type?: string;
 }) => {
+  const styleLink = "group relative block h-1 w-26 sm:h-14 sm:w-[180px] mx-auto shadow-lg mb-8";
+
+  if (type === "a") {
+    return (
+      <a href={path} className={styleLink}>
+        <ButtonInnerEl name={name} bg={bg} />
+      </a>
+    );
+  }
+
   return (
-    <a
-      href={path}
-      className="group relative block h-1 w-26 sm:h-14 sm:w-[180px] mx-auto shadow-lg mb-8"
-    >
+    <Link to={path} className={styleLink}>
+      <ButtonInnerEl name={name} bg={bg} />
+    </Link>
+  );
+};
+
+function ButtonInnerEl({ name, bg }: { name: string; bg: string }) {
+  return (
+    <>
       <span
         className={`absolute inset-0 border-2 border-dashed border-black  rounded-md ${bg}`}
       ></span>
@@ -21,6 +40,6 @@ export const ButtonOutline = ({
           <p className=" text-[22px] font-medium text-center">{name}</p>
         </div>
       </div>
-    </a>
+    </>
   );
-};
+}

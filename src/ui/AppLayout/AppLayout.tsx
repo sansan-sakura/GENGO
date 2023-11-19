@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Aside } from "../Aside/Aside";
 import { BreadCrumble } from "../BreadCrumble";
-import { Card } from "../Card";
 import { Footer } from "../Footer";
 import { Header } from "../Header";
 
