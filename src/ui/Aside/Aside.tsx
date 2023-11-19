@@ -9,7 +9,7 @@ export const Aside = () => {
   ));
   return (
     <aside className=" min-h-screen h-full w-full border-r-2">
-      <div className="py-20 grid gap-8">
+      <div className="py-20 flex flex-col gap-8 items-center">
         <Logo />
         <Hanko />
       </div>

@@ -1,7 +1,7 @@
-export const Hanko = () => {
+export const Hanko = ({ size = 14, src = "/gengo_logo.webp" }: { size?: number; src?: string }) => {
   return (
-    <div className="w-fit mx-auto">
-      <img src="/gengo_logo.webp" className="w-14" />
+    <div className="w-fit">
+      <img src={src} className={`w-${size}`} />
     </div>
   );
 };
