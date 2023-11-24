@@ -4,6 +4,7 @@ const categorySchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
+    unique: true,
     trim: true,
     maxlength: [20, "A sategory must be less than 20 charactors 🫣"],
     minlength: [3, "A category must be more than 3 charactors ⭐️"],
@@ -12,4 +13,4 @@ const categorySchema = new mongoose.Schema({
 
 const Category = mongoose.model("category", categorySchema);
 
-exports.module = Category;
+module.exports = Category;

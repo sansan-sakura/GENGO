@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+const Category = require("./models/categoryModel");
 
 const listEndpoints = require("express-list-endpoints");
 
@@ -9,10 +10,11 @@ app.use(cors());
 
 app.use(express.json());
 
-const flashcardRouter = require("./routes/flashcardRoutes");
+// const flashcardRouter = require("./routes/flashcardRoutes");
+const categoryRouter = require("./routes/categoryRouter");
 
-app.use("/api/v1/", flashcardRouter);
-
+// app.use("/api/v1/", flashcardRouter);
+app.use("/cate", categoryRouter);
 app.use("/", (req, res) => {
   res.json(listEndpoints(app));
 });
