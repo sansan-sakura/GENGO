@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express-list-endpoints": "^6.0.0"
+  }
+}
