@@ -1,17 +1,19 @@
 const mongoose = require("mongoose");
+import { Schema } from "mongoose";
 
-const { flashcardSchema } = require("./flashcardModel");
+import { flashcardSchema } from "./flashcardModel";
+import { categorySchema } from "./categoryModel";
 
-const deckSchema = new mongoose.Schema({
+const deckSchema = new Schema({
   title: { type: String, required: true },
-  isDone: { type: Boolean, required: true },
-  category: { type: Schema.Types.ObjectId, ref: "Category", required: true, enum: {} }, //user can edit
+  isDone: { type: Boolean, default: false },
+  category: { type: Schema.Types.ObjectId, ref: "Category", required: false, enum: {} }, //user can edit
   reviewed_date: { type: [Date], default: undefined },
-  last_reviewed_date: { type: Date, required: true },
+  last_reviewed_date: { type: Date, required: true, default: Date.now },
   createdAt: { type: Date, default: Date.now },
   cards: { type: [Schema.Types.ObjectId], ref: "flashcard" },
 });
 
 const Deck = mongoose.model("deck", deckSchema);
 
-exports.module = Deck;
+module.exports = Deck;

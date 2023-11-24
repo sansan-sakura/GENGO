@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const categorySchema = new mongoose.Schema({
+export const categorySchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,

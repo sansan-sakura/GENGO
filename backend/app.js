@@ -10,11 +10,13 @@ app.use(cors());
 
 app.use(express.json());
 
-// const flashcardRouter = require("./routes/flashcardRoutes");
+const flashcardRouter = require("./routes/flashcardRouter");
 const categoryRouter = require("./routes/categoryRouter");
+const deckRouter = require("./routes/deckRouter");
 
-// app.use("/api/v1/", flashcardRouter);
-app.use("/cate", categoryRouter);
+app.use("/deck", deckRouter);
+app.use("/api/v1/category", categoryRouter);
+app.use("/card", flashcardRouter);
 app.use("/", (req, res) => {
   res.json(listEndpoints(app));
 });
