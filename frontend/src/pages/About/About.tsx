@@ -1,7 +1,7 @@
-import { ContentFrame } from "../../../ui/ContentFrame";
-import { Hanko } from "../../../ui/Hanko";
+import { ContentFrame } from "../../ui/ContentFrame";
+import { Hanko } from "../../ui/Hanko";
 
-import { aboutText as text } from "../../../statics/texts";
+import { aboutText as text } from "../../statics/texts";
 
 export const About = () => {
   return (

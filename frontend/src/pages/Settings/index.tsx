@@ -1,2 +1,3 @@
-import { Settings } from "./Settings";
-export { Settings };
+export const Settings = () => {
+  return <div>Setting</div>;
+};

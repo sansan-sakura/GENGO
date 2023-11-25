@@ -6,7 +6,8 @@ import { AppLayout } from "./ui/AppLayout";
 import { Error } from "./ui/Error";
 import { WelcomePage } from "./pages/WelcomePage";
 import { Dashboard } from "./pages/Dashboard";
-import { FlashcardDeckPage, FlashcardPage } from "./pages/Flashcard";
+import { FlashcardPage } from "./pages/FlashcardPage";
+import { DeckPage } from "./pages/DeckPage";
 import { Settings } from "./pages/Settings";
 import { About } from "./pages/About";
 import { Contact } from "./pages/Contact";
@@ -36,8 +37,8 @@ const router = createBrowserRouter([
         errorElement: <Error />,
       },
       {
-        path: "/flashcard",
-        element: <FlashcardDeckPage />,
+        path: "/deck",
+        element: <DeckPage />,
         errorElement: <Error />,
       },
       {
