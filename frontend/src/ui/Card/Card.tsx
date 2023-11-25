@@ -1,6 +1,7 @@
 import { CategoryLabel } from "../CategoryLabel";
+import { CardsType } from "../../types/flashcardTypes";
 
-export const Card = ({ bg = "bg-red-500", card }: { bg: string; card: any }) => {
+export const Card = ({ bg = "bg-red-500", card }: { bg: string; card: CardsType }) => {
   return (
     <a href="" className="group relative block h-32 w-56 sm:h-44 sm:w-[360px]">
       <span
@@ -12,8 +13,8 @@ export const Card = ({ bg = "bg-red-500", card }: { bg: string; card: any }) => 
           <CategoryLabel category={card.category} />
           <h2 className="text-xl font-medium sm:text-2xl">{card.title}</h2>
           <div className="flex justify-between">
-            <small>{card.cards.length} cards</small>
-            <small>created at: {card.created_at.split("T")[0]}</small>
+            <small>{card?.cards?.length} cards</small>
+            <small>created at: {card.createdAt.toString().split("T")[0]}</small>
           </div>
         </div>
       </div>

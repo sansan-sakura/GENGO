@@ -1,18 +1,22 @@
 export type CardType = {
-  id: number | string;
-  title: string;
+  id?: number | string;
   question: string;
-  isDone: boolean;
+  answer: string;
+  isDone?: boolean;
   status?: string;
-  label?: string;
 };
 
-export type CardsType = {
-  id: number | string;
-  created_at: number;
+export type DeckType = {
+  id?: number | string;
+  createdAt: string | Date;
   title: string;
-  cards: Array<CardType>;
-  idDone: boolean;
+  cards?: Array<CardType>;
+  idDone?: boolean;
   category: string;
-  reviewed_date: number;
+  reviewed_date?: [Date] | [string] | string;
+  last_reviewed_date?: Date | string;
+};
+
+export type CategoryType = {
+  category: string;
 };

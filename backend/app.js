@@ -14,9 +14,9 @@ const flashcardRouter = require("./routes/flashcardRouter");
 const categoryRouter = require("./routes/categoryRouter");
 const deckRouter = require("./routes/deckRouter");
 
-app.use("/deck", deckRouter);
+app.use("/api/v1/deck", deckRouter);
 app.use("/api/v1/category", categoryRouter);
-app.use("/card", flashcardRouter);
+app.use("/api/v1/flashcard", flashcardRouter);
 app.use("/", (req, res) => {
   res.json(listEndpoints(app));
 });
