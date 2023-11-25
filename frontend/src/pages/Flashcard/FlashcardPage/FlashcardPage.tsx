@@ -2,6 +2,7 @@ import { Card } from "../../../ui/Card";
 import { ContentFrame } from "../../../ui/ContentFrame";
 import { Pagination } from "../../../ui/Pagination";
 import { SearchInput } from "../../../ui/SearchInput";
+import data from "../../../data/cardData.json";
 
 export const FlashcardPage = () => {
   return (
@@ -18,15 +19,20 @@ export const FlashcardPage = () => {
             </select>
           </div>
 
-          <div className="grid grid-cols-2 gap-5 justify-items-center">
-            <Card bg="bg-blue-default" />
+          <div className="grid grid-cols-2 gap-8 justify-items-center">
+            {data.data.map((card, i) => (
+              <Card card={card} key={i} />
+            ))}
+            {/* <Card bg="bg-blue-default" />
             <Card bg="bg-green-dark" />
             <Card bg="bg-yellow-default" />
             <Card bg="bg-blue-default" />
             <Card />
-            <Card bg="bg-yellow-default" />
+            <Card bg="bg-yellow-default" /> */}
           </div>
-          <Pagination />
+          <div className="w-full flex justify-center pt-8">
+            <Pagination />
+          </div>
         </div>
       </ContentFrame>
     </section>

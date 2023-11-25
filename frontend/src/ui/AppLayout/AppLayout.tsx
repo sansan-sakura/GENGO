@@ -14,9 +14,11 @@ export const AppLayout = () => {
         <div>
           <Header />
         </div>
-        <div className="p-4">
-          <BreadCrumble />
-          <Outlet />
+        <div className="p-8">
+          <div className="max-w-[1200px] flex items-center flex-col justify-center">
+            <BreadCrumble />
+            <Outlet />
+          </div>
         </div>
         <div>
           <Footer />

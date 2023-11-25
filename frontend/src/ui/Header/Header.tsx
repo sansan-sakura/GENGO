@@ -5,13 +5,21 @@ export const Header = () => {
   const {
     current: [weekDay, date, time],
   } = useRef(getDate());
-  //   useEffect(() => {
-  //     function timer() {}
-  //   });
+  useEffect(() => {
+    function timer() {
+      const timeArr = time.split(":");
+      let hour = timeArr[0];
+      let min = timeArr[1].split(" ")[0];
+
+      console.log(hour, min);
+    }
+
+    timer();
+  });
   return (
     <header className="bg-gray-50">
-      <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-4">
+      <div className="mx-8 max-w-[1200px] py-8 flex justify-center items-center">
+        <div className="flex items-center justify-between gap-12 max-w-[1200px] w-full">
           <div className="flex items-center gap-10">
             <div className="flex flex-col bg-white p-2  font-bold items-center rounded-lg text-gray-600 shadow-sm ">
               <span>{date}</span>

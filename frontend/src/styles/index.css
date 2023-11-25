@@ -9,6 +9,6 @@
 
 @layer components {
   .section-layout {
-    @apply max-w-[1000px] ml-10 mt-8;
+    @apply max-w-[1000px] mt-12;
   }
 }
