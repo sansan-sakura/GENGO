@@ -3,9 +3,28 @@ const Deck = require("../models/deckModel");
 const catchAsync = require("../utils/catchAsync");
 
 const AppError = require("../utils/appError");
+const APIFeatures = require("../utils/apiFeature");
 
 exports.getAllDecks = catchAsync(async (req, res, next) => {
-  const deck = await Deck.find();
+  const features = new APIFeatures(Deck.find(), req.query).filter().sort().limitFields().paginate();
+
+  console.log(features, features.query);
+
+  const deck = await features.query;
+
+  res.status(200).json({
+    status: "200",
+    results: deck.length,
+    data: { deck },
+  });
+});
+
+exports.getAllDatesOfDeck = catchAsync(async (req, res, next) => {
+  const deck = await Deck.find().select({
+    createdAt: 1,
+    last_reviewed_date: 1,
+    reviewed_date: 1,
+  });
 
   res.status(200).json({
     status: "200",

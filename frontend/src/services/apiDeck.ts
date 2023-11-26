@@ -1,5 +1,6 @@
 import {
   createDeckUrl,
+  fetchAllDatesDecksUrl,
   fetchAllDecksUrl,
   fetchDeckByIdUrl,
   fetchDecksWithQuery,
@@ -25,6 +26,17 @@ export async function getDecksWithQuery(query: string) {
     return data;
   } catch (err) {
     throw new Error("Couldn't get decks");
+  }
+}
+
+export async function getDatesOfDecks() {
+  try {
+    const res = await fetch(fetchAllDatesDecksUrl);
+    const data = await res.json();
+    if (!data) return console.error("something went wrong with deck's dates fetching 💥");
+    return data;
+  } catch (err) {
+    throw new Error("Couldn't get dates");
   }
 }
 

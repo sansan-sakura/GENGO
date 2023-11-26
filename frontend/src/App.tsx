@@ -1,4 +1,3 @@
-import { QueryClient, QueryClientProvider } from "react-query";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import { RecoilRoot } from "recoil";
@@ -11,14 +10,6 @@ import { DeckPage } from "./pages/DeckPage";
 import { Settings } from "./pages/Settings";
 import { About } from "./pages/About";
 import { Contact } from "./pages/Contact";
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 0,
-    },
-  },
-});
 
 const router = createBrowserRouter([
   { path: "/", element: <WelcomePage />, errorElement: <Error /> },
@@ -62,11 +53,9 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <RecoilRoot>
-        <RouterProvider router={router} />
-      </RecoilRoot>
-    </QueryClientProvider>
+    <RecoilRoot>
+      <RouterProvider router={router} />
+    </RecoilRoot>
   );
 }
 

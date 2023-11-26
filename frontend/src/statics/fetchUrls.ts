@@ -9,3 +9,5 @@ export const createDeckUrl = `${API_ROOT_URL}api/v1/deck`;
 
 export const fetchAllDecksUrl = `${API_ROOT_URL}api/v1/deck`;
 export const fetchDecksWithQuery = (query: string) => `${API_ROOT_URL}api/v1/deck/${query}`;
+
+export const fetchAllDatesDecksUrl = `${API_ROOT_URL}api/v1/deck/date`;

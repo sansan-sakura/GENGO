@@ -1,11 +1,32 @@
+import { useRecoilState, useRecoilValue } from "recoil";
+import { countedCardsLength } from "../../states/selectors/flashcardSelectors";
+import {
+  currentFlashCardPageNumState,
+  flashcardsNumsPerPage,
+} from "../../states/atoms/flashcardAtoms";
+
 export const Pagination = () => {
+  const cardNumPerPage = useRecoilValue(flashcardsNumsPerPage);
+  const cardNum: number | undefined = useRecoilValue(countedCardsLength);
+  const [currentPage, setCurrentPage] = useRecoilState(currentFlashCardPageNumState);
+  console.log(currentPage);
+  const handleClickRight = () => {
+    currentPage <= Math.ceil(cardNum / cardNumPerPage) ? setCurrentPage(currentPage + 1) : "";
+  };
+  console.log(currentPage);
+  const handleClickLeft = () => {
+    console.log(currentPage, Math.ceil(cardNum / cardNumPerPage), cardNum);
+    currentPage >= Math.ceil(cardNum / cardNumPerPage) ? setCurrentPage(currentPage - 1) : "";
+  };
+
   return (
     <div className="inline-flex justify-center gap-1">
-      <a
-        href="#"
+      <button
+        type="button"
+        aria-label="go to Prev Page"
+        onClick={handleClickLeft}
         className="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
       >
-        <span className="sr-only">Prev Page</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-3 w-3"
@@ -18,27 +39,26 @@ export const Pagination = () => {
             clipRule="evenodd"
           />
         </svg>
-      </a>
+      </button>
 
       <div>
         <label htmlFor="PaginationPage" className="sr-only">
           Page
         </label>
-
-        <input
-          type="number"
-          className="h-8 w-12 rounded border border-gray-100 bg-white p-0 text-center text-xs font-medium text-gray-900 [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
-          min="1"
-          value="2"
+        <div
+          className="h-8 w-12 rounded border border-gray-100 bg-white p-0 text-center text-xs font-medium text-gray-900 flex items-center justify-center"
           id="PaginationPage"
-        />
+        >
+          <p>{currentPage}</p>
+        </div>
       </div>
 
-      <a
-        href="#"
+      <button
+        type="button"
+        aria-label="go to next Page"
+        onClick={handleClickRight}
         className="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
       >
-        <span className="sr-only">Next Page</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-3 w-3"
@@ -51,7 +71,7 @@ export const Pagination = () => {
             clipRule="evenodd"
           />
         </svg>
-      </a>
+      </button>
     </div>
   );
 };
