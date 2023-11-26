@@ -1,8 +1,8 @@
 import { ContentFrame } from "../../../ui/ContentFrame";
-import { CiEdit } from "react-icons/ci";
-import { RiDeleteBin3Line } from "react-icons/ri";
+
 import data from "../../../data/cardData.json";
 import { DeckCard } from "./DeckCard";
+import { EditDeleteButton } from "../../../ui/EditDeleteButton";
 
 const labels = ["really hard", "hard", "okay", "easy"];
 const labelsColors = ["bg-red-dark", "bg-blue-dark", "bg-green-dark", "bg-yellow-default"];
@@ -10,14 +10,7 @@ const labelsColors = ["bg-red-dark", "bg-blue-dark", "bg-green-dark", "bg-yellow
 export const Deck = () => {
   return (
     <ContentFrame>
-      <div className="w-full text-end text-xl text-gray-500 pr-6 mt-6">
-        <button>
-          <CiEdit />
-        </button>
-        <button className="ml-4">
-          <RiDeleteBin3Line />
-        </button>
-      </div>
+      <EditDeleteButton />
       <DeckCard content={data.data[0].cards[0].question} />
 
       <div className="flex gap-5 mt-8 mb-2">

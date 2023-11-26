@@ -9,14 +9,13 @@ export const Pagination = () => {
   const cardNumPerPage = useRecoilValue(flashcardsNumsPerPage);
   const cardNum: number | undefined = useRecoilValue(countedCardsLength);
   const [currentPage, setCurrentPage] = useRecoilState(currentFlashCardPageNumState);
-  console.log(currentPage);
+
   const handleClickRight = () => {
     currentPage <= Math.ceil(cardNum / cardNumPerPage) ? setCurrentPage(currentPage + 1) : "";
   };
-  console.log(currentPage);
+
   const handleClickLeft = () => {
-    console.log(currentPage, Math.ceil(cardNum / cardNumPerPage), cardNum);
-    currentPage >= Math.ceil(cardNum / cardNumPerPage) ? setCurrentPage(currentPage - 1) : "";
+    currentPage > 1 ? setCurrentPage(currentPage - 1) : "";
   };
 
   return (

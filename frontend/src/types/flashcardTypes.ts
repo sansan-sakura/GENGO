@@ -21,6 +21,7 @@ export type DeckType = {
 
 export type CategoryType = {
   category: string;
+  _id: string;
 };
 
 export type DeckDatesType = {

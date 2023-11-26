@@ -10,7 +10,7 @@ export const Card = ({ bg = "bg-red-500", card }: { bg: string; card: CardsType 
 
       <div className="relative h-full transform border-2 border-black bg-white  rounded-lg transition-transform group-hover:-translate-x-2 group-hover:-translate-y-2">
         <div className="p-2 transition-opacity group-hover:absolutesm:p-6 lg:p-4 h-full flex flex-col justify-between">
-          <CategoryLabel category={card.category} />
+          <CategoryLabel category={card?.category?.category} />
           <h2 className="text-xl font-medium sm:text-2xl">{card.title}</h2>
           <div className="flex justify-between">
             <small>{card?.cards?.length} cards</small>

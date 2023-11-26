@@ -4,9 +4,14 @@ const catchAsync = require("../utils/catchAsync");
 
 const AppError = require("../utils/appError");
 const APIFeatures = require("../utils/apiFeature");
+const { default: mongoose } = require("mongoose");
 
 exports.getAllDecks = catchAsync(async (req, res, next) => {
-  const features = new APIFeatures(Deck.find(), req.query).filter().sort().limitFields().paginate();
+  const features = new APIFeatures(Deck.find().populate("category"), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
 
   console.log(features, features.query);
 
@@ -26,6 +31,18 @@ exports.getAllDatesOfDeck = catchAsync(async (req, res, next) => {
     reviewed_date: 1,
   });
 
+  res.status(200).json({
+    status: "200",
+    results: deck.length,
+    data: { deck },
+  });
+});
+
+exports.getDecksByCategory = catchAsync(async (req, res, next) => {
+  // const deck = await Deck.findOne().populate({ path: "category", category: "Swedish" }).exec();
+  const deck = await Deck.find({ category: mongoose.Types.ObjectId(req.params.id) }).populate(
+    "category"
+  );
   res.status(200).json({
     status: "200",
     results: deck.length,
