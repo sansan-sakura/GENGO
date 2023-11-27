@@ -1,21 +1,22 @@
-import { useEffect, useRef } from "react";
-import { getDate } from "../../utils/helpers";
+import { useEffect, useRef, useState } from "react";
+import { getDate, showTime } from "../../utils/helpers";
 import { SearchInput } from "../SearchInput/SearchInput";
 export const Header = () => {
+  const [time, setTime] = useState("");
+
   const {
-    current: [weekDay, date, time],
+    current: [weekDay, date],
   } = useRef(getDate());
+
   useEffect(() => {
-    function timer() {
-      const timeArr = time.split(":");
-      let hour = timeArr[0];
-      let min = timeArr[1].split(" ")[0];
+    const timer = setInterval(() => {
+      const timeNow = showTime();
+      setTime(timeNow);
+    }, 60000);
 
-      console.log(hour, min);
-    }
-
-    timer();
+    return () => clearInterval(timer);
   });
+
   return (
     <header className="bg-gray-50">
       <div className="mx-8 max-w-[1200px] py-8 flex justify-center items-center">

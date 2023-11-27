@@ -6,9 +6,27 @@ export const getDate = () => {
     day: "numeric",
   });
   const dateArr = today.split(",");
-  const time = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-
   const [weekday, dates] = [...dateArr];
 
-  return [weekday, dates, time];
+  return [weekday, dates];
+};
+
+export const showTime = () => {
+  const time = new Date();
+  let hour: string | number = time.getHours();
+  let min: string | number = time.getMinutes();
+  let ampm: string = "AM";
+
+  if (hour >= 12) {
+    ampm = "PM";
+    hour > 12 ? (hour -= 12) : "";
+  } else if (hour === 0) {
+    hour = 12;
+    ampm = "AM";
+  }
+
+  hour = hour < 10 ? "0" + hour : hour;
+  min = min < 10 ? "0" + min : min;
+
+  return hour + ":" + min + ampm;
 };

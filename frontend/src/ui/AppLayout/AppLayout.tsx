@@ -3,7 +3,7 @@ import { Aside } from "../Aside/Aside";
 import { BreadCrumble } from "../BreadCrumble";
 import { Footer } from "../Footer";
 import { Header } from "../Header";
-import { Modal } from "../Modal";
+
 import createModal from "../Modal";
 export const AppLayout = () => {
   return (
@@ -13,7 +13,7 @@ export const AppLayout = () => {
       </div>
       <main className="col-span-6 grid grid-rows-[auto_1fr_auto]">
         <button onClick={() => createModal(<h1>Hi! I'm a modal</h1>)}>Open</button>
-        {/* <div>
+        <div>
           <Header />
         </div>
         <div className="p-8">
@@ -24,7 +24,7 @@ export const AppLayout = () => {
         </div>
         <div>
           <Footer />
-        </div> */}
+        </div>
       </main>
     </div>
   );

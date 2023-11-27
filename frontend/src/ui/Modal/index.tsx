@@ -7,13 +7,11 @@ declare const window: Window &
     modalContainer: Root;
   };
 
-const createModal = (content: ReactNode, options = {}) => {
+const createModal = (content: ReactNode) => {
   if (!window.modalContainer) {
     window.modalContainer = createRoot(document.getElementById("modal-container") as HTMLElement);
   }
 
-  window.modalContainer.render(
-    <Modal key={Math.random()} content={content as ReactNode} options={options} />
-  );
+  window.modalContainer.render(<Modal key={Math.random()} content={content as ReactNode} />);
 };
 export default createModal;
