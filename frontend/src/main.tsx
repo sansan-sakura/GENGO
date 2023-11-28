@@ -19,7 +19,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <RecoilRoot>
         <App />
-        <div id="modal-container" />
       </RecoilRoot>
     </QueryClientProvider>
   </React.StrictMode>

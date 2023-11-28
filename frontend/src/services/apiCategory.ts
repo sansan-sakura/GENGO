@@ -41,7 +41,7 @@ export async function deleteCategory(id: number | string) {
   }
 }
 
-export async function updateCategory(id: number | string, body: CategoryType) {
+export async function updateCategory(id: number | string, body: { category: string }) {
   try {
     const res = await fetch(CATEGORY_ID_URL(id), {
       method: "PUT",

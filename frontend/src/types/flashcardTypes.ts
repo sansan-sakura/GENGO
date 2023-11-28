@@ -14,7 +14,7 @@ export type DeckType = {
   title: string;
   cards?: Array<CardType>;
   idDone?: boolean;
-  category: string;
+  category: CategoryType;
   reviewed_date?: [Date] | [string] | string;
   last_reviewed_date?: Date | string;
 };

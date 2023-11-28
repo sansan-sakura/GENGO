@@ -1,17 +1,18 @@
-import { Root, createRoot } from "react-dom/client";
-import { Modal } from "./Modal";
-import { ReactNode } from "react";
+// import { Root, createRoot } from "react-dom/client";
+// import { Modal } from "./Modal";
+// import { ReactNode } from "react";
 
-declare const window: Window &
-  typeof globalThis & {
-    modalContainer: Root;
-  };
+// declare const window: Window &
+//   typeof globalThis & {
+//     modalContainer: Root;
+//   };
 
-const createModal = (content: ReactNode) => {
-  if (!window.modalContainer) {
-    window.modalContainer = createRoot(document.getElementById("modal-container") as HTMLElement);
-  }
+// const createModal = (content: ReactNode) => {
+//   if (!window.modalContainer) {
+//     window.modalContainer = createRoot(document.getElementById("modal-container") as HTMLElement);
+//   }
 
-  window.modalContainer.render(<Modal key={Math.random()} content={content as ReactNode} />);
-};
-export default createModal;
+//   return window.modalContainer.render(<Modal key={Math.random()} content={content as ReactNode} />);
+// };
+// export default createModal;
+export { Modal } from "./Modal";

@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { DeckDatesType, DeckType } from "../../types/flashcardTypes";
+import { CategoryType, DeckDatesType, DeckType } from "../../types/flashcardTypes";
 
 // flash card set-> for a deck
 
@@ -34,4 +34,9 @@ export const currentFlashCardPageNumState = atom<number>({
 export const flashcardsNumsPerPage = atom<number>({
   key: "CardNumPerPage",
   default: 6,
+});
+
+export const categoryState = atom<CategoryType[]>({
+  key: "category",
+  default: [],
 });

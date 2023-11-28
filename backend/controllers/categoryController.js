@@ -25,7 +25,6 @@ exports.createCategory = catchAsync(async (req, res, next) => {
 });
 
 exports.getCategory = catchAsync(async (req, res, next) => {
-  console.log(req.params.category);
   const category = await Category.findOne(req.params);
   res.status(201).json({
     status: "success",
@@ -37,7 +36,7 @@ exports.getCategory = catchAsync(async (req, res, next) => {
 
 exports.deleteCategory = catchAsync(async (req, res, next) => {
   const newCategory = await Category.findOneAndDelete(req.params);
-  console.log(res, "English");
+
   res.status(204).json({
     status: "success",
     data: null,
@@ -45,8 +44,8 @@ exports.deleteCategory = catchAsync(async (req, res, next) => {
 });
 
 exports.updateCategory = catchAsync(async (req, res, next) => {
-  console.log(req.params);
-  const category = await Category.updateOne(req.params, req.body, {
+  console.log(req.params, req.body);
+  const category = await Category.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });

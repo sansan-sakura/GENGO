@@ -13,9 +13,13 @@ export const Modal = ({ content }: { content: ReactNode }) => {
 
   if (!isOpen) return null;
   return (
-    <div className="fixed top-0 left-0 bg-slate-400 h-screen w-screen flex items-center justify-center">
-      <button onClick={() => setIsOpen(!isOpen)}>Close</button>
-      <div>{content}</div>
+    <div className="fixed top-0 left-0 backdrop-blur bg-zinc-300/30 h-screen w-screen flex items-center justify-center z-50">
+      <div className="relative p-9 bg-white border-2 border-black rounded-lg ">
+        <div>{content}</div>
+        <button onClick={() => setIsOpen(!isOpen)} className="text-4xl absolute top-2 right-2">
+          &times;
+        </button>
+      </div>
     </div>
   );
 };
