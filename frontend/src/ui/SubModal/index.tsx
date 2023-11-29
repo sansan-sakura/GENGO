@@ -1,19 +1,22 @@
-import { Root, createRoot } from "react-dom/client";
-import { SubModal } from "./SubModal";
-import { ReactNode } from "react";
+export { SubModal } from "./SubModal";
 
-declare const window: Window &
-  typeof globalThis & {
-    modalContainer: Root;
-  };
+// How to create a modal with portal
+// import { Root, createRoot } from "react-dom/client";
+// import { SubModal } from "./SubModal";
+// import { ReactNode } from "react";
 
-const createSubModal = (content: ReactNode) => {
-  if (!window.modalContainer) {
-    window.modalContainer = createRoot(
-      document.getElementById("subModal-container") as HTMLElement
-    );
-  }
+// declare const window: Window &
+//   typeof globalThis & {
+//     modalContainer: Root;
+//   };
 
-  window.modalContainer.render(<SubModal key={Math.random()} content={content as ReactNode} />);
-};
-export default createSubModal;
+// const createSubModal = (content: ReactNode) => {
+//   if (!window.modalContainer) {
+//     window.modalContainer = createRoot(
+//       document.getElementById("subModal-container") as HTMLElement
+//     );
+//   }
+
+//   window.modalContainer.render(<SubModal key={Math.random()} content={content as ReactNode} />);
+// };
+// export default createSubModal;

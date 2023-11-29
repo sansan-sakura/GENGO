@@ -1,1 +1,0 @@
-export { CategoryLabel } from "./CategoryLabel";

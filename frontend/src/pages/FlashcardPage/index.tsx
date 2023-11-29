@@ -7,6 +7,7 @@ import {
 } from "../../states/atoms/flashcardAtoms";
 import { useDecks } from "../../features/flashcards/hooks/deck/useDecks";
 import { useMemo } from "react";
+import { Error } from "../../ui/Error";
 
 export const FlashcardPage = () => {
   const setCards = useSetRecoilState(allDecksPerPageState);
@@ -18,7 +19,7 @@ export const FlashcardPage = () => {
   );
   const { isPending, decksWithQuery, error } = useDecks(query);
   if (isPending) return <p>Loading</p>;
-  if (error) return <p>Error</p>;
+  if (error) return <Error />;
 
   setCards(decksWithQuery.data.deck);
   return (
