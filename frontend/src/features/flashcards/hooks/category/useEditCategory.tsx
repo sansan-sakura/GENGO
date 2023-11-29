@@ -8,6 +8,7 @@ export function useEditCategory() {
     mutationFn: ({ id, newData }: { id: number | string; newData: { category: string } }) =>
       updateCategory(id, newData),
     onSuccess: () => {
+      console.log("success");
       toast.success("Category successfully edited ");
       queryClient.invalidateQueries({ queryKey: ["category"] });
     },

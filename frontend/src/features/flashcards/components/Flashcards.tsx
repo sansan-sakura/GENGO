@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import { Card } from "../../../ui/Card";
+import { Card } from "./Card";
 import { allDecksPerPageState } from "../../../states/atoms/flashcardAtoms";
 export const Flashcards = () => {
   const cardsData = useRecoilValue(allDecksPerPageState);

@@ -1,5 +1,5 @@
-import { CategoryLabel } from "../CategoryLabel";
-import { DeckType } from "../../types/flashcardTypes";
+import { CategoryLabel } from "./CategoryLabel";
+import { DeckType } from "../../../types/flashcardTypes";
 import { Link } from "react-router-dom";
 
 export const Card = ({ bg = "bg-red-500", card }: { bg: string; card: DeckType }) => {

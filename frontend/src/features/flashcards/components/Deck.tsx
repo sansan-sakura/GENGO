@@ -2,7 +2,7 @@ import { ContentFrame } from "../../../ui/ContentFrame";
 
 import data from "../../../data/cardData.json";
 import { DeckCard } from "./DeckCard";
-import { EditCategoryButton } from "../../../ui/EditCategoryButton";
+import { EditBtn } from "../../../ui/EditBtn";
 
 const labels = ["really hard", "hard", "okay", "easy"];
 const labelsColors = ["bg-red-dark", "bg-blue-dark", "bg-green-dark", "bg-yellow-default"];
@@ -10,7 +10,7 @@ const labelsColors = ["bg-red-dark", "bg-blue-dark", "bg-green-dark", "bg-yellow
 export const Deck = () => {
   return (
     <ContentFrame>
-      <EditCategoryButton />
+      <EditBtn handleEdit={() => console.log("edit")} />
       <DeckCard content={data.data[0].cards[0].question} />
 
       <div className="flex gap-5 mt-8 mb-2">

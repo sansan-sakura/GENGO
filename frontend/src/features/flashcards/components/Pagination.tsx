@@ -1,9 +1,9 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import { countedCardsLength } from "../../states/selectors/flashcardSelectors";
+import { countedCardsLength } from "../../../states/selectors/flashcardSelectors";
 import {
   currentFlashCardPageNumState,
   flashcardsNumsPerPage,
-} from "../../states/atoms/flashcardAtoms";
+} from "../../../states/atoms/flashcardAtoms";
 
 export const Pagination = () => {
   const cardNumPerPage = useRecoilValue(flashcardsNumsPerPage);
