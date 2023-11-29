@@ -11,4 +11,7 @@
   .section-layout {
     @apply max-w-[1000px] mt-12;
   }
+  .button {
+    @apply flex justify-center items-center  p-2 rounded-md transform border-2 border-black bg-white transition-transform  hover:translate-y-1;
+  }
 }

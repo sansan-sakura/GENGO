@@ -35,16 +35,15 @@ exports.getCategory = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteCategory = catchAsync(async (req, res, next) => {
-  const newCategory = await Category.findOneAndDelete(req.params);
-
-  res.status(204).json({
+  const deletedCategory = await Category.findOneAndDelete({ _id: req.params.id });
+  console.log(deletedCategory, req.params, "Category deleting");
+  res.json({
     status: "success",
     data: null,
   });
 });
 
 exports.updateCategory = catchAsync(async (req, res, next) => {
-  console.log(req.params, req.body);
   const category = await Category.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,

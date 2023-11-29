@@ -4,12 +4,19 @@ import { InputSubModalField } from "./InputSubModalField";
 import { DeleteBtn } from "../../../ui/DeleteBtn";
 import { EditBtn } from "../../../ui/EditBtn";
 import { useState } from "react";
+import { useDeleteCategory } from "../hooks/category/useDeleteCategory";
+import { Toaster } from "react-hot-toast";
 
 export const EditCategoryModalOption = ({ cate }: { cate: CategoryType }) => {
   const [isSubOpen, setIsSubOpen] = useState(false);
+  const { deleteCategory } = useDeleteCategory();
+  const handledelete = () => {
+    deleteCategory(cate._id);
+  };
 
   return (
     <>
+      <Toaster />
       {isSubOpen && (
         <SubModal
           content={<InputSubModalField id={cate._id} onClose={setIsSubOpen} />}
@@ -20,7 +27,7 @@ export const EditCategoryModalOption = ({ cate }: { cate: CategoryType }) => {
         <p key={cate._id}>{cate.category}</p>
         <div className="flex items-center">
           <EditBtn handleEdit={() => setIsSubOpen(true)} />
-          <DeleteBtn handleDelete={() => console.log("deleted")} />
+          <DeleteBtn handleDelete={handledelete} />
         </div>
       </div>
     </>
