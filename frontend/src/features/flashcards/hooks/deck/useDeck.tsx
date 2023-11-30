@@ -1,13 +1,13 @@
 import { getDeck } from "../../../../services/apiDeck";
 import { useQuery } from "@tanstack/react-query";
-export function useDecks(id: number | string) {
+export function useDeck(id: number | string | undefined) {
   const {
     isLoading,
-    data: decks,
+    data: deck,
     error,
   } = useQuery({
-    queryKey: ["decks"],
+    queryKey: ["deck"],
     queryFn: () => getDeck(id),
   });
-  return { isLoading, decks, error };
+  return { isLoading, deck, error };
 }

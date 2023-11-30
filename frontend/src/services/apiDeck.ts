@@ -52,7 +52,8 @@ export async function getDatesOfDecks(categoryId: string, query: string) {
   }
 }
 
-export async function getDeck(id: number | string) {
+export async function getDeck(id: number | string | undefined) {
+  if (id === undefined) return;
   try {
     const res = await fetch(fetchDeckByIdUrl(id));
     const data = await res.json();

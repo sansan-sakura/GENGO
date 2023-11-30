@@ -1,38 +1,40 @@
 import { ContentFrame } from "../../../ui/ContentFrame";
 import { useState } from "react";
-import data from "../../../data/cardData.json";
 import { DeckCard } from "./DeckCard";
 import { EditBtn } from "../../../ui/EditBtn";
-
-const labels = ["really hard", "hard", "okay", "easy"];
-const labelsColors = ["bg-red-dark", "bg-blue-dark", "bg-green-dark", "bg-yellow-default"];
+import { useParams } from "react-router-dom";
+import { useDeck } from "../hooks/deck/useDeck";
+import { Error } from "../../../ui/Error";
+import { DeckStartCard } from "./DeckStartCard";
 
 export const Deck = () => {
-  const [isChecked, setIsChecked] = useState(false);
-  return (
-    <ContentFrame>
-      <EditBtn handleEdit={() => console.log("edit")} />
-      <DeckCard content={data.data[0].cards[0].question} />
+  const [isStarted, setIsStarted] = useState(false);
 
-      <div className="flex gap-5 mt-8 mb-2 min-w-[300px]">
-        {isChecked ? (
-          labels.map((label, i) => <Label key={label} label={label} bg={labelsColors[i]} />)
+  const { id } = useParams();
+  const { isLoading, deck, error } = useDeck(id);
+  if (isLoading) return <p>loading</p>;
+  if (error) return <Error />;
+  const currentDeck = deck.data.deck;
+  console.log(currentDeck);
+  return (
+    <>
+      <ContentFrame>
+        <div className="flex justify-around w-full mb-2">
+          <p className="bg-green-light py-1 px-2 rounded">{currentDeck.category.category}</p>
+          <EditBtn handleEdit={() => console.log("edit")} />
+        </div>
+
+        {!isStarted ? (
+          <div className="p-6 flex flex-col gap-4">
+            <DeckStartCard deck={currentDeck} />
+            <button onClick={() => setIsStarted(true)} className="button mx-auto">
+              Start
+            </button>
+          </div>
         ) : (
-          <button onClick={() => setIsChecked(true)} className="button mx-auto">
-            Check
-          </button>
+          <DeckCard content={deck.data.deck.title} />
         )}
-      </div>
-    </ContentFrame>
+      </ContentFrame>
+    </>
   );
 };
-
-function Label({ label, bg }: { label: string; bg: string }) {
-  return (
-    <button
-      className={`${bg} text-white py-1 px-2 rounded hover:brightness-90 transition-all hover:translate-y-1`}
-    >
-      <p>{label}</p>
-    </button>
-  );
-}
