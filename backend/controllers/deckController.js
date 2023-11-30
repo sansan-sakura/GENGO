@@ -73,7 +73,7 @@ exports.createDeck = catchAsync(async (req, res, next) => {
 });
 
 exports.getDeck = catchAsync(async (req, res, next) => {
-  const deck = await Deck.findById(req.params.id);
+  const deck = await Deck.findById(req.params.id).populate("category");
   res.status(201).json({
     status: "success",
     data: {

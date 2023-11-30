@@ -1,7 +1,7 @@
 import { ApiRes } from "./commonType";
 
 export type CardType = {
-  id?: number | string;
+  _id?: number | string;
   question: string;
   answer: string;
   isDone?: boolean;
@@ -9,14 +9,14 @@ export type CardType = {
 };
 
 export type DeckType = {
-  id?: number | string;
-  createdAt: string | Date;
+  _id?: number | string;
+  createdAt: string;
   title: string;
   cards?: Array<CardType>;
-  idDone?: boolean;
+  isDone?: boolean;
   category: CategoryType;
   reviewed_date?: [Date] | [string] | string;
-  last_reviewed_date?: Date | string;
+  last_reviewed_date?: string;
 };
 
 export type NewDeckType = {

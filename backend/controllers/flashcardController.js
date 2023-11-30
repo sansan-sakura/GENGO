@@ -6,7 +6,6 @@ const AppError = require("../utils/appError");
 
 exports.getAllFlashcards = catchAsync(async (req, res, next) => {
   const flashcards = await Flashcard.find();
-
   res.status(200).json({
     status: "200",
     results: flashcards.length,

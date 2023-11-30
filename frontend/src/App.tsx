@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         errorElement: <Error />,
       },
       {
-        path: "/deck",
+        path: "/deck/:id",
         element: <DeckPage />,
         errorElement: <Error />,
       },
