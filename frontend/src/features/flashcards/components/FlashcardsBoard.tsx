@@ -4,39 +4,43 @@ import { Pagination } from "./Pagination";
 import { Flashcards } from "./Flashcards";
 import {
   categoryState,
-  searchQueryCategory,
   searchQueryCreatedAt,
   searchQueryStatus,
 } from "../../../states/atoms/flashcardAtoms";
 import { EditBtn } from "../../../ui/EditBtn";
-import { modalState } from "../../../states/atoms/commonAtoms";
+import { modalIDstate, modalState } from "../../../states/atoms/commonAtoms";
 import { Modal } from "../../../ui/Modal";
 import { EditCategoryInputField } from "./EditCategoryInputField";
+import { CreateDeckInputField } from "./CreateDeckInputField";
+import { SelectCategory } from "./SelectCategory";
 
 export const FlashcardsBoard = () => {
   const categories = useRecoilValue(categoryState);
-  const setSearchQueryCategory = useSetRecoilState(searchQueryCategory);
   const setSearchQueryStatus = useSetRecoilState(searchQueryStatus);
   const setSearchQueryCreatedAt = useSetRecoilState(searchQueryCreatedAt);
   const [isModalOpen, setIsModalOpen] = useRecoilState(modalState);
+  const [modalID, setModalID] = useRecoilState(modalIDstate);
 
   function handleSetQuery(e: React.ChangeEvent<HTMLSelectElement>, label: string) {
-    const handler =
-      label === "category"
-        ? setSearchQueryCategory
-        : label === "status"
-        ? setSearchQueryStatus
-        : setSearchQueryCreatedAt;
+    const handler = label === "status" ? setSearchQueryStatus : setSearchQueryCreatedAt;
 
     handler(e.target.value);
   }
 
   return (
     <>
-      {isModalOpen && (
+      {isModalOpen && modalID === "edit_category" && (
         <Modal
           setIsOpenModal={setIsModalOpen}
+          setModalID={setModalID}
           content={<EditCategoryInputField categories={categories} />}
+        />
+      )}
+      {isModalOpen && modalID === "create_deck" && (
+        <Modal
+          setIsOpenModal={setIsModalOpen}
+          setModalID={setModalID}
+          content={<CreateDeckInputField />}
         />
       )}
       <ContentFrame>
@@ -70,21 +74,24 @@ export const FlashcardsBoard = () => {
               <div className="flex flex-col gap-2">
                 <div className="flex justify-start gap-2">
                   <label>Catergory</label>
-                  <EditBtn handleEdit={() => setIsModalOpen(true)} />
+                  <EditBtn
+                    handleEdit={() => {
+                      setIsModalOpen(true);
+                      setModalID("edit_category");
+                    }}
+                  />
                 </div>
-                <select
-                  onChange={(e) => handleSetQuery(e, "category")}
-                  className="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56"
-                >
-                  <option disabled>Choose catgory</option>
-                  {categories.map((cate) => (
-                    <option key={cate._id} value={cate._id}>
-                      {cate.category}
-                    </option>
-                  ))}
-                </select>
+                <SelectCategory />
               </div>
-              <button className="button">Create a New Deck</button>
+              <button
+                className="button"
+                onClick={() => {
+                  setIsModalOpen(true);
+                  setModalID("create_deck");
+                }}
+              >
+                Create a New Deck
+              </button>
             </div>
           </div>
           <Flashcards />

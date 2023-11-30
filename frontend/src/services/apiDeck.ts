@@ -6,7 +6,7 @@ import {
   DECK_WITH_CATEGOY_URL,
   DECK_WITH_DATE_CATEGOY_URL,
 } from "../statics/fetchUrls";
-import { DeckType } from "../types/flashcardTypes";
+import { DeckType, NewDeckType } from "../types/flashcardTypes";
 
 export async function getAllDecks() {
   try {
@@ -63,7 +63,7 @@ export async function getDeck(id: number | string) {
   }
 }
 
-export async function createDeck(body: DeckType) {
+export async function createDeck(body: NewDeckType) {
   try {
     const res = await fetch(createDeckUrl, {
       method: "POST",
