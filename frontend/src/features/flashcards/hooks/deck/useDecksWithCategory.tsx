@@ -6,7 +6,7 @@ export function useDecksWithCategory(categoryId: string, query: string) {
     data: decksWithQuery,
     error,
   } = useQuery({
-    queryKey: ["decksWithCategory", { categoryId, query }],
+    queryKey: ["decks", { categoryId, query }],
     queryFn: () => getDecksWithCategopry(categoryId, query),
   });
   return { isPending, decksWithQuery, error };

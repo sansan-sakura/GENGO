@@ -19,9 +19,18 @@ export type DeckType = {
   last_reviewed_date?: Date | string;
 };
 
+export type NewDeckType = {
+  title: string;
+  category: string;
+};
+
 export type CategoryType = {
   category: string;
   _id: string;
+};
+
+export type NewCategory = {
+  category: string;
 };
 
 export type DeckDatesType = {

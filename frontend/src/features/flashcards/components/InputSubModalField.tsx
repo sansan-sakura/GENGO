@@ -1,19 +1,21 @@
 import { useState } from "react";
 import { useEditCategory } from "../hooks/category/useEditCategory";
 import { Toaster } from "react-hot-toast";
+import { useCreateCategory } from "../hooks/category/useCreateCategory";
 
 export const InputSubModalField = ({
   id,
   onClose,
 }: {
-  id: string | number;
+  id?: string | number;
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [editingValue, setEditingValue] = useState<string>("");
   const { isEditing, editCategory } = useEditCategory();
+  const { isCreating, createCategory } = useCreateCategory();
   const [error, setError] = useState(false);
 
-  async function handleEditSubmit(id: string | number) {
+  function handleEditSubmit(id: string | number) {
     if (editingValue === "") return setError(true);
     const newData = { category: editingValue };
     editCategory({ id, newData });
@@ -21,6 +23,12 @@ export const InputSubModalField = ({
     setError(false);
     onClose(false);
   }
+
+  function handleCreate() {
+    if (editingValue === "") return setError(true);
+    createCategory({ category: editingValue });
+  }
+
   return (
     <>
       <Toaster />
@@ -32,10 +40,10 @@ export const InputSubModalField = ({
           className="p-4 border-2 border-stone-800 rounded-lg focus:outline-3 focus:outline-green-dark"
           onChange={(e) => setEditingValue(e.target.value)}
           value={editingValue}
-          disabled={isEditing}
+          disabled={id ? isEditing : isCreating}
         />
-        <button onClick={() => handleEditSubmit(id)} className="button mt-8">
-          Edit
+        <button onClick={id ? () => handleEditSubmit(id) : handleCreate} className="button mt-8">
+          {id ? "Edit" : "Create"}
         </button>
       </div>
     </>

@@ -2,7 +2,7 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { createDeck as createDeckApi } from "../../../../services/apiDeck";
 
-export function useCreateFlashcard() {
+export function useCreateDeck() {
   const queryClient = useQueryClient();
   const { mutate: createDeck, isPending: isCreating } = useMutation({
     mutationFn: createDeckApi,

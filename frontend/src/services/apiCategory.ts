@@ -1,5 +1,5 @@
 import { CATEGORY_ID_URL, CATEGORY_URL } from "../statics/fetchUrls";
-import { CategoryType } from "../types/flashcardTypes";
+import { NewCategory } from "../types/flashcardTypes";
 
 export async function getCategories() {
   try {
@@ -12,7 +12,7 @@ export async function getCategories() {
   }
 }
 
-export async function createCategory(body: CategoryType) {
+export async function createCategory(body: NewCategory) {
   try {
     const res = await fetch(CATEGORY_URL, {
       method: "POST",
