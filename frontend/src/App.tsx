@@ -8,6 +8,9 @@ import { DeckPage } from "./pages/DeckPage";
 import { Settings } from "./pages/Settings";
 import { About } from "./pages/About";
 import { Contact } from "./pages/Contact";
+import { useCategory } from "./features/flashcards/hooks/category/useCategory";
+import { useSetRecoilState } from "recoil";
+import { categoryState, searchQueryCategory } from "./states/atoms/flashcardAtoms";
 
 const router = createBrowserRouter([
   { path: "/", element: <WelcomePage />, errorElement: <Error /> },
@@ -50,6 +53,13 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const setCategory = useSetRecoilState(categoryState);
+  const setSearchQueryCategory = useSetRecoilState(searchQueryCategory);
+  const { isPending, categories, error } = useCategory();
+  if (isPending) return <p>Pending</p>;
+  if (error) return <Error />;
+  setCategory(categories);
+  setSearchQueryCategory(categories[0]._id);
   return <RouterProvider router={router} />;
 }
 

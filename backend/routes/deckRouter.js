@@ -5,7 +5,7 @@ const deckController = require("../controllers/deckController");
 const router = express.Router();
 
 router.route("/").get(deckController.getAllDecks).post(deckController.createDeck);
-router.route("/date").get(deckController.getAllDatesOfDeck);
+router.route("/date/category/:id").get(deckController.getAllDatesOfDeck);
 router.route("/category/:id").get(deckController.getDecksByCategory);
 
 router

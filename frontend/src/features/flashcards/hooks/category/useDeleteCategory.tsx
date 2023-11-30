@@ -7,7 +7,6 @@ export function useDeleteCategory() {
   const { isPending: isDeleting, mutate: deleteCategory } = useMutation({
     mutationFn: (id: number | string) => deleteCategoryApi(id),
     onSuccess: () => {
-      console.log("deleted");
       toast.success("Category successfully deleted");
       queryClient.invalidateQueries({
         queryKey: ["category"],

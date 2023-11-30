@@ -13,8 +13,6 @@ exports.getAllDecks = catchAsync(async (req, res, next) => {
     .limitFields()
     .paginate();
 
-  console.log(features, features.query);
-
   const deck = await features.query;
 
   res.status(200).json({
@@ -25,12 +23,19 @@ exports.getAllDecks = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllDatesOfDeck = catchAsync(async (req, res, next) => {
-  const deck = await Deck.find().select({
-    createdAt: 1,
-    last_reviewed_date: 1,
-    reviewed_date: 1,
-  });
+  const features = new APIFeatures(
+    Deck.find({ category: mongoose.Types.ObjectId(req.params.id) })
+      .populate("category")
+      .select({
+        createdAt: 1,
+        last_reviewed_date: 1,
+        reviewed_date: 1,
+      }),
+    req.query
+  );
 
+  const deck = await features.query;
+  console.log(deck, deck.length);
   res.status(200).json({
     status: "200",
     results: deck.length,
@@ -39,10 +44,17 @@ exports.getAllDatesOfDeck = catchAsync(async (req, res, next) => {
 });
 
 exports.getDecksByCategory = catchAsync(async (req, res, next) => {
-  // const deck = await Deck.findOne().populate({ path: "category", category: "Swedish" }).exec();
-  const deck = await Deck.find({ category: mongoose.Types.ObjectId(req.params.id) }).populate(
-    "category"
-  );
+  const features = new APIFeatures(
+    Deck.find({ category: mongoose.Types.ObjectId(req.params.id) }).populate("category"),
+    req.query
+  )
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+
+  const deck = await features.query;
+
   res.status(200).json({
     status: "200",
     results: deck.length,

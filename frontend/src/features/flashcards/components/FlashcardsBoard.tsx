@@ -1,22 +1,35 @@
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { ContentFrame } from "../../../ui/ContentFrame";
 import { Pagination } from "./Pagination";
-import { useCategory } from "../hooks/category/useCategory";
 import { Flashcards } from "./Flashcards";
-import { categoryState } from "../../../states/atoms/flashcardAtoms";
-import { Error } from "../../../ui/Error";
+import {
+  categoryState,
+  searchQueryCategory,
+  searchQueryCreatedAt,
+  searchQueryStatus,
+} from "../../../states/atoms/flashcardAtoms";
 import { EditBtn } from "../../../ui/EditBtn";
 import { modalState } from "../../../states/atoms/commonAtoms";
 import { Modal } from "../../../ui/Modal";
 import { EditCategoryInputField } from "./EditCategoryInputField";
 
 export const FlashcardsBoard = () => {
-  const setCategory = useSetRecoilState(categoryState);
+  const categories = useRecoilValue(categoryState);
+  const setSearchQueryCategory = useSetRecoilState(searchQueryCategory);
+  const setSearchQueryStatus = useSetRecoilState(searchQueryStatus);
+  const setSearchQueryCreatedAt = useSetRecoilState(searchQueryCreatedAt);
   const [isModalOpen, setIsModalOpen] = useRecoilState(modalState);
-  const { isPending, categories, error } = useCategory();
-  if (isPending) return <p>Pending</p>;
-  if (error) return <Error />;
-  setCategory(categories);
+
+  function handleSetQuery(e: React.ChangeEvent<HTMLSelectElement>, label: string) {
+    const handler =
+      label === "category"
+        ? setSearchQueryCategory
+        : label === "status"
+        ? setSearchQueryStatus
+        : setSearchQueryCreatedAt;
+
+    handler(e.target.value);
+  }
 
   return (
     <>
@@ -32,18 +45,24 @@ export const FlashcardsBoard = () => {
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-2">
                 <label>Status</label>
-                <select className="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56">
+                <select
+                  onChange={(e) => handleSetQuery(e, "status")}
+                  className="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56"
+                >
                   <option disabled>status</option>
-                  <option>Done</option>
-                  <option>Not Yet</option>
+                  <option value="true">Done</option>
+                  <option value="">Not Yet</option>
                 </select>
               </div>
               <div className="flex flex-col gap-2">
                 <label>Created Date</label>
-                <select className="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56">
+                <select
+                  onChange={(e) => handleSetQuery(e, "createdAt")}
+                  className="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56"
+                >
                   <option disabled>Created Date</option>
-                  <option>Newer</option>
-                  <option>Older</option>
+                  <option value="-createdAt">Newer</option>
+                  <option value="createdAt">Older</option>
                 </select>
               </div>
             </div>
@@ -53,10 +72,15 @@ export const FlashcardsBoard = () => {
                   <label>Catergory</label>
                   <EditBtn handleEdit={() => setIsModalOpen(true)} />
                 </div>
-                <select className="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56">
+                <select
+                  onChange={(e) => handleSetQuery(e, "category")}
+                  className="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56"
+                >
                   <option disabled>Choose catgory</option>
                   {categories.map((cate) => (
-                    <option key={cate._id}>{cate.category}</option>
+                    <option key={cate._id} value={cate._id}>
+                      {cate.category}
+                    </option>
                   ))}
                 </select>
               </div>

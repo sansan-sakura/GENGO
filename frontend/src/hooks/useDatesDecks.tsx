@@ -2,10 +2,10 @@ import { getDatesOfDecks } from "../services/apiDeck";
 import { useQuery } from "@tanstack/react-query";
 import { DeckResType } from "../types/flashcardTypes";
 
-export function useDecksDates() {
+export function useDecksDates(categoryId: string, query: string) {
   const { isPending, data, error } = useQuery({
-    queryKey: ["decks"],
-    queryFn: getDatesOfDecks,
+    queryKey: ["decksWithDate", { categoryId, query }],
+    queryFn: () => getDatesOfDecks(categoryId, query),
   });
 
   const decksDates = data as DeckResType;

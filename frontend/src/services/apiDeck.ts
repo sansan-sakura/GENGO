@@ -1,9 +1,10 @@
 import {
   createDeckUrl,
-  fetchAllDatesDecksUrl,
   fetchAllDecksUrl,
   fetchDeckByIdUrl,
   fetchDecksWithQuery,
+  DECK_WITH_CATEGOY_URL,
+  DECK_WITH_DATE_CATEGOY_URL,
 } from "../statics/fetchUrls";
 import { DeckType } from "../types/flashcardTypes";
 
@@ -29,9 +30,20 @@ export async function getDecksWithQuery(query: string) {
   }
 }
 
-export async function getDatesOfDecks() {
+export async function getDecksWithCategopry(categoryId: string, query: string) {
   try {
-    const res = await fetch(fetchAllDatesDecksUrl);
+    const res = await fetch(DECK_WITH_CATEGOY_URL(categoryId, query));
+    const data = await res.json();
+    if (!data) return console.error("something went wrong with decks fetching 💥");
+    return data;
+  } catch (err) {
+    throw new Error("Couldn't get decks");
+  }
+}
+
+export async function getDatesOfDecks(categoryId: string, query: string) {
+  try {
+    const res = await fetch(DECK_WITH_DATE_CATEGOY_URL(categoryId, query));
     const data = await res.json();
     if (!data) return console.error("something went wrong with deck's dates fetching 💥");
     return data;
