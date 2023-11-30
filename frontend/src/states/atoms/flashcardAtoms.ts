@@ -7,8 +7,6 @@ export const currentCardState = atom<string>({
   key: "currentFlashcard",
 });
 
-export const allCardsState = {};
-
 // for flashcard page -> all sets
 
 export const allDecksPerPageState = atom<DeckType[] | []>({
@@ -39,4 +37,24 @@ export const flashcardsNumsPerPage = atom<number>({
 export const categoryState = atom<CategoryType[]>({
   key: "category",
   default: [],
+});
+
+export const searchQueryCategory = atom<string>({
+  key: "searchQueryCategory",
+  default: "",
+});
+
+export const searchQueryStatus = atom<string>({
+  key: "searchQueryStatus",
+  default: "",
+});
+
+export const searchQueryCreatedAt = atom<string>({
+  key: "searchQueryCreatedAt",
+  default: "",
+});
+
+export const searchQuery = atom<string>({
+  key: "searchQuery",
+  default: "",
 });

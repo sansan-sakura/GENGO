@@ -19,7 +19,6 @@ export async function createFlashCard(body: CardType) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
-
     const data = await res.json();
     if (!data) return console.error("something went wrong with a flashcard creating 💥");
     return data;

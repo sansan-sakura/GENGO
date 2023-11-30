@@ -11,7 +11,7 @@ export const Pagination = () => {
   const [currentPage, setCurrentPage] = useRecoilState(currentFlashCardPageNumState);
 
   const handleClickRight = () => {
-    currentPage <= Math.ceil(cardNum / cardNumPerPage) ? setCurrentPage(currentPage + 1) : "";
+    currentPage < Math.ceil(cardNum / cardNumPerPage) ? setCurrentPage(currentPage + 1) : "";
   };
 
   const handleClickLeft = () => {
