@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { getDate, showTime } from "../../utils/helpers";
 import { SearchInput } from "../SearchInput/SearchInput";
 export const Header = () => {
-  const [time, setTime] = useState("");
+  const [time, setTime] = useState(showTime());
 
   const {
     current: [weekDay, date],

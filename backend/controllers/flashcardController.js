@@ -15,6 +15,7 @@ exports.getAllFlashcards = catchAsync(async (req, res, next) => {
 
 exports.createFlashcard = catchAsync(async (req, res, next) => {
   const newFlashcard = await Flashcard.create(req.body);
+
   res.status(201).json({
     status: "success",
     data: {

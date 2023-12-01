@@ -37,7 +37,6 @@ export const Flashcards = () => {
 
   if (isPending) return <p>Loading</p>;
   if (error) return <Error />;
-
   const decksWithQueries: DeckType[] = decksWithQuery.data.deck;
   setCards(decksWithQueries);
 

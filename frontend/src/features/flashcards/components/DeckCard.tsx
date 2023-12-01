@@ -1,20 +1,22 @@
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
+import { currentFlashCardsState } from "../../../states/atoms/flashcardAtoms";
 const labels = ["really hard", "hard", "okay", "easy"];
 const labelsColors = ["bg-red-dark", "bg-blue-dark", "bg-green-dark", "bg-yellow-default"];
 export const DeckCard = ({
-  content,
   isDone = false,
   status = "hard",
 }: {
-  content: string;
   isDone?: boolean;
   status?: string;
 }) => {
   const [isChecked, setIsChecked] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const cards = useRecoilValue(currentFlashCardsState);
   return (
     <>
       <div className="w-full border border-green-dark px-2 pt-16 flex flex-col justify-between items-center gap-16 mt-1 rounded">
-        <p className="text-2xl">{content}</p>
+        <p className="text-2xl">{cards[currentIndex].question}</p>
         <div className="w-full flex justify-around pb-8 text-sm">
           <p>{isDone ? "Done" : "Not yet"}</p>
           <p>last status: {status}</p>
