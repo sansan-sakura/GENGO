@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { CategoryType, DeckDatesType, DeckType } from "../../types/flashcardTypes";
+import { CardType, CategoryType, DeckDatesType, DeckType } from "../../types/flashcardTypes";
 
 // flash card set-> for a deck
 
@@ -57,4 +57,9 @@ export const searchQueryCreatedAt = atom<string>({
 export const searchQuery = atom<string>({
   key: "searchQuery",
   default: "",
+});
+
+export const currentFlashCardsState = atom<CardType[] | []>({
+  key: "currentFlashcards",
+  default: [],
 });

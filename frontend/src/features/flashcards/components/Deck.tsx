@@ -6,16 +6,20 @@ import { useParams } from "react-router-dom";
 import { useDeck } from "../hooks/deck/useDeck";
 import { Error } from "../../../ui/Error";
 import { DeckStartCard } from "./DeckStartCard";
+import { useSetRecoilState } from "recoil";
+import { currentFlashCardsState } from "../../../states/atoms/flashcardAtoms";
 
 export const Deck = () => {
   const [isStarted, setIsStarted] = useState(false);
+  const setCards = useSetRecoilState(currentFlashCardsState);
 
   const { id } = useParams();
   const { isLoading, deck, error } = useDeck(id);
   if (isLoading) return <p>loading</p>;
   if (error) return <Error />;
   const currentDeck = deck.data.deck;
-  console.log(currentDeck);
+  setCards(currentDeck.cards);
+
   return (
     <>
       <ContentFrame>
@@ -32,7 +36,7 @@ export const Deck = () => {
             </button>
           </div>
         ) : (
-          <DeckCard content={deck.data.deck.title} />
+          <DeckCard />
         )}
       </ContentFrame>
     </>
