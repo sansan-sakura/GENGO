@@ -22,12 +22,11 @@ export const Deck = () => {
 
   return (
     <>
+      <div className="flex justify-around w-full mb-2">
+        <p className="bg-green-light py-1 px-2 rounded">{currentDeck.category.category}</p>
+        <EditBtn handleEdit={() => console.log("edit")} />
+      </div>
       <ContentFrame>
-        <div className="flex justify-around w-full mb-2">
-          <p className="bg-green-light py-1 px-2 rounded">{currentDeck.category.category}</p>
-          <EditBtn handleEdit={() => console.log("edit")} />
-        </div>
-
         {!isStarted ? (
           <div className="p-6 flex flex-col gap-4">
             <DeckStartCard deck={currentDeck} />

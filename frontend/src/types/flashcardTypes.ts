@@ -6,6 +6,8 @@ export type CardType = {
   answer: string;
   isDone?: boolean;
   status?: string;
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 export type DeckType = {
