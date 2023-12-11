@@ -22,16 +22,18 @@ export const Deck = () => {
 
   return (
     <>
+      <div className="flex justify-around w-full mb-2">
+        <p className="bg-green-light py-1 px-2 rounded">{currentDeck.category.category}</p>
+        <EditBtn handleEdit={() => console.log("edit")} />
+      </div>
       <ContentFrame>
-        <div className="flex justify-around w-full mb-2">
-          <p className="bg-green-light py-1 px-2 rounded">{currentDeck.category.category}</p>
-          <EditBtn handleEdit={() => console.log("edit")} />
-        </div>
-
         {!isStarted ? (
-          <div className="p-6 flex flex-col gap-4">
+          <div className="p-6 flex flex-col gap-4 min-w-[350px]">
             <DeckStartCard deck={currentDeck} />
-            <button onClick={() => setIsStarted(true)} className="button mx-auto">
+            <button
+              onClick={() => setIsStarted(true)}
+              className="button mx-auto py-2 mt-6 bg-red-default font-semibold text-white"
+            >
               Start
             </button>
           </div>

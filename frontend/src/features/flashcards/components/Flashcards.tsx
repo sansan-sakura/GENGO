@@ -14,6 +14,7 @@ import { useMemo } from "react";
 import { Error } from "../../../ui/Error";
 import { DeckType } from "../../../types/flashcardTypes";
 import { useDecksWithCategory } from "../hooks/deck/useDecksWithCategory";
+
 export const Flashcards = () => {
   const setCards = useSetRecoilState(allDecksPerPageState);
   const currentPage = useRecoilValue(currentFlashCardPageNumState);
@@ -23,6 +24,7 @@ export const Flashcards = () => {
   const queryStatus = useRecoilValue(searchQueryStatus);
   const queryCreatedAt = useRecoilValue(searchQueryCreatedAt);
   const setSearchQuery = useSetRecoilState(searchQuery);
+
   const query = useMemo(
     () =>
       `page=${currentPage}&limit=${cardsNumPerPage}${
@@ -30,6 +32,7 @@ export const Flashcards = () => {
       }${queryCreatedAt !== "" ? "&sort=" + queryCreatedAt : ""}`,
     [currentPage, cardsNumPerPage, queryStatus, queryCreatedAt]
   );
+
   useEffect(() => {
     setSearchQuery(query);
   }, [query, setSearchQuery]);

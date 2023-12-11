@@ -3,7 +3,6 @@ import { DeckType } from "../../../types/flashcardTypes";
 import { Link } from "react-router-dom";
 
 export const Card = ({ bg = "bg-red-500", card }: { bg: string; card: DeckType }) => {
-  console.log(card);
   return (
     <Link to={`/deck/${card._id}`} className="group relative block h-32 w-56 sm:h-44 sm:w-[360px]">
       <span
