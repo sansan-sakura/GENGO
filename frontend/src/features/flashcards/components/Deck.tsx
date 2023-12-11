@@ -28,9 +28,12 @@ export const Deck = () => {
       </div>
       <ContentFrame>
         {!isStarted ? (
-          <div className="p-6 flex flex-col gap-4">
+          <div className="p-6 flex flex-col gap-4 min-w-[350px]">
             <DeckStartCard deck={currentDeck} />
-            <button onClick={() => setIsStarted(true)} className="button mx-auto">
+            <button
+              onClick={() => setIsStarted(true)}
+              className="button mx-auto py-2 mt-6 bg-red-default font-semibold text-white"
+            >
               Start
             </button>
           </div>
