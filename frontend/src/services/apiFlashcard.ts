@@ -40,7 +40,8 @@ export async function deleteFlashCard(id: number | string) {
   }
 }
 
-export async function updateFlashCard(id: number | string, body: CardType) {
+export async function updateFlashCard(id: string | undefined, body: CardType | { status: string }) {
+  if (id === undefined) return;
   try {
     const res = await fetch(fetchFlashcardByIdUrl(id), {
       method: "PUT",
@@ -50,6 +51,7 @@ export async function updateFlashCard(id: number | string, body: CardType) {
 
     const data = await res.json();
     if (!data) return console.error("something went wrong with a flashcard updating 💥");
+    console.log(data);
     return data;
   } catch (err) {
     throw new Error("Couldn't update a flashcard");

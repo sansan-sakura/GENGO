@@ -8,7 +8,7 @@ export const Modal = ({
 }: {
   content: ReactNode;
   setIsOpenModal: SetterOrUpdater<boolean>;
-  setModalID: SetterOrUpdater<string>;
+  setModalID?: SetterOrUpdater<string>;
 }) => {
   useEffect(() => {
     const closeOnEscapeKey = (e: KeyboardEvent) =>
@@ -26,7 +26,7 @@ export const Modal = ({
         <button
           onClick={() => {
             setIsOpenModal(false);
-            setModalID("");
+            setModalID && setModalID("");
           }}
           className="text-4xl absolute top-2 right-2"
         >

@@ -1,12 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { updateFlashCard } from "../../../../services/apiFlashcard";
-import { CardType } from "../../../../types/flashcardTypes";
 
 export function useEditFlashcard() {
   const queryClient = useQueryClient();
   const { mutate: editFlashcard, isPending: isEditing } = useMutation({
-    mutationFn: ({ id, newData }: { id: number | string; newData: CardType }) =>
+    mutationFn: ({ id, newData }: { id: string; newData: { question: string; answer: string } }) =>
       updateFlashCard(id, newData),
     onSuccess: () => {
       toast.success("Flashcard successfully edited ");
