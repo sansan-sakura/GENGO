@@ -1,23 +1,25 @@
 import { ContentFrame } from "../../../ui/ContentFrame";
 import { useState } from "react";
 import { DeckCard } from "./DeckCard";
-import { EditBtn } from "../../../ui/EditBtn";
 import { useParams } from "react-router-dom";
 import { useDeck } from "../hooks/deck/useDeck";
 import { Error } from "../../../ui/Error";
-import { useSetRecoilState } from "recoil";
-import { currentFlashCardsState } from "../../../states/atoms/flashcardAtoms";
+import { AddBtn } from "../../../ui/AddBtn";
+import { Modal } from "../../../ui/Modal";
+import { CreateFlashCardModal } from "./CreateFlashCardModal";
 
 export const Deck = () => {
   const [isStarted, setIsStarted] = useState(false);
-  const setCards = useSetRecoilState(currentFlashCardsState);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { id } = useParams();
   const { isLoading, deck, error } = useDeck(id);
+
   if (isLoading) return <p>loading</p>;
   if (error) return <Error />;
   const currentDeck = deck.data.deck;
-  setCards(currentDeck.cards);
+  console.log(deck.data.deck.cards, "deck");
 
   return (
     <>
@@ -34,21 +36,38 @@ export const Deck = () => {
                 Start
               </button>
             </>
+          ) : deck.data.deck.cards.length !== 0 ? (
+            <DeckCard cards={deck.data.deck.cards} />
           ) : (
-            <DeckCard />
+            <div className="w-full h-full flex items-center justify-center grow">
+              <div className="border-2 border-red-dark py-4 px-6 rounded-md">
+                <p>There is no flashcard!!</p>
+              </div>
+            </div>
           )}
         </div>
       </ContentFrame>
-      {/* Flashcard editing bar */}
 
-      <div className="grid grid-cols-[1fr_2fr] w-fit my-10 border justify-items-center items-center border-stone-300 rounded-lg ml-auto py-1 px-1">
-        <p className="bg-green-light py-1 px-2 rounded  ">{currentDeck.category.category}</p>
-        <div className="py-4 px-3 text-xs">
-          <p>Finished: {currentDeck.isDone ? "Finished" : "Not Yet"}</p>
-          <p>Created: {currentDeck.createdAt?.split("T")[0]}</p>
-          <p>Last reviewed: {currentDeck.last_reviewed_date?.split("T")[0]}</p>
+      {/* Flashcard editing bar */}
+      <div className="w-full flex items-center justify-between">
+        <div className="grid grid-cols-[1fr_2fr] w-fit my-10 border justify-items-center items-center border-stone-300 rounded-lg py-1 px-1">
+          <p className="bg-green-light py-1 px-2 rounded  ">{currentDeck.category.category}</p>
+          <div className="py-4 px-3 text-xs">
+            <p>Finished: {currentDeck.isDone ? "Finished" : "Not Yet"}</p>
+            <p>Created: {currentDeck.createdAt?.split("T")[0]}</p>
+            <p>Last reviewed: {currentDeck.last_reviewed_date?.split("T")[0]}</p>
+          </div>
+        </div>
+        <div className="grid justify-items-center gap-2">
+          <div className="bg-yellow-default text-white w-12 h-12 rounded-full flex items-center justify-center transition ease duration-100 hover:brightness-95">
+            <AddBtn handleEdit={() => setIsModalOpen(true)} color="#fff" size="30px" />
+          </div>
+          <span className="text-[10px]">new Flashcard</span>
         </div>
       </div>
+      {isModalOpen && (
+        <Modal content={<CreateFlashCardModal id={id} />} setIsOpenModal={setIsModalOpen} />
+      )}
     </>
   );
 };

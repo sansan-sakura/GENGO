@@ -1,28 +1,68 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { currentFlashCardsState } from "../../../states/atoms/flashcardAtoms";
 import { Label } from "./Label";
 import { EditBtn } from "../../../ui/EditBtn";
 import { Modal } from "../../../ui/Modal";
 import { EditFlashCardModal } from "./EditFlashCardModal";
+import { DeleteBtn } from "../../../ui/DeleteBtn";
+import { useDeleteFlashcard } from "../hooks/flashcard/useDeleteFlashcard";
+import { Toaster } from "react-hot-toast";
+import { CardType } from "../../../types/flashcardTypes";
 const labels = ["very hard", "hard", "okay", "easy"];
 const labelsColors = ["bg-red-dark", "bg-blue-dark", "bg-green-dark", "bg-yellow-default"];
 
-export const DeckCard = () => {
+export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentCard, setCurrentCard] = useState<CardType>();
   const [isFinished, setIsFinished] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const cards = useRecoilValue(currentFlashCardsState);
-  const { answer, question, status, _id } = cards[currentIndex];
+
+  const { isDeleting, deleteFlashcard } = useDeleteFlashcard();
+  useEffect(() => {
+    if (cards.length === 0 || cards === undefined) return;
+    setCurrentCard(cards[currentIndex]);
+  }, [cards, setCurrentCard, currentIndex]);
+
+  if (currentCard === undefined) return <p>Loading</p>;
+  const { answer, question, status, _id } = currentCard;
 
   const handleClick = () => {
-    if (cards.length === currentIndex - 1) setIsFinished(true);
+    if (cards.length === currentIndex + 1) setIsFinished(true);
     if (cards.length > currentIndex + 1) setCurrentIndex((prev) => prev + 1);
     setIsChecked(false);
   };
+
+  const handleDelete = () => {
+    const confirmDelete = confirm("Are you sure to delete this flashcard?");
+    if (!confirmDelete) return null;
+    deleteFlashcard(_id);
+  };
+
+  const handlePlayAgain = () => {
+    setCurrentIndex(0);
+    setIsFinished(false);
+  };
+  if (isFinished)
+    return (
+      <div className="flex flex-col items-center grow justify-center">
+        <p className="text-blue-default font-semibold text-2xl">
+          This deck has no more cards to review
+        </p>
+        <p className="text-green-dark font-semibold text-lg mt-2">Do you want to review again?</p>
+        <button
+          onClick={handlePlayAgain}
+          className="button mt-4 px-8 bg-red-default text-white font-bold"
+        >
+          Again
+        </button>
+      </div>
+    );
+
   return (
     <>
+      <Toaster />
       <div className="w-full grow border border-green-dark py-6 px-2 flex flex-col justify-between items-center gap-16 mt-1 rounded">
         {!isChecked ? (
           <>
@@ -35,9 +75,17 @@ export const DeckCard = () => {
           </div>
         )}
       </div>
-      <div className="flex gap-5 mt-8 mb-2">
+      <div className="flex gap-2 mt-8 mb-2 justify-between px-4">
+        <div className="flex gap-4">
+          <div className="bg-red-default text-white w-11 h-11 rounded-full flex items-center justify-center transition ease duration-100 hover:brightness-95">
+            <EditBtn handleEdit={() => setIsModalOpen(true)} color="#fff" size="28px" />
+          </div>
+          <div className="bg-blue-default text-white w-11 h-11 rounded-full flex items-center justify-center transition ease duration-100 hover:brightness-95">
+            <DeleteBtn handleDelete={handleDelete} color="#fff" size="28px" />
+          </div>
+        </div>
         {isChecked ? (
-          <div className="flex flex-col items-center justify-center w-full gap-6">
+          <div className="flex flex-col items-center justify-center w-fit gap-4">
             <div className="flex gap-4">
               {labels.map((label, i) => (
                 <Label
@@ -49,25 +97,15 @@ export const DeckCard = () => {
                 />
               ))}
             </div>
-
-            {/* <button
-              onClick={handleClick}
-              className="button  py-1.5 px-6 bg-blue-default font-semibold text-white text-lg"
-            >
-              Go to Next
-            </button> */}
           </div>
         ) : (
           <button
             onClick={() => setIsChecked(true)}
-            className="button mx-auto  py-1 px-6 bg-blue-default font-semibold text-white text-lg"
+            className="button ml-auto  py-1 px-6 bg-blue-default font-semibold text-white text-lg"
           >
             Check
           </button>
         )}
-        <div className="bg-red-default text-white w-10 rounded-full flex items-center justify-center transition ease duration-100 hover:brightness-95">
-          <EditBtn handleEdit={() => setIsModalOpen(true)} color="#fff" size="30px" />
-        </div>
       </div>
       {isModalOpen && (
         <Modal

@@ -2,13 +2,15 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { useState } from "react";
 import { categoryState, searchQueryCategory } from "../../../states/atoms/flashcardAtoms";
 
-export const SelectCategory = () => {
+export const SelectCategory = ({ currentCategory }: { currentCategory?: string }) => {
   const [categoryId, setSearchQueryCategory] = useRecoilState(searchQueryCategory);
   const categories = useRecoilValue(categoryState);
   const [currentValue, setCurrentValue] = useState(
-    categories.filter((obj) => obj._id === categoryId)[0].category
+    currentCategory
+      ? currentCategory
+      : categories.filter((obj) => obj._id === categoryId)[0].category
   );
-
+  console.log(currentValue);
   return (
     <select
       value={currentValue}

@@ -22,11 +22,11 @@ deckSchema.pre("save", async function (next) {
   next();
 });
 
-deckSchema.virtual("card", {
-  ref: "Flashcard", //The Model to use
-  localField: "id", //Find in Model, where localField
-  foreignField: "deck", // is equal to foreignField
-});
+// deckSchema.virtual("card", {
+//   ref: "Flashcard", //The Model to use
+//   localField: "id", //Find in Model, where localField
+//   foreignField: "deck", // is equal to foreignField
+// });
 
 const Deck = mongoose.model("Deck", deckSchema);
 

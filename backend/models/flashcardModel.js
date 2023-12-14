@@ -3,13 +3,17 @@ const Deck = require("./deckModel");
 
 export const flashcardSchema = new mongoose.Schema(
   {
-    deck: { type: mongoose.Schema.Types.ObjectId, ref: "Deck" },
+    deck: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Deck",
+      required: [true, "flashcard needs to belong to a deck"],
+    },
     question: { type: String, trim: true, required: true },
     answer: { type: String, trim: true, required: true },
-    isDone: { type: Boolean, required: true, default: false },
+    isDone: { type: Boolean, default: false },
     status: {
       type: String,
-      required: true,
+      default: "very hard",
       enum: {
         values: ["easy", "okay", "hard", "very hard"],
         message: "status is either: easy, okay, hard, very hard",

@@ -43,3 +43,9 @@ export type DeckDatesType = {
 };
 
 export type DeckResType = ApiRes<{ deck: DeckDatesType[] }>;
+
+export type CreateFlashCard = {
+  question: string;
+  answer: string;
+  deck: string;
+};
