@@ -20,7 +20,7 @@ export const EditFlashCardModal = ({ question, answer, id }: Props) => {
   return (
     <div className="flex flex-col">
       <Toaster />
-      <h2 className="text-xl text-center font-semibold">Edit</h2>
+      <h2 className="text-xl text-center font-semibold">Edit Flashcard</h2>
       <label htmlFor="question" className="text-lg font-semibold">
         Question
       </label>

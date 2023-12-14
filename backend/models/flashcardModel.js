@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Deck = require("./deckModel");
+const User = require("./userModel");
 
 export const flashcardSchema = new mongoose.Schema(
   {
@@ -18,6 +19,11 @@ export const flashcardSchema = new mongoose.Schema(
         values: ["easy", "okay", "hard", "very hard"],
         message: "status is either: easy, okay, hard, very hard",
       },
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: [true, "flashcard need to know the user"],
     },
   },
   {

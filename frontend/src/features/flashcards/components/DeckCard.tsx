@@ -19,7 +19,7 @@ export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
   const [isFinished, setIsFinished] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { isDeleting, deleteFlashcard } = useDeleteFlashcard();
+  const { deleteFlashcard } = useDeleteFlashcard();
   useEffect(() => {
     if (cards.length === 0 || cards === undefined) return;
     setCurrentCard(cards[currentIndex]);
