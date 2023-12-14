@@ -1,4 +1,5 @@
 const User = require("../models/userModel");
+import bcrypt from "bcrypt-nodejs";
 
 const catchAsync = require("../utils/catchAsync");
 
@@ -14,14 +15,38 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 });
 
 exports.createUser = catchAsync(async (req, res, next) => {
-  const newUser = await User.create(req.body);
+  console.log("create", req.body);
+  const { name, email, password, passwordConfirm } = req.body;
+  if (!name || !email || !password || !passwordConfirm) {
+    return next(new AppError("All fields need to be filled !!", 400));
+  }
 
-  res.status(201).json({
-    status: "success",
-    data: {
-      newUser,
-    },
+  const existingUser = await User.findOne({
+    $or: [{ name }, { email }],
   });
+
+  if (existingUser) {
+    return next(new AppError("User already exists !!", 400));
+  }
+
+  const salt = bcrypt.genSaltSync(10);
+  const user = new User({
+    name,
+    email,
+    password: bcrypt.hashSync(password, salt),
+    passwordConfirm: bcrypt.hashSync(passwordConfirm, salt),
+  });
+  await user.save();
+  res.status(201).json({ status: true, id: user._id, accessToken: user.accessToken });
+});
+
+exports.loginUser = catchAsync(async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+  if (user?.password && bcrypt.compareSync(req.body.password, user.password)) {
+    res.status(200).json({ status: true, name: user.name, accessToken: user.accessToken });
+  } else {
+    return next(new AppError("No User found", 404));
+  }
 });
 
 exports.getUser = catchAsync(async (req, res, next) => {

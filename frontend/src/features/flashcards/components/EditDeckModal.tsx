@@ -25,7 +25,7 @@ export const EditDeckModal = ({ id, title, category }: Props) => {
     <div className="flex flex-col">
       <Toaster />
 
-      <h2 className="text-xl text-center font-semibold mb-2">Edit</h2>
+      <h2 className="text-xl text-center font-semibold mb-2">Edit Deck</h2>
       <label htmlFor="category" className="text-lg font-semibold">
         category
       </label>

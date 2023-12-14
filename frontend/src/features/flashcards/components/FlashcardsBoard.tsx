@@ -1,9 +1,14 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { ContentFrame } from "../../../ui/ContentFrame";
 import { Pagination } from "./Pagination";
-import { Flashcards } from "./Flashcards";
+
 import {
+  allDecksPerPageState,
   categoryState,
+  currentFlashCardPageNumState,
+  flashcardsNumsPerPage,
+  searchQuery,
+  searchQueryCategory,
   searchQueryCreatedAt,
   searchQueryStatus,
 } from "../../../states/atoms/flashcardAtoms";
@@ -13,17 +18,46 @@ import { Modal } from "../../../ui/Modal";
 import { EditCategoryInputField } from "./EditCategoryInputField";
 import { CreateDeckInputField } from "./CreateDeckInputField";
 import { SelectCategory } from "./SelectCategory";
+import { useEffect, useMemo } from "react";
+import { useDecksWithCategory } from "../hooks/deck/useDecksWithCategory";
+import { Error } from "../../../ui/Error";
+import { DeckType } from "../../../types/flashcardTypes";
+import { Card } from "./Card";
 
 export const FlashcardsBoard = () => {
   const categories = useRecoilValue(categoryState);
-  const setSearchQueryStatus = useSetRecoilState(searchQueryStatus);
-  const setSearchQueryCreatedAt = useSetRecoilState(searchQueryCreatedAt);
+  const [queryStatus, setSearchQueryStatus] = useRecoilState(searchQueryStatus);
+  const [queryCreatedAt, setSearchQueryCreatedAt] = useRecoilState(searchQueryCreatedAt);
+  const queryCategory = useRecoilValue(searchQueryCategory);
+  const setSearchQuery = useSetRecoilState(searchQuery);
+
+  const currentPage = useRecoilValue(currentFlashCardPageNumState);
+  const cardsNumPerPage = useRecoilValue(flashcardsNumsPerPage);
   const [isModalOpen, setIsModalOpen] = useRecoilState(modalState);
   const [modalID, setModalID] = useRecoilState(modalIDstate);
 
+  const setCards = useSetRecoilState(allDecksPerPageState);
+
+  const query = useMemo(
+    () =>
+      `page=${currentPage}&limit=${cardsNumPerPage}${
+        queryStatus !== "" ? "&isDone=" + queryStatus : ""
+      }${queryCreatedAt !== "" ? "&sort=" + queryCreatedAt : ""}`,
+    [currentPage, cardsNumPerPage, queryStatus, queryCreatedAt]
+  );
+
+  useEffect(() => {
+    setSearchQuery(query);
+  }, [query, setSearchQuery]);
+  const { isPending, decksWithQuery, error } = useDecksWithCategory(queryCategory, query);
+
+  if (isPending) return <p>Loading</p>;
+  if (error) return <Error />;
+  const decksWithQueries: DeckType[] = decksWithQuery.data.deck;
+  setCards(decksWithQueries);
+
   function handleSetQuery(e: React.ChangeEvent<HTMLSelectElement>, label: string) {
     const handler = label === "status" ? setSearchQueryStatus : setSearchQueryCreatedAt;
-
     handler(e.target.value);
   }
 
@@ -50,6 +84,7 @@ export const FlashcardsBoard = () => {
               <div className="flex flex-col gap-2">
                 <label>Status</label>
                 <select
+                  value={queryStatus}
                   onChange={(e) => handleSetQuery(e, "status")}
                   className="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56"
                 >
@@ -61,6 +96,7 @@ export const FlashcardsBoard = () => {
               <div className="flex flex-col gap-2">
                 <label>Created Date</label>
                 <select
+                  value={queryCreatedAt}
                   onChange={(e) => handleSetQuery(e, "createdAt")}
                   className="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56"
                 >
@@ -94,7 +130,13 @@ export const FlashcardsBoard = () => {
               </button>
             </div>
           </div>
-          <Flashcards />
+          <div className="grid grid-cols-2 gap-8 justify-items-center">
+            {decksWithQueries.length !== 0 ? (
+              decksWithQueries?.map((card, i) => <Card card={card} key={i} bg="bg-blue-default" />)
+            ) : (
+              <p>There is no matched deck</p>
+            )}
+          </div>
           <div className="w-full flex justify-center pt-8">
             <Pagination />
           </div>
