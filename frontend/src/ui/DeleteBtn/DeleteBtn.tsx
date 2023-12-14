@@ -1,8 +1,16 @@
 import { RiDeleteBin3Line } from "react-icons/ri";
-export const DeleteBtn = ({ handleDelete }: { handleDelete: () => void }) => {
+export const DeleteBtn = ({
+  handleDelete,
+  color,
+  size,
+}: {
+  handleDelete: () => void;
+  color?: string;
+  size?: string;
+}) => {
   return (
-    <button className="ml-4 text-red-dark" onClick={handleDelete}>
-      <RiDeleteBin3Line />
+    <button className=" text-red-dark" onClick={handleDelete}>
+      <RiDeleteBin3Line color={color} fontSize={size} />
     </button>
   );
 };

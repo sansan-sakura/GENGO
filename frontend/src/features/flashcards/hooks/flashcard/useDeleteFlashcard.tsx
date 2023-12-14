@@ -5,12 +5,11 @@ import { deleteFlashCard } from "../../../../services/apiFlashcard";
 export function useDeleteFlashcard() {
   const queryClient = useQueryClient();
   const { isPending: isDeleting, mutate: deleteFlashcard } = useMutation({
-    mutationFn: deleteFlashCard,
+    mutationFn: (id: number | string | undefined) => deleteFlashCard(id),
     onSuccess: () => {
       toast.success("Flashcard successfully deleted");
-
       queryClient.invalidateQueries({
-        queryKey: ["flashcard"],
+        queryKey: ["deck"],
       });
     },
     onError: (err) => toast.error(err.message),

@@ -14,7 +14,8 @@ exports.getAllFlashcards = catchAsync(async (req, res, next) => {
 });
 
 exports.createFlashcard = catchAsync(async (req, res, next) => {
-  const newFlashcard = await Flashcard.create(req.body);
+  const { answer, question, deck } = req.body;
+  const newFlashcard = await Flashcard.create({ answer: answer, question: question, deck: deck });
 
   res.status(201).json({
     status: "success",
@@ -25,7 +26,11 @@ exports.createFlashcard = catchAsync(async (req, res, next) => {
 });
 
 exports.getFlashcard = catchAsync(async (req, res, next) => {
-  const Flashcard = await Flashcard.findById(req.params.id);
+  const flashcard = await Flashcard.findById(req.params.id);
+
+  if (!flashcard) {
+    return next(new AppError("No Flashcard found with that ID", 404));
+  }
   res.status(201).json({
     status: "success",
     data: {
@@ -35,7 +40,11 @@ exports.getFlashcard = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteFlashcard = catchAsync(async (req, res, next) => {
-  const newFlashcard = await Flashcard.findByIdAndDelete(req.params.id);
+  const flashcard = await Flashcard.findByIdAndDelete({ _id: req.params.id });
+
+  if (!flashcard) {
+    return next(new AppError("No Flashcard found with that ID", 404));
+  }
   res.json({
     status: "success",
     data: null,

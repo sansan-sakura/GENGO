@@ -9,7 +9,7 @@ export function useEditFlashcard() {
       updateFlashCard(id, newData),
     onSuccess: () => {
       toast.success("Flashcard successfully edited ");
-      queryClient.invalidateQueries({ queryKey: ["flashcard"] });
+      queryClient.invalidateQueries({ queryKey: ["deck"] });
     },
     onError: (err) => toast.error(err.message),
   });

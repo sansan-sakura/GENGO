@@ -93,7 +93,7 @@ export async function deleteDeck(id: number | string) {
   }
 }
 
-export async function updateDeck(id: number | string, body: DeckType) {
+export async function updateDeck(id: number | string, body: NewDeckType) {
   try {
     const res = await fetch(fetchDeckByIdUrl(id), {
       method: "PUT",

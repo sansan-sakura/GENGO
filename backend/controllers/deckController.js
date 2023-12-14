@@ -7,7 +7,7 @@ const APIFeatures = require("../utils/apiFeature");
 const { default: mongoose } = require("mongoose");
 
 exports.getAllDecks = catchAsync(async (req, res, next) => {
-  const features = new APIFeatures(Deck.find().populate("category"), req.query)
+  const features = new APIFeatures(Deck.find().populate("category").populate("cards"), req.query)
     .filter()
     .sort()
     .limitFields()
@@ -26,6 +26,7 @@ exports.getAllDatesOfDeck = catchAsync(async (req, res, next) => {
   const features = new APIFeatures(
     Deck.find({ category: mongoose.Types.ObjectId(req.params.id) })
       .populate("category")
+      .populate("cards")
       .select({
         createdAt: 1,
         last_reviewed_date: 1,
@@ -45,7 +46,9 @@ exports.getAllDatesOfDeck = catchAsync(async (req, res, next) => {
 
 exports.getDecksByCategory = catchAsync(async (req, res, next) => {
   const features = new APIFeatures(
-    Deck.find({ category: mongoose.Types.ObjectId(req.params.id) }).populate("category"),
+    Deck.find({ category: mongoose.Types.ObjectId(req.params.id) })
+      .populate("category")
+      .populate("cards"),
     req.query
   )
     .filter()

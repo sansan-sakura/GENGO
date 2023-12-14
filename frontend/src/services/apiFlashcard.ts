@@ -1,5 +1,5 @@
 import { createFlashcardUrl, fetchFlashcardByIdUrl } from "../statics/fetchUrls";
-import { CardType } from "../types/flashcardTypes";
+import { CardType, CreateFlashCard } from "../types/flashcardTypes";
 
 export async function getFlashCard(id: number | string) {
   try {
@@ -12,7 +12,7 @@ export async function getFlashCard(id: number | string) {
   }
 }
 
-export async function createFlashCard(body: CardType) {
+export async function createFlashCard(body: CreateFlashCard) {
   try {
     const res = await fetch(createFlashcardUrl, {
       method: "POST",
@@ -27,12 +27,15 @@ export async function createFlashCard(body: CardType) {
   }
 }
 
-export async function deleteFlashCard(id: number | string) {
+export async function deleteFlashCard(id: number | string | undefined) {
+  console.log(id);
+  if (id === undefined) return;
   try {
     const res = await fetch(fetchFlashcardByIdUrl(id), {
       method: "DELETE",
     });
     const data = await res.json();
+    console.log(data);
     if (!data) return console.error("something went wrong with a flashcard deleting💥");
     return data;
   } catch (err) {

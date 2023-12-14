@@ -8,7 +8,7 @@ export function useCreateFlashcard() {
     mutationFn: createFlashCard,
     onSuccess: () => {
       toast.success("new Flashcard is created");
-      queryClient.invalidateQueries({ queryKey: ["flashcard"] });
+      queryClient.invalidateQueries({ queryKey: ["deck"] });
     },
     onError: (err) => toast.error(err.message),
   });
