@@ -1,4 +1,5 @@
 const Deck = require("../models/deckModel");
+const User = require("../models/userModel");
 
 const catchAsync = require("../utils/catchAsync");
 
@@ -66,6 +67,9 @@ exports.getDecksByCategory = catchAsync(async (req, res, next) => {
 });
 
 exports.createDeck = catchAsync(async (req, res, next) => {
+  const accessToken = req.headers.authorization;
+  const userStorage = await User.findOne({ accessToken: accessToken });
+
   const newDeck = await Deck.create(req.body);
   res.status(201).json({
     status: "success",
