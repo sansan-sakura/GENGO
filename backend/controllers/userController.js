@@ -15,8 +15,8 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 });
 
 exports.createUser = catchAsync(async (req, res, next) => {
-  console.log("create", req.body);
   const { name, email, password, passwordConfirm } = req.body;
+
   if (!name || !email || !password || !passwordConfirm) {
     return next(new AppError("All fields need to be filled !!", 400));
   }
@@ -37,6 +37,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
     passwordConfirm: bcrypt.hashSync(passwordConfirm, salt),
   });
   await user.save();
+  console.log(user);
   res.status(201).json({ status: true, id: user._id, accessToken: user.accessToken });
 });
 

@@ -25,7 +25,7 @@ import { DeckType } from "../../../types/flashcardTypes";
 import { Card } from "./Card";
 
 export const FlashcardsBoard = () => {
-  const categories = useRecoilValue(categoryState);
+  const [categories, setCategories] = useRecoilState(categoryState);
   const [queryStatus, setSearchQueryStatus] = useRecoilState(searchQueryStatus);
   const [queryCreatedAt, setSearchQueryCreatedAt] = useRecoilState(searchQueryCreatedAt);
   const queryCategory = useRecoilValue(searchQueryCategory);
@@ -50,10 +50,10 @@ export const FlashcardsBoard = () => {
     setSearchQuery(query);
   }, [query, setSearchQuery]);
   const { isPending, decksWithQuery, error } = useDecksWithCategory(queryCategory, query);
-
+  console.log(decksWithQuery);
   if (isPending) return <p>Loading</p>;
   if (error) return <Error />;
-  const decksWithQueries: DeckType[] = decksWithQuery.data.deck;
+  const decksWithQueries: DeckType[] = decksWithQuery.data ? decksWithQuery?.data?.deck : [];
   setCards(decksWithQueries);
 
   function handleSetQuery(e: React.ChangeEvent<HTMLSelectElement>, label: string) {

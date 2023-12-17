@@ -41,7 +41,7 @@ export const categoryState = atom<CategoryType[]>({
 
 export const searchQueryCategory = atom<string>({
   key: "searchQueryCategory",
-  default: "",
+  default: "all",
 });
 
 export const searchQueryStatus = atom<string>({
