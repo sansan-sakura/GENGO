@@ -1,14 +1,30 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import { countedCardsLength } from "../../../states/selectors/flashcardSelectors";
+
 import {
   currentFlashCardPageNumState,
   flashcardsNumsPerPage,
-} from "../../../states/atoms/flashcardAtoms";
+  searchQuery,
+  searchQueryCategory,
+} from "../../../../states/atoms/flashcardAtoms";
+import { useDecksDates } from "../../../../hooks/useDatesDecks";
+import { useMemo } from "react";
 
 export const Pagination = () => {
+  const query = useRecoilValue(searchQuery);
+  const categoryId = useRecoilValue(searchQueryCategory);
+  const { isPending, decksDates, error } = useDecksDates(categoryId, query);
+
   const cardNumPerPage = useRecoilValue(flashcardsNumsPerPage);
-  const cardNum: number | undefined = useRecoilValue(countedCardsLength);
+  const cardNum: number | undefined = useMemo(() => {
+    return decksDates?.data?.deck?.length;
+  }, [decksDates]);
+
   const [currentPage, setCurrentPage] = useRecoilState(currentFlashCardPageNumState);
+
+  if (isPending) return <p>Loading</p>;
+  if (error) return <p>Error</p>;
+
+  if (cardNum === 0) return null;
 
   const handleClickRight = () => {
     currentPage < Math.ceil(cardNum / cardNumPerPage) ? setCurrentPage(currentPage + 1) : "";

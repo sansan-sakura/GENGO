@@ -1,11 +1,18 @@
 const Category = require("../models/categoryModel");
 
 const catchAsync = require("../utils/catchAsync");
+const checkUser = require("../utils/checkUser");
+const User = require("../models/userModel");
 
 const AppError = require("../utils/appError");
 
 exports.getCategories = catchAsync(async (req, res, next) => {
-  const categories = await Category.find();
+  const accessToken = req.headers.authorization;
+  const userStorage = await User.findOne({ accessToken: accessToken });
+  if (!userStorage)
+    return res.status(400).json({ status: false, message: "There is no user with the ID" });
+
+  const categories = await Category.find({ user: userStorage });
 
   res.status(200).json({
     status: "200",
@@ -15,7 +22,13 @@ exports.getCategories = catchAsync(async (req, res, next) => {
 });
 
 exports.createCategory = catchAsync(async (req, res, next) => {
-  const newCategory = await Category.create(req.body);
+  const accessToken = req.headers.authorization;
+  const userStorage = await User.findOne({ accessToken: accessToken });
+  if (!userStorage)
+    return res.status(400).json({ status: false, message: "There is no user with the ID" });
+
+  const { category } = req.body;
+  const newCategory = await Category.create({ category: category, user: userStorage });
   res.status(201).json({
     status: "success",
     data: {

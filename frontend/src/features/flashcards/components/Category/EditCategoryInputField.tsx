@@ -1,7 +1,7 @@
-import { CategoryType } from "../../../types/flashcardTypes";
+import { CategoryType } from "../../../../types/flashcardTypes";
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { SubModal } from "../../../ui/SubModal";
+import { SubModal } from "../../../../ui/SubModal";
 
 import { EditCategoryModalOption } from "./EditCategoryModalOption";
 

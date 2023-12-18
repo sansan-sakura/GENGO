@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 import { Schema } from "mongoose";
 const Category = require("./categoryModel");
 const User = require("./userModel");
+const AppError = require("../utils/appError");
 
 const deckSchema = new Schema(
   {
@@ -23,10 +24,12 @@ const deckSchema = new Schema(
 );
 
 deckSchema.pre("save", async function (next) {
-  this.category = await Category.findById(this.category);
+  if (this.category !== "all") {
+    this.category = await Category.findById(this.category);
+    if (!this.category) return new AppError("Category doesn't exist", 400);
+  }
   this.user = await User.findById(this.user);
   if (!this.user) return new AppError("User doesn't exist", 400);
-  if (!this.category) return new AppError("Category doesn't exist", 400);
   next();
 });
 

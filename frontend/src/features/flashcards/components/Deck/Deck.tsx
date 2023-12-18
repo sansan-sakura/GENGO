@@ -1,12 +1,12 @@
-import { ContentFrame } from "../../../ui/ContentFrame";
+import { ContentFrame } from "../../../../ui/ContentFrame";
 import { useState } from "react";
 import { DeckCard } from "./DeckCard";
 import { useParams } from "react-router-dom";
-import { useDeck } from "../hooks/deck/useDeck";
-import { Error } from "../../../ui/Error";
-import { AddBtn } from "../../../ui/AddBtn";
-import { Modal } from "../../../ui/Modal";
-import { CreateFlashCardModal } from "./CreateFlashCardModal";
+import { useDeck } from "../../hooks/deck/useDeck";
+import { Error } from "../../../../ui/Error";
+import { AddBtn } from "../../../../ui/AddBtn";
+import { Modal } from "../../../../ui/Modal";
+import { CreateFlashCardModal } from "../Flashcard/CreateFlashCardModal";
 
 export const Deck = () => {
   const [isStarted, setIsStarted] = useState(false);
@@ -51,7 +51,7 @@ export const Deck = () => {
       {/* Flashcard editing bar */}
       <div className="w-full flex items-center justify-between">
         <div className="grid grid-cols-[1fr_2fr] w-fit my-10 border justify-items-center items-center border-stone-300 rounded-lg py-1 px-1">
-          <p className="bg-green-light py-1 px-2 rounded  ">{currentDeck.category.category}</p>
+          <p className="bg-green-light py-1 px-2 rounded  ">{currentDeck?.category?.category}</p>
           <div className="py-4 px-3 text-xs">
             <p>Finished: {currentDeck.isDone ? "Finished" : "Not Yet"}</p>
             <p>Created: {currentDeck.createdAt?.split("T")[0]}</p>

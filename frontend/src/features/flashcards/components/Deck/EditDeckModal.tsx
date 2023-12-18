@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useEditDeck } from "../hooks/deck/useEditDeck";
+import { useEditDeck } from "../../hooks/deck/useEditDeck";
 import { Toaster } from "react-hot-toast";
-import { SelectCategory } from "./SelectCategory";
-import { searchQueryCategory } from "../../../states/atoms/flashcardAtoms";
+import { SelectCategory } from "../Category/SelectCategory";
+import { searchQueryCategory } from "../../../../states/atoms/flashcardAtoms";
 import { useRecoilValue } from "recoil";
 
 type Props = {

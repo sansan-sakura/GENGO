@@ -1,29 +1,10 @@
 import { Outlet } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Aside } from "../Aside/Aside";
 import { BreadCrumble } from "../BreadCrumble";
 import { Footer } from "../Footer";
 import { Header } from "../Header";
 
-import { useDecksDates } from "../../hooks/useDatesDecks";
-import {
-  allCardDatesState,
-  searchQuery,
-  searchQueryCategory,
-} from "../../states/atoms/flashcardAtoms";
-
 export const AppLayout = () => {
-  const setAllCardDatesStat = useSetRecoilState(allCardDatesState);
-  const query = useRecoilValue(searchQuery);
-  const categoryId = useRecoilValue(searchQueryCategory);
-
-  const { isPending, decksDates, error } = useDecksDates(categoryId, query);
-  console.log(query, categoryId);
-
-  if (isPending) return <p>Loading</p>;
-  if (error) return <p>Error</p>;
-
-  setAllCardDatesStat(decksDates.data.deck);
   return (
     <>
       <div className="grid grid-cols-8 gap-0">

@@ -1,10 +1,10 @@
-import { CategoryType } from "../../../types/flashcardTypes";
-import { SubModal } from "../../../ui/SubModal";
+import { CategoryType } from "../../../../types/flashcardTypes";
+import { SubModal } from "../../../../ui/SubModal";
 import { InputSubModalField } from "./InputSubModalField";
-import { DeleteBtn } from "../../../ui/DeleteBtn";
-import { EditBtn } from "../../../ui/EditBtn";
+import { DeleteBtn } from "../../../../ui/DeleteBtn";
+import { EditBtn } from "../../../../ui/EditBtn";
 import { useState } from "react";
-import { useDeleteCategory } from "../hooks/category/useDeleteCategory";
+import { useDeleteCategory } from "../../hooks/category/useDeleteCategory";
 import { Toaster } from "react-hot-toast";
 
 export const EditCategoryModalOption = ({ cate }: { cate: CategoryType }) => {

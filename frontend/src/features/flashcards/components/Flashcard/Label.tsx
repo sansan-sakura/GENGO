@@ -1,4 +1,4 @@
-import { updateFlashCard } from "../../../services/apiFlashcard";
+import { updateFlashCard } from "../../../../services/apiFlashcard";
 
 export const Label = ({
   label,

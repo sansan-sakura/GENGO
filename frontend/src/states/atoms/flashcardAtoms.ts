@@ -34,14 +34,14 @@ export const flashcardsNumsPerPage = atom<number>({
   default: 6,
 });
 
-export const categoryState = atom<CategoryType[]>({
-  key: "category",
-  default: [],
-});
+// export const categoryState = atom<CategoryType[]>({
+//   key: "category",
+//   default: [],
+// });
 
 export const searchQueryCategory = atom<string>({
   key: "searchQueryCategory",
-  default: "",
+  default: "all",
 });
 
 export const searchQueryStatus = atom<string>({

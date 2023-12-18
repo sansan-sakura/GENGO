@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
-import { currentFlashCardsState } from "../../../states/atoms/flashcardAtoms";
-import { Label } from "./Label";
-import { EditBtn } from "../../../ui/EditBtn";
-import { Modal } from "../../../ui/Modal";
-import { EditFlashCardModal } from "./EditFlashCardModal";
-import { DeleteBtn } from "../../../ui/DeleteBtn";
-import { useDeleteFlashcard } from "../hooks/flashcard/useDeleteFlashcard";
+import { currentFlashCardsState } from "../../../../states/atoms/flashcardAtoms";
+import { Label } from "../Flashcard/Label";
+import { EditBtn } from "../../../../ui/EditBtn";
+import { Modal } from "../../../../ui/Modal";
+import { EditFlashCardModal } from "../Flashcard/EditFlashCardModal";
+import { DeleteBtn } from "../../../../ui/DeleteBtn";
+import { useDeleteFlashcard } from "../../hooks/flashcard/useDeleteFlashcard";
 import { Toaster } from "react-hot-toast";
-import { CardType } from "../../../types/flashcardTypes";
+import { CardType } from "../../../../types/flashcardTypes";
 const labels = ["very hard", "hard", "okay", "easy"];
 const labelsColors = ["bg-red-dark", "bg-blue-dark", "bg-green-dark", "bg-yellow-default"];
 

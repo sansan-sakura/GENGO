@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { useCreateFlashcard } from "../hooks/flashcard/useCreateFlashcard";
+import { useCreateFlashcard } from "../../hooks/flashcard/useCreateFlashcard";
 
 export const CreateFlashCardModal = ({ id }: { id: string | undefined }) => {
   const [questionValue, setQuestionValue] = useState("");
