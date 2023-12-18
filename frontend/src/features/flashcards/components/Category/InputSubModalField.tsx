@@ -27,9 +27,6 @@ export const InputSubModalField = ({
   function handleCreate() {
     if (editingValue === "") return setError(true);
     createCategory({ category: editingValue });
-    setEditingValue("");
-    setError(false);
-    onClose(false);
   }
 
   return (

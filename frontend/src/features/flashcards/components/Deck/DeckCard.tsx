@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import { useRecoilValue } from "recoil";
-import { currentFlashCardsState } from "../../../../states/atoms/flashcardAtoms";
 import { Label } from "../Flashcard/Label";
 import { EditBtn } from "../../../../ui/EditBtn";
 import { Modal } from "../../../../ui/Modal";
@@ -9,6 +7,7 @@ import { DeleteBtn } from "../../../../ui/DeleteBtn";
 import { useDeleteFlashcard } from "../../hooks/flashcard/useDeleteFlashcard";
 import { Toaster } from "react-hot-toast";
 import { CardType } from "../../../../types/flashcardTypes";
+import { Spinner } from "../../../../ui/Spinner";
 const labels = ["very hard", "hard", "okay", "easy"];
 const labelsColors = ["bg-red-dark", "bg-blue-dark", "bg-green-dark", "bg-yellow-default"];
 
@@ -20,12 +19,13 @@ export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { deleteFlashcard } = useDeleteFlashcard();
+
   useEffect(() => {
     if (cards.length === 0 || cards === undefined) return;
     setCurrentCard(cards[currentIndex]);
   }, [cards, setCurrentCard, currentIndex]);
 
-  if (currentCard === undefined) return <p>Loading</p>;
+  if (currentCard === undefined) return <Spinner />;
   const { answer, question, status, _id } = currentCard;
 
   const handleClick = () => {
@@ -44,6 +44,7 @@ export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
     setCurrentIndex(0);
     setIsFinished(false);
   };
+
   if (isFinished)
     return (
       <div className="flex flex-col items-center grow justify-center">

@@ -14,6 +14,8 @@ export const ALL_DECK_URL = (query: string) => `${API_ROOT_URL}api/v1/deck/?${qu
 export const DECK_WITH_DATE_CATEGOY_URL = (id: number | string, query: string) =>
   `${API_ROOT_URL}api/v1/deck/date/category/${id}/?${query}`;
 
+export const ALL_DECK_DATES_URL = (query: string) => `${API_ROOT_URL}api/v1/deck/date/?${query}`;
+
 export const CATEGORY_URL = `${API_ROOT_URL}api/v1/category`;
 
 export const CATEGORY_ID_URL = (id: number | string) => `${API_ROOT_URL}api/v1/category/${id}`;

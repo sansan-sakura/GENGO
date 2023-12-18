@@ -10,7 +10,7 @@ import {
 import { checkFormIsValid, selectErrorMessage } from "../actions/apiActions";
 import { FormEvent, useState } from "react";
 import { createUser } from "../../../services/apiUser";
-import { FormError } from "../../../types/userType";
+import { CreateUser, FormError } from "../../../types/userType";
 import { useNavigate } from "react-router-dom";
 import { Key } from "@mui/icons-material";
 import { currentUserState } from "../../../states/atoms/userAtoms";
@@ -41,8 +41,8 @@ export const SignUpForm = () => {
     const result = checkFormIsValid(e);
     setDbError(initialDBerror);
     setFormError(initialState);
-    let userObj;
-    if (!result.success) {
+    let userObj: CreateUser;
+    if (result.success === false) {
       const selectedMessage = selectErrorMessage(result);
       return setFormError(selectedMessage);
     } else {
@@ -53,13 +53,15 @@ export const SignUpForm = () => {
         password: data.data.passwords.password,
         passwordConfirm: data.data.passwords.passwordConfirm,
       };
-      let res;
-      if (userObj) res = await createUser(userObj);
-      if (!res.status) {
-        setDbError({ status: true, message: res.message });
-      } else if (userObj) {
-        setCurrentUser({ name: userObj.name, accessToken: res.accessToken, login: true });
-        navigate("/dashboard");
+
+      if (userObj) {
+        const res = await createUser(userObj);
+        if (!res.status) {
+          setDbError({ status: true, message: res.message });
+        } else if (userObj) {
+          setCurrentUser({ name: userObj.name, login: true });
+          navigate("/dashboard");
+        }
       }
     }
   };

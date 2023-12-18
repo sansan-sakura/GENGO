@@ -4,6 +4,7 @@ import {
   DECK_BY_ID_URL,
   DECK_WITH_CATEGOY_URL,
   DECK_WITH_DATE_CATEGOY_URL,
+  ALL_DECK_DATES_URL,
 } from "../statics/fetchUrls";
 
 import { NewDeckType } from "../types/flashcardTypes";
@@ -11,7 +12,6 @@ import { findToken } from "../utils/apiHelpers";
 
 export async function getDecksWithCategopry(categoryId: string, query: string) {
   const accessToken = findToken();
-  console.log(categoryId);
   if (!accessToken) return alert("Please check in first");
   try {
     const res = await fetch(
@@ -24,8 +24,9 @@ export async function getDecksWithCategopry(categoryId: string, query: string) {
         },
       }
     );
+    console.log(res);
     const data = await res.json();
-    console.log(data, "🌝", res);
+    console.log(data, "🌝", categoryId === "all");
     if (!data) return console.error("something went wrong with decks fetching 💥");
     return data;
   } catch (err) {
@@ -38,13 +39,18 @@ export async function getDatesOfDecks(categoryId: string, query: string) {
   if (!accessToken) return alert("Please check in first");
   console.log(categoryId);
   try {
-    const res = await fetch(DECK_WITH_DATE_CATEGOY_URL(categoryId, query), {
-      method: "GET",
-      headers: {
-        Authorization: accessToken,
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      categoryId === "all"
+        ? ALL_DECK_DATES_URL(query)
+        : DECK_WITH_DATE_CATEGOY_URL(categoryId, query),
+      {
+        method: "GET",
+        headers: {
+          Authorization: accessToken,
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const data = await res.json();
     console.log(data);
     if (!data) return console.error("something went wrong with deck's dates fetching 💥");

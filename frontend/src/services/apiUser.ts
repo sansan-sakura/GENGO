@@ -14,6 +14,7 @@ export const createUser = async (formData: CreateUser) => {
 
     if (res.status === 201) {
       localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem("userName", data.name);
       alert("Created a new User");
       return data;
     } else {
@@ -35,15 +36,17 @@ export const loginUser = async (formData: LoginBody) => {
       body: JSON.stringify({ email: formData.email, password: formData.password }),
     });
     const data = await res.json();
+    console.log(data);
 
     if (res.status === 200) {
       localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem("userName", data.name);
       return data;
     } else {
       return data;
     }
   } catch (err) {
     console.error(err);
-    return err;
+    return { err: true, message: err };
   }
 };

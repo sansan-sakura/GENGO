@@ -1,25 +1,15 @@
 import { useRecoilValue, useRecoilState } from "recoil";
-import { useEffect, useState } from "react";
-import { searchQueryCategory } from "../../../../states/atoms/flashcardAtoms";
-import {
-  categoriesState,
-  initialQueryCategoryState,
-} from "../../../../states/selector/flashcardSelector";
+import { useState } from "react";
+import { categoriesState, searchQueryCategory } from "../../../../states/atoms/flashcardAtoms";
 
 export const SelectCategory = ({ currentCategory }: { currentCategory?: string }) => {
   const [categoryId, setSearchQueryCategory] = useRecoilState(searchQueryCategory);
   const categories = useRecoilValue(categoriesState);
-  const initialCategoiry = useRecoilValue(initialQueryCategoryState);
   const [currentValue, setCurrentValue] = useState(
-    categories && currentCategory
+    categories.length !== 0 && currentCategory
       ? currentCategory
       : categories.filter((obj) => obj._id === categoryId)[0]?.category
   );
-
-  useEffect(() => {
-    setSearchQueryCategory(initialCategoiry);
-  }, []);
-
   return (
     <select
       value={currentValue}

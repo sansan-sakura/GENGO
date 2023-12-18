@@ -4,10 +4,9 @@ import { Pagination } from "../Deck/Pagination";
 
 import {
   allDecksPerPageState,
-  categoryState,
+  categoriesState,
   currentFlashCardPageNumState,
   flashcardsNumsPerPage,
-  searchQuery,
   searchQueryCategory,
   searchQueryCreatedAt,
   searchQueryStatus,
@@ -18,24 +17,26 @@ import { Modal } from "../../../../ui/Modal";
 import { EditCategoryInputField } from "../Category/EditCategoryInputField";
 import { CreateDeckInputField } from "../Deck/CreateDeckInputField";
 import { SelectCategory } from "../Category/SelectCategory";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useDecksWithCategory } from "../../hooks/deck/useDecksWithCategory";
 import { Error } from "../../../../ui/Error";
 import { DeckType } from "../../../../types/flashcardTypes";
 import { Card } from "../Deck/Card";
-import { categoriesState } from "../../../../states/selector/flashcardSelector";
+import { Spinner } from "../../../../ui/Spinner";
+import { useCategory } from "../../hooks/category/useCategory";
 
 export const FlashcardsBoard = () => {
-  const categories = useRecoilValue(categoriesState);
+  const setCategories = useSetRecoilState(categoriesState);
 
   // for search query
   const [queryStatus, setSearchQueryStatus] = useRecoilState(searchQueryStatus);
   const [queryCreatedAt, setSearchQueryCreatedAt] = useRecoilState(searchQueryCreatedAt);
   const queryCategory = useRecoilValue(searchQueryCategory);
-  const setSearchQuery = useSetRecoilState(searchQuery);
+
   // for pagination
   const currentPage = useRecoilValue(currentFlashCardPageNumState);
   const cardsNumPerPage = useRecoilValue(flashcardsNumsPerPage);
+
   // for modal
   const [isModalOpen, setIsModalOpen] = useRecoilState(modalState);
   const [modalID, setModalID] = useRecoilState(modalIDstate);
@@ -50,17 +51,14 @@ export const FlashcardsBoard = () => {
     [currentPage, cardsNumPerPage, queryStatus, queryCreatedAt]
   );
 
-  useEffect(() => {
-    setSearchQuery(query);
-  }, [query, setSearchQuery]);
-
-  console.log(queryCategory, query);
   const { isPending, decksWithQuery, error } = useDecksWithCategory(queryCategory, query);
-  console.log(decksWithQuery);
-  if (isPending) return <p>Loading</p>;
-  if (error) return <Error />;
+  const { isPending: isCategoryPending, categories, error: categoryError } = useCategory();
+
+  if (isPending || isCategoryPending) return <Spinner />;
+  if (error || categoryError) return <Error />;
   const decksWithQueries: DeckType[] = decksWithQuery.data ? decksWithQuery?.data?.deck : [];
   setCards(decksWithQueries);
+  setCategories(categories);
 
   function handleSetQuery(e: React.ChangeEvent<HTMLSelectElement>, label: string) {
     const handler = label === "status" ? setSearchQueryStatus : setSearchQueryCreatedAt;
@@ -138,9 +136,9 @@ export const FlashcardsBoard = () => {
           </div>
           <div className="grid grid-cols-2 gap-8 justify-items-center">
             {decksWithQueries.length !== 0 ? (
-              decksWithQueries?.map((card, i) => <Card card={card} key={i} bg="bg-blue-default" />)
+              decksWithQueries?.map((card, i) => <Card card={card} key={i} index={i} />)
             ) : (
-              <p>There is no matched deck</p>
+              <p>NOT AVAILABLE 🎭</p>
             )}
           </div>
           <div className="w-full flex justify-center pt-8">

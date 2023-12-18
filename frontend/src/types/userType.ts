@@ -30,6 +30,5 @@ export type UserRes = {
 
 export type CurrentUser = {
   name: string;
-  accessToken: string;
   login: boolean;
 };
