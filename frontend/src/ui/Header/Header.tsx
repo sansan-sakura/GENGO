@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { getDate, showTime } from "../../utils/helpers";
 import { SearchInput } from "../SearchInput/SearchInput";
+import { currentUserState } from "../../states/atoms/userAtoms";
+import { useRecoilValue } from "recoil";
 export const Header = () => {
+  const currentUser = useRecoilValue(currentUserState);
   const [time, setTime] = useState(showTime());
 
   const {
@@ -38,7 +41,7 @@ export const Header = () => {
               className="shrink-0 bg-green-dark w-10 h-10 rounded-full flex items-center justify-center text-white "
             >
               <span className="sr-only">Profile</span>
-              <p>S</p>
+              <p>{currentUser?.name[0]?.toUpperCase()}</p>
             </a>
           </div>
         </div>

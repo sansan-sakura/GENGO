@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useEditCategory } from "../hooks/category/useEditCategory";
+import { useEditCategory } from "../../hooks/category/useEditCategory";
 import { Toaster } from "react-hot-toast";
-import { useCreateCategory } from "../hooks/category/useCreateCategory";
+import { useCreateCategory } from "../../hooks/category/useCreateCategory";
 
 export const InputSubModalField = ({
   id,
@@ -27,6 +27,9 @@ export const InputSubModalField = ({
   function handleCreate() {
     if (editingValue === "") return setError(true);
     createCategory({ category: editingValue });
+    setEditingValue("");
+    setError(false);
+    onClose(false);
   }
 
   return (

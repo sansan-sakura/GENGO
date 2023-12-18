@@ -1,5 +1,6 @@
 import { CREATE_USER_API, LOGIN_USER_API } from "../statics/fetchUrls";
 import { CreateUser, LoginBody } from "../types/userType";
+
 export const createUser = async (formData: CreateUser) => {
   try {
     const res = await fetch(CREATE_USER_API, {

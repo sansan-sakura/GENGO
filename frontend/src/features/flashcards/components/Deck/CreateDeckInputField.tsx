@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { SelectCategory } from "./SelectCategory";
-import { useCreateDeck } from "../hooks/deck/useCreateDeck";
-import { searchQueryCategory } from "../../../states/atoms/flashcardAtoms";
+import { SelectCategory } from "../Category/SelectCategory";
+import { useCreateDeck } from "../../hooks/deck/useCreateDeck";
+import { searchQueryCategory } from "../../../../states/atoms/flashcardAtoms";
 import { useRecoilValue } from "recoil";
 import { Toaster } from "react-hot-toast";
 

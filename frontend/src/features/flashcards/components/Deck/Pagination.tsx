@@ -5,15 +5,14 @@ import {
   flashcardsNumsPerPage,
   searchQuery,
   searchQueryCategory,
-} from "../../../states/atoms/flashcardAtoms";
-import { useDecksDates } from "../../../hooks/useDatesDecks";
+} from "../../../../states/atoms/flashcardAtoms";
+import { useDecksDates } from "../../../../hooks/useDatesDecks";
 import { useMemo } from "react";
 
 export const Pagination = () => {
   const query = useRecoilValue(searchQuery);
   const categoryId = useRecoilValue(searchQueryCategory);
   const { isPending, decksDates, error } = useDecksDates(categoryId, query);
-  console.log(query, categoryId);
 
   const cardNumPerPage = useRecoilValue(flashcardsNumsPerPage);
   const cardNum: number | undefined = useMemo(() => {

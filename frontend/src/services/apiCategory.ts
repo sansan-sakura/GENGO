@@ -4,7 +4,7 @@ import { findToken } from "../utils/apiHelpers";
 
 export async function getCategories() {
   const accessToken = findToken();
-  console.log("token", accessToken);
+
   if (!accessToken) return alert("Please check in first");
   try {
     const res = await fetch(CATEGORY_URL, {

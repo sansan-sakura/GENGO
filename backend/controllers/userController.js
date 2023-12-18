@@ -37,7 +37,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
     passwordConfirm: bcrypt.hashSync(passwordConfirm, salt),
   });
   await user.save();
-  console.log(user);
+
   res.status(201).json({ status: true, id: user._id, accessToken: user.accessToken });
 });
 

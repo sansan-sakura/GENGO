@@ -21,8 +21,9 @@ export const LoginForm = () => {
       email: formJson.email,
       password: formJson.password,
     };
-
+    console.log(loginData);
     const logined = await loginUser(loginData);
+    console.log(logined);
 
     if (logined.notFound) {
       setError(true);

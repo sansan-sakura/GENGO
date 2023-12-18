@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useEditFlashcard } from "../hooks/flashcard/useEditFlashcard";
+import { useEditFlashcard } from "../../hooks/flashcard/useEditFlashcard";
 import { Toaster } from "react-hot-toast";
 
 type Props = {

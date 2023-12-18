@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { ContentFrame } from "../../../ui/ContentFrame";
-import { Pagination } from "./Pagination";
+import { ContentFrame } from "../../../../ui/ContentFrame";
+import { Pagination } from "../Deck/Pagination";
 
 import {
   allDecksPerPageState,
@@ -11,28 +11,32 @@ import {
   searchQueryCategory,
   searchQueryCreatedAt,
   searchQueryStatus,
-} from "../../../states/atoms/flashcardAtoms";
-import { EditBtn } from "../../../ui/EditBtn";
-import { modalIDstate, modalState } from "../../../states/atoms/commonAtoms";
-import { Modal } from "../../../ui/Modal";
-import { EditCategoryInputField } from "./EditCategoryInputField";
-import { CreateDeckInputField } from "./CreateDeckInputField";
-import { SelectCategory } from "./SelectCategory";
+} from "../../../../states/atoms/flashcardAtoms";
+import { EditBtn } from "../../../../ui/EditBtn";
+import { modalIDstate, modalState } from "../../../../states/atoms/commonAtoms";
+import { Modal } from "../../../../ui/Modal";
+import { EditCategoryInputField } from "../Category/EditCategoryInputField";
+import { CreateDeckInputField } from "../Deck/CreateDeckInputField";
+import { SelectCategory } from "../Category/SelectCategory";
 import { useEffect, useMemo } from "react";
-import { useDecksWithCategory } from "../hooks/deck/useDecksWithCategory";
-import { Error } from "../../../ui/Error";
-import { DeckType } from "../../../types/flashcardTypes";
-import { Card } from "./Card";
+import { useDecksWithCategory } from "../../hooks/deck/useDecksWithCategory";
+import { Error } from "../../../../ui/Error";
+import { DeckType } from "../../../../types/flashcardTypes";
+import { Card } from "../Deck/Card";
+import { categoriesState } from "../../../../states/selector/flashcardSelector";
 
 export const FlashcardsBoard = () => {
-  const [categories, setCategories] = useRecoilState(categoryState);
+  const categories = useRecoilValue(categoriesState);
+
+  // for search query
   const [queryStatus, setSearchQueryStatus] = useRecoilState(searchQueryStatus);
   const [queryCreatedAt, setSearchQueryCreatedAt] = useRecoilState(searchQueryCreatedAt);
   const queryCategory = useRecoilValue(searchQueryCategory);
   const setSearchQuery = useSetRecoilState(searchQuery);
-
+  // for pagination
   const currentPage = useRecoilValue(currentFlashCardPageNumState);
   const cardsNumPerPage = useRecoilValue(flashcardsNumsPerPage);
+  // for modal
   const [isModalOpen, setIsModalOpen] = useRecoilState(modalState);
   const [modalID, setModalID] = useRecoilState(modalIDstate);
 
@@ -49,6 +53,8 @@ export const FlashcardsBoard = () => {
   useEffect(() => {
     setSearchQuery(query);
   }, [query, setSearchQuery]);
+
+  console.log(queryCategory, query);
   const { isPending, decksWithQuery, error } = useDecksWithCategory(queryCategory, query);
   console.log(decksWithQuery);
   if (isPending) return <p>Loading</p>;

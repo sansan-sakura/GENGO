@@ -2,11 +2,15 @@ const Flashcard = require("../models/flashcardModel");
 
 const catchAsync = require("../utils/catchAsync");
 const checkUser = require("../utils/checkUser");
+const User = require("../models/userModel");
 
 const AppError = require("../utils/appError");
 
 exports.getAllFlashcards = catchAsync(async (req, res, next) => {
-  const userStorage = checkUser(req, next);
+  const accessToken = req.headers.authorization;
+  const userStorage = await User.findOne({ accessToken: accessToken });
+  if (!userStorage)
+    return res.status(400).json({ status: false, message: "There is no user with the ID" });
   const flashcards = await Flashcard.find({ user: userStorage });
   if (!flashcards || flashcards.length === 0)
     return next(new AppError("No flashcard has been created", 401));
@@ -18,7 +22,10 @@ exports.getAllFlashcards = catchAsync(async (req, res, next) => {
 });
 
 exports.createFlashcard = catchAsync(async (req, res, next) => {
-  const userStorage = checkUser(req, next);
+  const accessToken = req.headers.authorization;
+  const userStorage = await User.findOne({ accessToken: accessToken });
+  if (!userStorage)
+    return res.status(400).json({ status: false, message: "There is no user with the ID" });
   const { answer, question, deck } = req.body;
   const newFlashcard = await Flashcard.create({
     answer: answer,

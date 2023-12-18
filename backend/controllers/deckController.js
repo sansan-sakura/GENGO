@@ -32,20 +32,20 @@ exports.getAllDecks = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllDatesOfDeck = catchAsync(async (req, res, next) => {
+  const searchObj =
+    req.params.id === "all" ? {} : { category: mongoose.Types.ObjectId(req.params.id) };
+  console.log(searchObj, req.params.id === "all");
   const features = new APIFeatures(
-    Deck.find({ category: mongoose.Types.ObjectId(req.params.id) })
-      .populate("category")
-      .populate("cards")
-      .select({
-        createdAt: 1,
-        last_reviewed_date: 1,
-        reviewed_date: 1,
-      }),
+    Deck.find(searchObj).populate("category").populate("cards").select({
+      createdAt: 1,
+      last_reviewed_date: 1,
+      reviewed_date: 1,
+    }),
     req.query
   );
 
   const deck = await features.query;
-  console.log(deck, deck.length);
+
   res.status(200).json({
     status: "200",
     results: deck.length,
@@ -54,6 +54,8 @@ exports.getAllDatesOfDeck = catchAsync(async (req, res, next) => {
 });
 
 exports.getDecksByCategory = catchAsync(async (req, res, next) => {
+  const searchObj =
+    req.params.id === "all" ? {} : { category: mongoose.Types.ObjectId(req.params.id) };
   const features = new APIFeatures(
     Deck.find({ category: mongoose.Types.ObjectId(req.params.id) })
       .populate("category")
@@ -75,11 +77,18 @@ exports.getDecksByCategory = catchAsync(async (req, res, next) => {
 });
 
 exports.createDeck = catchAsync(async (req, res, next) => {
-  const userStorage = checkUser(req, next);
+  const accessToken = req.headers.authorization;
+  const userStorage = await User.findOne({ accessToken: accessToken });
+  if (!userStorage)
+    return res.status(400).json({ status: false, message: "There is no user with the ID" });
 
   const { title, category } = req.body;
+  const body =
+    category === "all"
+      ? { title: title, user: userStorage }
+      : { title: title, user: userStorage, category: category };
 
-  const newDeck = await Deck.create({ title: title, category: category, user: userStorage });
+  const newDeck = await Deck.create(body);
   res.status(201).json({
     status: "success",
     data: {

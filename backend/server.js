@@ -9,7 +9,7 @@ const mongoUrl = "mongodb://localhost:27017/gengo";
 mongoose.set("strictQuery", false);
 mongoose
   .connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then((con) => console.log(con));
+  .then((con) => console.log("connencted"));
 
 const port = process.env.PORT || 8080;
 
