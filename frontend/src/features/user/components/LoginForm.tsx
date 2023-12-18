@@ -16,21 +16,21 @@ export const LoginForm = () => {
     setError(false);
     const formData = new FormData(event?.currentTarget);
     const formJson = Object.fromEntries((formData as any).entries());
+    console.log(formData, formJson);
 
     const loginData = {
       email: formJson.email,
       password: formJson.password,
     };
-    console.log(loginData);
-    const logined = await loginUser(loginData);
-    console.log(logined);
 
-    if (logined.notFound) {
+    const logined = await loginUser(loginData);
+
+    if (logined.notFound || logined.err) {
       setError(true);
       alert("User doesn't exist");
     } else {
       alert("You are logged in!!");
-      setCurrentUser({ name: logined.name, accessToken: logined.accessToken, login: true });
+      setCurrentUser({ name: logined.name, login: true });
       navigate("/dashboard");
     }
   };
@@ -53,12 +53,13 @@ export const LoginForm = () => {
             You don't have your account yet?
             <br />
             <Link
-              to="/signup"
+              to="/register"
               className="transition duration-150 ease-in-out text-green-900 underline block hover:translate-y-1 "
             >
               Sign up
             </Link>
           </p>
+          {error && <p className="mt-4 text-base text-red-500">Log in failed</p>}
         </div>
       </form>
     </div>

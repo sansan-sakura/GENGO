@@ -8,6 +8,8 @@ import {
 } from "../../../../states/atoms/flashcardAtoms";
 import { useDecksDates } from "../../../../hooks/useDatesDecks";
 import { useMemo } from "react";
+import { Spinner } from "../../../../ui/Spinner";
+import { Error } from "../../../../ui/Error";
 
 export const Pagination = () => {
   const query = useRecoilValue(searchQuery);
@@ -21,8 +23,8 @@ export const Pagination = () => {
 
   const [currentPage, setCurrentPage] = useRecoilState(currentFlashCardPageNumState);
 
-  if (isPending) return <p>Loading</p>;
-  if (error) return <p>Error</p>;
+  if (isPending) return <Spinner />;
+  if (error) return <Error />;
 
   if (cardNum === 0) return null;
 

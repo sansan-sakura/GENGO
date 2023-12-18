@@ -7,8 +7,7 @@ export const checkFormIsValid = (event: FormEvent<HTMLFormElement> | undefined) 
 
   const formData = new FormData(event?.currentTarget);
   const formJson = Object.fromEntries((formData as any).entries());
-
-  let newFormData: { [key: string]: any } = {};
+  const newFormData: { [key: string]: any } = {};
 
   Object.keys(formJson).forEach((inputKey) => {
     if (inputKey !== "password" && inputKey !== "passwordConfirm") {
@@ -34,11 +33,11 @@ export const selectErrorMessage = (result: { success: false; error: ZodError }) 
     password: { error: false, message: "" },
     passwordConfirm: { error: false, message: "" },
   };
-  console.log(result);
+
   result.error.issues.forEach((issue) => {
     const key = issue.path.at(-1);
     if (key === undefined) return;
-    console.log(Object.hasOwn(formError, key), formError, key);
+
     Object.hasOwn(formError, key)
       ? (formError = { ...formError, [key]: { error: true, message: issue.message } })
       : "";

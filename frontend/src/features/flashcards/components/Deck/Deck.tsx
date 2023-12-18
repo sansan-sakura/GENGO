@@ -19,7 +19,6 @@ export const Deck = () => {
   if (isLoading) return <p>loading</p>;
   if (error) return <Error />;
   const currentDeck = deck.data.deck;
-  console.log(deck.data.deck.cards, "deck");
 
   return (
     <>
@@ -37,11 +36,11 @@ export const Deck = () => {
               </button>
             </>
           ) : deck.data.deck.cards.length !== 0 ? (
-            <DeckCard cards={deck.data.deck.cards} />
+            <DeckCard cards={currentDeck.cards} />
           ) : (
             <div className="w-full h-full flex items-center justify-center grow">
-              <div className="border-2 border-red-dark py-4 px-6 rounded-md">
-                <p>There is no flashcard!!</p>
+              <div className="border-2 border-red-light py-4 px-6 rounded-md text-xl fond-bold ">
+                <p>Please add flashcard 📝</p>
               </div>
             </div>
           )}
@@ -51,7 +50,7 @@ export const Deck = () => {
       {/* Flashcard editing bar */}
       <div className="w-full flex items-center justify-between">
         <div className="grid grid-cols-[1fr_2fr] w-fit my-10 border justify-items-center items-center border-stone-300 rounded-lg py-1 px-1">
-          <p className="bg-green-light py-1 px-2 rounded  ">{currentDeck?.category?.category}</p>
+          <p className={`bg-green-light py-1 px-2 rounded`}>{currentDeck?.category?.category}</p>
           <div className="py-4 px-3 text-xs">
             <p>Finished: {currentDeck.isDone ? "Finished" : "Not Yet"}</p>
             <p>Created: {currentDeck.createdAt?.split("T")[0]}</p>

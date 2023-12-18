@@ -31,12 +31,31 @@ exports.getAllDecks = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getAllDatesOfDeck = catchAsync(async (req, res, next) => {
-  const searchObj =
-    req.params.id === "all" ? {} : { category: mongoose.Types.ObjectId(req.params.id) };
-  console.log(searchObj, req.params.id === "all");
+exports.getDatesOfDeck = catchAsync(async (req, res, next) => {
   const features = new APIFeatures(
-    Deck.find(searchObj).populate("category").populate("cards").select({
+    Deck.find({ category: mongoose.Types.ObjectId(req.params.id) })
+      .populate("category")
+      .populate("cards")
+      .select({
+        createdAt: 1,
+        last_reviewed_date: 1,
+        reviewed_date: 1,
+      }),
+    req.query
+  );
+
+  const deck = await features.query;
+
+  res.status(200).json({
+    status: "200",
+    results: deck.length,
+    data: { deck },
+  });
+});
+
+exports.getAllDatesOfDeck = catchAsync(async (req, res, next) => {
+  const features = new APIFeatures(
+    Deck.find().populate("category").populate("cards").select({
       createdAt: 1,
       last_reviewed_date: 1,
       reviewed_date: 1,

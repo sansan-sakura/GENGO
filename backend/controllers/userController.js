@@ -38,10 +38,11 @@ exports.createUser = catchAsync(async (req, res, next) => {
   });
   await user.save();
 
-  res.status(201).json({ status: true, id: user._id, accessToken: user.accessToken });
+  res.status(201).json({ status: true, name: user.name, accessToken: user.accessToken });
 });
 
 exports.loginUser = catchAsync(async (req, res, next) => {
+  console.log(req.body);
   const user = await User.findOne({ email: req.body.email });
   if (user?.password && bcrypt.compareSync(req.body.password, user.password)) {
     res.status(200).json({ status: true, name: user.name, accessToken: user.accessToken });

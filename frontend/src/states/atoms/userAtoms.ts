@@ -3,5 +3,5 @@ import { CurrentUser } from "../../types/userType";
 
 export const currentUserState = atom<CurrentUser>({
   key: "currentUser",
-  default: { name: "", accessToken: "", login: false },
+  default: { name: "", login: false },
 });
