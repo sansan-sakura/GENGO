@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Category = require("./categoryModel");
-const User = require("./userModel");
+const { User } = require("./userModel");
 const AppError = require("../utils/appError");
 
 const deckSchema = new mongoose.Schema(
