@@ -3,7 +3,7 @@ const AppError = require("../utils/appError");
 const mongoose = require("mongoose");
 const User = require("./userModel");
 
-export const categorySchema = new mongoose.Schema({
+const categorySchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
@@ -28,3 +28,4 @@ categorySchema.pre("save", async function (next) {
 const Category = mongoose.model("Category", categorySchema);
 
 module.exports = Category;
+module.exports = categorySchema;
