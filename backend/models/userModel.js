@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
-import * as crypto from "crypto";
+const crypto = require("crypto");
 
 export const userSchema = new mongoose.Schema(
   {

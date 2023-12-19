@@ -1,4 +1,4 @@
-import AppError from "../utils/appError";
+const AppError = require("../utils/appError");
 
 const mongoose = require("mongoose");
 const User = require("./userModel");

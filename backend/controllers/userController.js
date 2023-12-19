@@ -1,5 +1,5 @@
 const User = require("../models/userModel");
-import bcrypt from "bcrypt-nodejs";
+const bcrypt = require("bcrypt-nodejs");
 
 const catchAsync = require("../utils/catchAsync");
 
