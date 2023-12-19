@@ -37,28 +37,33 @@ export const LoginForm = () => {
 
   return (
     <div className="w-[300px] sm:w-[400px]">
-      <h2 className="text-3xl text-center font-bold text-lime-900">Log In</h2>
-      <form className="w-full" onSubmit={handleLogin}>
+      <h2 className="text-5xl text-center font-semibold text-red-dark font-display mb-6">Log In</h2>
+      <form className="w-full  grid gap-4" onSubmit={handleLogin}>
         <FormControl id="email">
           <FormLabel required={true}>Email</FormLabel>
-          <Input name="email" placeholder="example@gmail.com" className="p-2 mb-4" />
+          <Input name="email" placeholder="gengo@gmail.com" className="py-2 px-3 mb-4" />
         </FormControl>
         <FormControl id="password">
           <FormLabel required={true}>Password</FormLabel>
-          <Input name="password" type="password" placeholder="password..." className="p-2 mb-4" />
+          <Input
+            name="password"
+            type="password"
+            placeholder="password..."
+            className="py-2 px-3 mb-4"
+          />
         </FormControl>
-        <div className="flex flex-col items-center justify-center">
-          <button className="button">Login</button>
-          <p className="text-center mt-4 text-sm">
-            You don't have your account yet?
-            <br />
-            <Link
-              to="/register"
-              className="transition duration-150 ease-in-out text-green-900 underline block hover:translate-y-1 "
-            >
-              Sign up
-            </Link>
-          </p>
+        <div className="flex flex-col items-center justify-center mt-2">
+          <button className="button py-1.5 px-4 text-base transition-all duration-300 hover:bg-red-light hover:text-white">
+            Log in
+          </button>
+          <p className="text-center mt-4 text-sm mb-2">You don't have your account yet?</p>
+          <Link
+            to="/register"
+            className="transition duration-150 ease-in-out text-red-dark underline block hover:translate-y-1 "
+          >
+            Sign up
+          </Link>
+
           {error && <p className="mt-4 text-base text-red-500">Log in failed</p>}
         </div>
       </form>
