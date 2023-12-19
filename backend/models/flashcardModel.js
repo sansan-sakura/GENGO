@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Deck = require("./deckModel");
 const User = require("./userModel");
 
-export const flashcardSchema = new mongoose.Schema(
+const flashcardSchema = new mongoose.Schema(
   {
     deck: {
       type: mongoose.Schema.Types.ObjectId,
@@ -39,3 +39,4 @@ flashcardSchema.pre("save", async function (next) {
 const Flashcard = mongoose.model("Flashcard", flashcardSchema);
 
 module.exports = Flashcard;
+module.exports = flashcardSchema;

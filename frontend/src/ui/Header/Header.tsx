@@ -36,13 +36,10 @@ export const Header = () => {
               <SearchInput />
             </div>
 
-            <a
-              onClick={() => setIsModalOpen((prev) => !prev)}
-              className="shrink-0 bg-red-dark w-10 h-10 rounded-full flex items-center justify-center text-white "
-            >
+            <span className="shrink-0 bg-red-dark w-10 h-10 rounded-full flex items-center justify-center text-white ">
               <span className="sr-only">Profile</span>
               <p>{currentUser?.name[0]?.toUpperCase()}</p>
-            </a>
+            </span>
           </div>
         </div>
 
