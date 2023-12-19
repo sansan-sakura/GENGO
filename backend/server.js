@@ -1,15 +1,12 @@
 import mongoose from "mongoose";
 const dotenv = require("dotenv");
 const app = require("./app");
-dotenv.config({ path: "./config.env" });
+dotenv.config();
 
-const mongoUrl = "mongodb://localhost:27017/gengo";
-// process.env.MONGO_URL.replace("<PASSWORD>", process.env.DATABASE_PASSWORD) ||
-// "mongodb://localhost:27017/gengo";
+const mongoUrl = process.env.MONGO_URL;
+
 mongoose.set("strictQuery", false);
-mongoose
-  .connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then((con) => console.log("connencted"));
+mongoose.connect(mongoUrl).then((con) => console.log(`Mongo DB Connected: ${con.connection.host}`));
 
 const port = process.env.PORT || 8080;
 
