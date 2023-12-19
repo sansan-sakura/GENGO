@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Deck = require("./deckModel");
-const User = require("./userModel");
 
 const flashcardSchema = new mongoose.Schema(
   {
@@ -39,4 +38,3 @@ flashcardSchema.pre("save", async function (next) {
 const Flashcard = mongoose.model("Flashcard", flashcardSchema);
 
 module.exports = Flashcard;
-module.exports = flashcardSchema;

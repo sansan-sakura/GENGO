@@ -1,4 +1,4 @@
-const User = require("../models/userModel");
+const { User } = require("../models/userModel");
 const bcrypt = require("bcrypt-nodejs");
 
 const catchAsync = require("../utils/catchAsync");
@@ -20,7 +20,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
   if (!name || !email || !password || !passwordConfirm) {
     return next(new AppError("All fields need to be filled !!", 400));
   }
-
+  console.log(User);
   const existingUser = await User.findOne({
     $or: [{ name }, { email }],
   });
