@@ -44,7 +44,9 @@ exports.createUser = catchAsync(async (req, res, next) => {
 exports.loginUser = catchAsync(async (req, res, next) => {
   console.log(req.body);
   const user = await User.findOne({ email: req.body.email });
+  console.log(user);
   if (user?.password && bcrypt.compareSync(req.body.password, user.password)) {
+    console.log("checking");
     res.status(200).json({ status: true, name: user.name, accessToken: user.accessToken });
   } else {
     return next(new AppError("No User found", 404));

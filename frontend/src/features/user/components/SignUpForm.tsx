@@ -67,17 +67,29 @@ export const SignUpForm = () => {
   };
   return (
     <div>
-      <div className="w-[300px] sm:w-[500px] mx-auto pt-4">
-        <h2 className="text-2xl sm:text-3xl font-bold text-teal-900 text-center mb-4">Sign Up</h2>
+      <div className="w-[300px] sm:w-[400px]">
+        <h2 className="text-5xl text-center font-semibold text-red-dark font-display mb-6">
+          Sign Up
+        </h2>
         <form className="w-full" onSubmit={hanldleSubmit}>
           <FormControl id="name" className="mb-4" error={formError.name.error}>
             <FormLabel required={true}>Name</FormLabel>
-            <Input name="name" placeholder="Harry Potter" className="p-2  " />
+            <Input
+              name="name"
+              placeholder="言語"
+              className="p-2"
+              sx={{
+                outline: "none",
+                "&:focus": {
+                  border: "2px solid red",
+                },
+              }}
+            />
             <FormHelperText>{formError.name.error && formError.name.message}</FormHelperText>
           </FormControl>
           <FormControl id="email" className="mb-4" error={formError.email.error}>
             <FormLabel required={true}>Email</FormLabel>
-            <Input name="email" placeholder="harry@hogwarts.ed" className="p-2 " />
+            <Input name="email" placeholder="gengo@google.com" className="p-2 " />
             <FormHelperText>{formError.email.error && formError.email.message}</FormHelperText>
           </FormControl>
           <FormControl id="password" className="mb-4" error={formError.password.error}>
@@ -98,12 +110,12 @@ export const SignUpForm = () => {
               size="sm"
               value={Math.min((value.length * 100) / minLength, 100)}
               sx={{
-                bgcolor: "orange",
-                color: "#4d7c0f",
+                bgcolor: "#F5B9B0",
+                color: "#E55039",
                 marginTop: "10px",
               }}
             />
-            <Typography level="body-xs" sx={{ alignSelf: "flex-end", color: "darkGreen" }}>
+            <Typography level="body-xs" sx={{ alignSelf: "flex-end", color: "#25355F" }}>
               {value.length < 3 && "Very weak"}
               {value.length >= 3 && value.length < 6 && "Weak"}
               {value.length >= 6 && value.length < 10 && "Strong"}
@@ -128,7 +140,9 @@ export const SignUpForm = () => {
             </FormHelperText>
           </FormControl>
           <div className="flex items-center justify-center">
-            <button className="button">Register</button>
+            <button className="button  py-1.5 px-4 text-base transition-all duration-300 hover:bg-red-light hover:text-white">
+              Register
+            </button>
           </div>
           {dbError && <p className="text-red-700 text-base">{dbError.message}</p>}
         </form>

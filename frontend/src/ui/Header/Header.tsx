@@ -29,7 +29,7 @@ export const Header = () => {
               <span>{date}</span>
               <span>{time}</span>
             </div>
-            <h2 className="text-[40px] font-bold  text-green-dark font-display">{weekDay}</h2>
+            <h2 className="text-[40px] font-bold  text-red-dark font-display">{weekDay}</h2>
           </div>
           <div className="flex items-center justify-end gap-4">
             <div className="flex items-center gap-4">
@@ -37,8 +37,8 @@ export const Header = () => {
             </div>
 
             <a
-              href="#"
-              className="shrink-0 bg-green-dark w-10 h-10 rounded-full flex items-center justify-center text-white "
+              onClick={() => setIsModalOpen((prev) => !prev)}
+              className="shrink-0 bg-red-dark w-10 h-10 rounded-full flex items-center justify-center text-white "
             >
               <span className="sr-only">Profile</span>
               <p>{currentUser?.name[0]?.toUpperCase()}</p>
