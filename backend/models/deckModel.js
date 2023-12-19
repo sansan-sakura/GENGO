@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
-import { Schema } from "mongoose";
 const Category = require("./categoryModel");
 const User = require("./userModel");
 const AppError = require("../utils/appError");
 
-const deckSchema = new Schema(
+const deckSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
     isDone: { type: Boolean, default: false },
