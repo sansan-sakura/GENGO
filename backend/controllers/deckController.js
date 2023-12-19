@@ -2,7 +2,6 @@ const Deck = require("../models/deckModel");
 const User = require("../models/userModel");
 
 const catchAsync = require("../utils/catchAsync");
-const checkUser = require("../utils/checkUser");
 
 const AppError = require("../utils/appError");
 const APIFeatures = require("../utils/apiFeature");

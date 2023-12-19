@@ -1,7 +1,7 @@
 const Category = require("../models/categoryModel");
 
 const catchAsync = require("../utils/catchAsync");
-const checkUser = require("../utils/checkUser");
+
 const User = require("../models/userModel");
 
 const AppError = require("../utils/appError");

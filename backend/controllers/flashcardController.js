@@ -1,7 +1,7 @@
 const Flashcard = require("../models/flashcardModel");
 
 const catchAsync = require("../utils/catchAsync");
-const checkUser = require("../utils/checkUser");
+
 const User = require("../models/userModel");
 
 const AppError = require("../utils/appError");
