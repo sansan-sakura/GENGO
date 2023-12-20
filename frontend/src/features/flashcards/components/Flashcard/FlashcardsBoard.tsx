@@ -83,14 +83,14 @@ export const FlashcardsBoard = () => {
       )}
       <ContentFrame>
         <div className="w-full">
-          <div className="flex justify-around w-[90%] mx-auto  bg-gray-50  mb-10 rounded border-2 p-6">
-            <div className="flex flex-col gap-6">
+          <div className="flex justify-around w-fit mx-auto p-3 gap-2  bg-gray-50  lg:mb-10 sm:p-6 sm:gap-3  rounded border-2">
+            <div className="flex flex-col gap-2 sm:gap-6">
               <div className="flex flex-col gap-2">
-                <label>Status</label>
+                <label className="text-xs sm:text-base md:text-lg">Status</label>
                 <select
                   value={queryStatus}
                   onChange={(e) => handleSetQuery(e, "status")}
-                  className="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56"
+                  className="text-xs h-8 sm:h-10 w-full rounded-full border-none bg-white pe-10 ps-4 sm:text-sm shadow-sm sm:w-56"
                 >
                   <option disabled>status</option>
                   <option value="true">Done</option>
@@ -98,11 +98,11 @@ export const FlashcardsBoard = () => {
                 </select>
               </div>
               <div className="flex flex-col gap-2">
-                <label>Created Date</label>
+                <label className="text-xs sm:text-base md:text-lg">Created Date</label>
                 <select
                   value={queryCreatedAt}
                   onChange={(e) => handleSetQuery(e, "createdAt")}
-                  className="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56"
+                  className="text-xs h-8 sm:h-10 w-full rounded-full border-none bg-white pe-10 ps-4 sm:text-sm shadow-sm sm:w-56"
                 >
                   <option disabled>Created Date</option>
                   <option value="-createdAt">Newer</option>
@@ -110,10 +110,11 @@ export const FlashcardsBoard = () => {
                 </select>
               </div>
             </div>
+
             <div className="flex flex-col justify-between">
               <div className="flex flex-col gap-2">
                 <div className="flex justify-start gap-2">
-                  <label>Catergory</label>
+                  <label className="text-xs sm:text-base md:text-lg">Catergory</label>
                   <EditBtn
                     handleEdit={() => {
                       setIsModalOpen(true);
@@ -124,7 +125,7 @@ export const FlashcardsBoard = () => {
                 <SelectCategory />
               </div>
               <button
-                className="button"
+                className="button mt-4 sm:mt-0"
                 onClick={() => {
                   setIsModalOpen(true);
                   setModalID("create_deck");

@@ -9,7 +9,9 @@ export const About = () => {
       <div>
         <ContentFrame>
           <Hanko />
-          <div className=" mt-8">{text.en.text}</div>
+          <div className="mt-6 sm:mt-8 text-sm leading-6 sm:text-base sm:leading-7">
+            {text.en.text}
+          </div>
           <div className="flex justify-end w-full">
             <Hanko src="/sakura.webp" size="sm" />
           </div>

@@ -1,5 +1,5 @@
 const Deck = require("../models/deckModel");
-const { User } = require("../models/userModel");
+const User = require("../models/userModel");
 
 const catchAsync = require("../utils/catchAsync");
 
