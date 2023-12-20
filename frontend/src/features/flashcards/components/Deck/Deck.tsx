@@ -7,6 +7,8 @@ import { Error } from "../../../../ui/Error";
 import { AddBtn } from "../../../../ui/AddBtn";
 import { Modal } from "../../../../ui/Modal";
 import { CreateFlashCardModal } from "../Flashcard/CreateFlashCardModal";
+import { Spinner } from "../../../../ui/Spinner";
+import { useChooseCategoryColor } from "../../hooks/category/useChooseCategoryColor";
 
 export const Deck = () => {
   const [isStarted, setIsStarted] = useState(false);
@@ -15,10 +17,13 @@ export const Deck = () => {
 
   const { id } = useParams();
   const { isLoading, deck, error } = useDeck(id);
-
-  if (isLoading) return <p>loading</p>;
+  console.log(deck);
+  const categoryBgColor = useChooseCategoryColor(deck?.data?.deck?.category?.category);
+  console.log(categoryBgColor, "deck");
+  if (isLoading) return <Spinner />;
   if (error) return <Error />;
   const currentDeck = deck.data.deck;
+  console.log(currentDeck);
 
   return (
     <>
@@ -51,7 +56,11 @@ export const Deck = () => {
       <div className="w-full flex items-center justify-between px-6">
         <div className="grid w-fit my-4 sm:my-10 border justify-items-center items-center border-stone-300 rounded-lg py-1 px-1">
           {currentDeck?.category?.category ? (
-            <p className={`bg-green-light py-1 px-2 rounded`}>{currentDeck?.category?.category}</p>
+            <p
+              className={`bg-${categoryBgColor ? categoryBgColor : "red-light"} py-1 px-2 rounded`}
+            >
+              {currentDeck?.category?.category}
+            </p>
           ) : (
             ""
           )}

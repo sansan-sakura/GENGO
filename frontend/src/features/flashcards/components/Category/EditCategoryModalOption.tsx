@@ -19,13 +19,17 @@ export const EditCategoryModalOption = ({ cate }: { cate: CategoryType }) => {
       <Toaster />
       {isSubOpen && (
         <SubModal
-          content={<InputSubModalField id={cate._id} onClose={setIsSubOpen} />}
+          content={
+            <InputSubModalField id={cate._id} onClose={setIsSubOpen} defaultValue={cate.category} />
+          }
           setIsSubOpen={setIsSubOpen}
         />
       )}
       <div className="flex justify-between items-center text-xl gap-3 p-2 mb-2">
-        <p key={cate._id}>{cate.category}</p>
-        <div className="flex items-center">
+        <p key={cate._id} className="text-base sm:text-lg">
+          {cate.category}
+        </p>
+        <div className="flex items-center gap-2">
           <EditBtn handleEdit={() => setIsSubOpen(true)} />
           <DeleteBtn handleDelete={handledelete} />
         </div>

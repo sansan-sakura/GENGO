@@ -18,8 +18,8 @@ export const EditCategoryInputField = ({ categories }: { categories: CategoryTyp
           setIsSubOpen={setIsSubOpen}
         />
       )}
-      <div className="bg-white p-10  text-center">
-        <h3 className=" text-green-dark text-2xl font-bold">Edit Category</h3>
+      <div className="bg-white p-4 sm:p-10  text-center">
+        <h3 className=" text-red-dark text-lg sm:text-2xl font-semibold">Category Setting</h3>
         <div className="mt-4">
           {categories.map((cate) => (
             <EditCategoryModalOption cate={cate} key={cate._id} />

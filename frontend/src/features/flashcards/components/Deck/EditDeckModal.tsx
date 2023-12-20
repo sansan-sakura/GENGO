@@ -31,7 +31,7 @@ export const EditDeckModal = ({ id, title, category }: Props) => {
       <label htmlFor="category" className="text-base sm:text-lg font-semibold">
         category
       </label>
-      <SelectCategory currentCategory={category} />
+      <SelectCategory currentCategory={category} key="editDeck" />
       <label htmlFor="title" className="text-base sm:text-lg font-semibold mt-3 sm:mt-6">
         title
       </label>

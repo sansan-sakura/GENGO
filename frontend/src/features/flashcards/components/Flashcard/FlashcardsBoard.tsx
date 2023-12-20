@@ -122,7 +122,7 @@ export const FlashcardsBoard = () => {
                     }}
                   />
                 </div>
-                <SelectCategory />
+                <SelectCategory key="searchBoard" type="search" />
               </div>
               <button
                 className="button mt-4 sm:mt-0"

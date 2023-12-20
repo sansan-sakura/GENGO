@@ -45,6 +45,6 @@ const colors = [
 export const chooseColors = (category: Array<CategoryType>) => {
   return category.map((item, i) => ({
     category: item,
-    color: colors.length > i ? colors[i] : colors[i - category.length],
+    color: colors.length > i ? colors[i] : colors[i - category.length - 1],
   }));
 };
