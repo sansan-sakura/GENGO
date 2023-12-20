@@ -2,7 +2,7 @@ import { CategoryLabel } from "../Category/CategoryLabel";
 import { DeckType } from "../../../../types/flashcardTypes";
 import { Link } from "react-router-dom";
 import { EditBtn } from "../../../../ui/EditBtn";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Modal } from "../../../../ui/Modal";
 import { EditDeckModal } from "./EditDeckModal";
 import { DeleteBtn } from "../../../../ui/DeleteBtn";
@@ -10,6 +10,8 @@ import { useDeleteDeck } from "../../hooks/deck/useDeleteDeck";
 import { Toaster } from "react-hot-toast";
 import { CheckButton } from "../../../../ui/CheckButton";
 import { useEditDeck } from "../../hooks/deck/useEditDeck";
+import { categoryColorsState } from "../../../../states/atoms/flashcardAtoms";
+import { useRecoilValue } from "recoil";
 
 const bgColors = [
   "bg-red-light",
@@ -23,6 +25,14 @@ const bgColors = [
 export const Card = ({ card, index }: { card: DeckType; index: number }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { deleteDeck } = useDeleteDeck();
+  const categoryColors = useRecoilValue(categoryColorsState);
+
+  const categoryBgColor = useMemo(() => {
+    if (!card.category) return;
+    const cardCategory = card.category.category;
+    const selectedColor = categoryColors.find((item) => item.category.category === cardCategory);
+    return selectedColor.color;
+  }, [categoryColors, card.category]);
 
   const handelDeleteDeck = () => {
     if (card._id === undefined) return;
@@ -36,7 +46,6 @@ export const Card = ({ card, index }: { card: DeckType; index: number }) => {
   const handleChecked = () => {
     const id = card._id;
     if (id === undefined) return;
-
     const newData = { isChecked: !card.isChecked };
     editDeck({ id, newData });
   };
@@ -73,7 +82,7 @@ export const Card = ({ card, index }: { card: DeckType; index: number }) => {
         <div className="relative h-full transform border-2 border-black bg-white  rounded-lg transition-transform group-hover:-translate-x-2 group-hover:-translate-y-2">
           <div className="p-2 transition-opacity sm:p-6 lg:p-4 h-full flex flex-col justify-between">
             {card.category ? (
-              <CategoryLabel category={card?.category?.category} bgColor="" />
+              <CategoryLabel category={card?.category?.category} bgColor={categoryBgColor} />
             ) : (
               <p></p>
             )}
