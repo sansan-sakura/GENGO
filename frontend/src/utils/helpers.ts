@@ -1,3 +1,5 @@
+import { CategoryType } from "../types/flashcardTypes";
+
 export const getDate = () => {
   const now = new Date();
   const today = now.toLocaleDateString("en", {
@@ -29,4 +31,20 @@ export const showTime = () => {
   min = min < 10 ? "0" + min : min;
 
   return hour + ":" + min + ampm;
+};
+
+const colors = [
+  "red-light",
+  "blue-light",
+  "green-default",
+  "yellow-light",
+  "red-default",
+  "sky-default",
+];
+
+export const chooseColors = (category: Array<CategoryType>) => {
+  return category.map((item, i) => ({
+    category: item,
+    color: colors.length > i ? colors[i] : colors[i - category.length],
+  }));
 };
