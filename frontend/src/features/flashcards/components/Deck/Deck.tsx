@@ -17,13 +17,12 @@ export const Deck = () => {
 
   const { id } = useParams();
   const { isLoading, deck, error } = useDeck(id);
-  console.log(deck);
+
   const categoryBgColor = useChooseCategoryColor(deck?.data?.deck?.category?.category);
-  console.log(categoryBgColor, "deck");
+
   if (isLoading) return <Spinner />;
   if (error) return <Error />;
   const currentDeck = deck.data.deck;
-  console.log(currentDeck);
 
   return (
     <>
@@ -57,7 +56,9 @@ export const Deck = () => {
         <div className="grid w-fit my-4 sm:my-10 border justify-items-center items-center border-stone-300 rounded-lg py-1 px-1">
           {currentDeck?.category?.category ? (
             <p
-              className={`bg-${categoryBgColor ? categoryBgColor : "red-light"} py-1 px-2 rounded`}
+              className={`bg-${
+                categoryBgColor?.color ? categoryBgColor.color : "red-light"
+              } py-1 px-2 rounded`}
             >
               {currentDeck?.category?.category}
             </p>
