@@ -1,6 +1,5 @@
-import { atom, selector } from "recoil";
+import { atom } from "recoil";
 import { CardType, DeckType } from "../../types/flashcardTypes";
-import { chooseColors } from "../../utils/helpers";
 
 export const allDecksPerPageState = atom<DeckType[] | []>({
   key: "DeckPerPage",
@@ -45,14 +44,4 @@ export const currentFlashCardsState = atom<CardType[] | []>({
 export const categoriesState = atom({
   key: "categories",
   default: [],
-});
-
-export const categoryColorsState = selector({
-  key: "categoryColors",
-  get: ({ get }) => {
-    const category = get(categoriesState);
-    const colors = chooseColors(category);
-    console.log(colors);
-    return chooseColors(category);
-  },
 });
