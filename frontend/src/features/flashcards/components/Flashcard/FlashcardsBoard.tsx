@@ -83,7 +83,7 @@ export const FlashcardsBoard = () => {
       )}
       <ContentFrame>
         <div className="w-full">
-          <div className="flex justify-around w-fit mx-auto p-3 gap-2  bg-gray-50  lg:mb-10 sm:p-6 sm:gap-3  rounded border-2">
+          <div className="flex justify-around w-fit mx-auto p-3 gap-2  bg-gray-50 mb-6 md:mb-10 sm:p-6 sm:gap-3  rounded border-2">
             <div className="flex flex-col gap-2 sm:gap-6">
               <div className="flex flex-col gap-2">
                 <label className="text-xs sm:text-base md:text-lg">Status</label>
@@ -135,11 +135,11 @@ export const FlashcardsBoard = () => {
               </button>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-8 justify-items-center">
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-8 justify-items-center">
             {decksWithQueries.length !== 0 ? (
               decksWithQueries?.map((card, i) => <Card card={card} key={i} index={i} />)
             ) : (
-              <p>NOT AVAILABLE 🎭</p>
+              <p className="pt-6 text-sm sm:text-base">NOT AVAILABLE 🎭</p>
             )}
           </div>
           <div className="w-full flex justify-center pt-8">

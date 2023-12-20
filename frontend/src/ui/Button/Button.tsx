@@ -11,7 +11,7 @@ export const Button = ({
   type: string;
   path: string;
 }) => {
-  const style = `bg-${color}-default font-display text-white text-2xl md:text-3xl rounded-full px-4 md:px-5 py-1 transition font-semibold shadow-md  hover:translate-y-1`;
+  const style = `bg-${color}-default font-display text-white sm:text-2xl md:text-3xl rounded-full px-2 sm:px-4 md:px-5 py-1 transition font-semibold shadow-md  hover:translate-y-1`;
 
   if (type === "link")
     return (

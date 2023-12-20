@@ -40,9 +40,9 @@ export const Pagination = () => {
     <div className="inline-flex justify-center gap-1">
       <button
         type="button"
-        aria-label="go to Prev Page"
+        aria-label="go to previous page"
         onClick={handleClickLeft}
-        className="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
+        className="inline-flex h-6 w-6 sm:h-8 sm:w-8  items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +63,7 @@ export const Pagination = () => {
           Page
         </label>
         <div
-          className="h-8 w-12 rounded border border-gray-100 bg-white p-0 text-center text-xs font-medium text-gray-900 flex items-center justify-center"
+          className="h-6 w-10 sm:h-8 sm:w-12 rounded border border-gray-100 bg-white p-0 text-center text-xs font-medium text-gray-900 flex items-center justify-center"
           id="PaginationPage"
         >
           <p>{currentPage}</p>
@@ -72,9 +72,9 @@ export const Pagination = () => {
 
       <button
         type="button"
-        aria-label="go to next Page"
+        aria-label="go to next page"
         onClick={handleClickRight}
-        className="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
+        className="inline-flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

@@ -20,7 +20,7 @@ export const Label = ({
     <button
       value={label}
       onClick={handleClick}
-      className={`${bg} text-white py-1.5 px-3 rounded hover:brightness-90 transition-all hover:translate-y-1 text-lg`}
+      className={`${bg} text-white px-2 py-1.5 sm:px-3 rounded hover:brightness-90 transition-all hover:translate-y-1 text-xs sm:text-lg`}
     >
       {label}
     </button>
