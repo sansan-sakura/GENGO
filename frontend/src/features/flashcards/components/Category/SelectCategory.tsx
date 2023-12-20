@@ -17,7 +17,7 @@ export const SelectCategory = ({ currentCategory }: { currentCategory?: string }
         setSearchQueryCategory(e.target.value);
         setCurrentValue(e.target.value);
       }}
-      className="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56"
+      className="text-xs h-8  sm:h-10 w-full rounded-full border-none bg-white pe-10 ps-4 sm:text-sm shadow-sm sm:w-56"
     >
       <option disabled>Choose catgory</option>
       <option value="all">All</option>

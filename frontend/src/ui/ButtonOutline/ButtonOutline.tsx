@@ -32,12 +32,12 @@ function ButtonInnerEl({ name, bg }: { name: string; bg: string }) {
   return (
     <>
       <span
-        className={`absolute inset-0 border-2 border-dashed border-black  rounded-md ${bg}`}
+        className={`absolute inset-0 border-2 border-dashed border-black rounded-md hidden sm:inline ${bg}`}
       ></span>
 
-      <div className="relative h-full flex justify-center items-center  rounded-md transform border-2 border-black bg-white transition-transform group-hover:-translate-x-2 group-hover:-translate-y-2">
-        <div className="p-2 transition-opacity group-hover:absolute  sm:p-2 ">
-          <p className=" text-[22px] font-medium text-center">{name}</p>
+      <div className="relative sm:h-full flex justify-center items-center  rounded-md transform border-2 border-black bg-white transition-transform group-hover:-translate-y-1 sm:group-hover:-translate-x-2 sm:group-hover:-translate-y-2">
+        <div className="p-1.5 transition-opacity sm:group-hover:absolute lg:p-2 ">
+          <p className="text-sm sm:text-lg lg:text-[22px] font-medium text-center">{name}</p>
         </div>
       </div>
     </>

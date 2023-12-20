@@ -23,14 +23,14 @@ export const Deck = () => {
   return (
     <>
       <ContentFrame>
-        <div className="pt-3 px-4 flex flex-col justify-between min-w-[700px] min-h-[450px]">
+        <div className="pt-3 px-4 flex flex-col justify-between w-full min-h-[300px] md:min-w-[700px] md:min-h-[450px] max-w-[600px]">
           {!isStarted ? (
             <>
               <h3 className="text-3xl font-semibold text-center mt-10">{currentDeck.title}</h3>
 
               <button
                 onClick={() => setIsStarted(true)}
-                className="button mx-auto py-2 px-10 bg-green-dark font-semibold text-white text-lg"
+                className="button mx-auto py-1 px-6 sm:py-2 sm:px-10 bg-green-dark font-semibold text-white text-lg"
               >
                 Start
               </button>
@@ -48,9 +48,14 @@ export const Deck = () => {
       </ContentFrame>
 
       {/* Flashcard editing bar */}
-      <div className="w-full flex items-center justify-between">
-        <div className="grid grid-cols-[1fr_2fr] w-fit my-10 border justify-items-center items-center border-stone-300 rounded-lg py-1 px-1">
-          <p className={`bg-green-light py-1 px-2 rounded`}>{currentDeck?.category?.category}</p>
+      <div className="w-full flex items-center justify-between px-6">
+        <div className="grid w-fit my-4 sm:my-10 border justify-items-center items-center border-stone-300 rounded-lg py-1 px-1">
+          {currentDeck?.category?.category ? (
+            <p className={`bg-green-light py-1 px-2 rounded`}>{currentDeck?.category?.category}</p>
+          ) : (
+            ""
+          )}
+
           <div className="py-4 px-3 text-xs">
             <p>Finished: {currentDeck.isDone ? "Finished" : "Not Yet"}</p>
             <p>Created: {currentDeck.createdAt?.split("T")[0]}</p>
@@ -58,10 +63,10 @@ export const Deck = () => {
           </div>
         </div>
         <div className="grid justify-items-center gap-2">
-          <div className="bg-yellow-default text-white w-12 h-12 rounded-full flex items-center justify-center transition ease duration-100 hover:brightness-95">
-            <AddBtn handleEdit={() => setIsModalOpen(true)} color="#fff" size="30px" />
+          <div className="bg-yellow-default text-white w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition ease duration-100 hover:brightness-95">
+            <AddBtn handleEdit={() => setIsModalOpen(true)} color="#fff" size="28px" />
           </div>
-          <span className="text-[10px]">new Flashcard</span>
+          <span className="text-[8px] sm:text-[10px]">new Flashcard</span>
         </div>
       </div>
       {isModalOpen && (

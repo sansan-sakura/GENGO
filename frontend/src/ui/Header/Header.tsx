@@ -22,23 +22,25 @@ export const Header = () => {
 
   return (
     <header className="bg-gray-50">
-      <div className="mx-8 max-w-[1200px] py-8 flex justify-center items-center">
-        <div className="flex items-center justify-between gap-12 max-w-[1200px] w-full">
-          <div className="flex items-center gap-10">
-            <div className="flex flex-col bg-white p-2  font-bold items-center rounded-lg text-gray-600 shadow-sm ">
+      <div className="mx-4 sm:mx-8 max-w-[1200px] py-6 sm:py-8 flex justify-center items-center">
+        <div className="flex items-center justify-end sm:justify-between gap-12 max-w-[1200px] w-full">
+          <div className="items-center  gap-4 md:gap-10 hidden sm:flex">
+            <div className="text-xs flex flex-col bg-white p-1.5 sm:p-2  font-bold items-center rounded-lg text-gray-600 shadow-sm ">
               <span>{date}</span>
               <span>{time}</span>
             </div>
-            <h2 className="text-[40px] font-bold  text-red-dark font-display">{weekDay}</h2>
+            <h2 className="text-3xl md:text-[40px] font-bold  text-red-dark font-display">
+              {weekDay}
+            </h2>
           </div>
           <div className="flex items-center justify-end gap-4">
             <div className="flex items-center gap-4">
               <SearchInput />
             </div>
 
-            <span className="shrink-0 bg-red-dark w-10 h-10 rounded-full flex items-center justify-center text-white ">
+            <span className="shrink-0 bg-red-dark w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white ">
               <span className="sr-only">Profile</span>
-              <p>{currentUser?.name[0]?.toUpperCase()}</p>
+              <p className="text-sm sm:text-2xl">{currentUser?.name[0]?.toUpperCase()}</p>
             </span>
           </div>
         </div>

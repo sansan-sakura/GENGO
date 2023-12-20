@@ -1,7 +1,7 @@
 const AppError = require("../utils/appError");
 
 const mongoose = require("mongoose");
-const { User } = require("./userModel");
+const User = require("./userModel");
 
 const categorySchema = new mongoose.Schema({
   category: {
