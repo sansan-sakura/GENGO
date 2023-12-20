@@ -33,13 +33,12 @@ export const CreateDeckInputField = () => {
             className="h-8 text-sm sm:h-10 w-full rounded-full border-none bg-white pe-10 ps-4 sm:text-lg shadow-sm sm:w-56"
             type="text"
             disabled={isCreating}
-            placeholder="
-      Title..."
+            placeholder="Title..."
           />
         </div>
         <div className="grid gap-2 sm:gap-4 ">
           <h3 className="ml-2 text-sm sm:text-lg">Choose Category</h3>
-          <SelectCategory />
+          <SelectCategory key="createDeck" />
         </div>
         <button className="button mx-auto" onClick={handleSubmit}>
           Create

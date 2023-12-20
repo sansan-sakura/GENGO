@@ -12,6 +12,7 @@ import { CheckButton } from "../../../../ui/CheckButton";
 import { useEditDeck } from "../../hooks/deck/useEditDeck";
 import { categoryColorsState } from "../../../../states/atoms/flashcardAtoms";
 import { useRecoilValue } from "recoil";
+import { useChooseCategoryColor } from "../../hooks/category/useChooseCategoryColor";
 
 const bgColors = [
   "bg-red-light",
@@ -25,14 +26,10 @@ const bgColors = [
 export const Card = ({ card, index }: { card: DeckType; index: number }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { deleteDeck } = useDeleteDeck();
-  const categoryColors = useRecoilValue(categoryColorsState);
 
-  const categoryBgColor = useMemo(() => {
-    if (!card.category) return;
-    const cardCategory = card.category.category;
-    const selectedColor = categoryColors.find((item) => item.category.category === cardCategory);
-    return selectedColor.color;
-  }, [categoryColors, card.category]);
+  const cardCategory = card?.category?.category;
+
+  const categoryBgColor = useChooseCategoryColor(cardCategory);
 
   const handelDeleteDeck = () => {
     if (card._id === undefined) return;
