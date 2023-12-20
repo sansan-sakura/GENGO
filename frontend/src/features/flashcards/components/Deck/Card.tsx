@@ -8,6 +8,8 @@ import { EditDeckModal } from "./EditDeckModal";
 import { DeleteBtn } from "../../../../ui/DeleteBtn";
 import { useDeleteDeck } from "../../hooks/deck/useDeleteDeck";
 import { Toaster } from "react-hot-toast";
+import { CheckButton } from "../../../../ui/CheckButton";
+import { useEditDeck } from "../../hooks/deck/useEditDeck";
 
 const bgColors = [
   "bg-red-light",
@@ -29,14 +31,36 @@ export const Card = ({ card, index }: { card: DeckType; index: number }) => {
     deleteDeck(card._id);
   };
 
+  const { editDeck } = useEditDeck();
+
+  const handleChecked = () => {
+    const id = card._id;
+    if (id === undefined) return;
+
+    const newData = { isChecked: !card.isChecked };
+    editDeck({ id, newData });
+  };
+
   return (
     <div className="relative">
       <Toaster />
-      <div className="bg-yellow-default text-white w-5 h-10 transition ease duration-100 hover:brightness-95 absolute top-5 -right-5 z=10 flex justify-center items-center rounded-tr-md rounded-br-md">
+      <div className="bg-yellow-default text-white w-5 h-10 transition ease duration-100 hover:brightness-95 absolute top-5 -right-5 z-10 flex justify-center items-center rounded-tr-md rounded-br-md">
         <EditBtn handleEdit={() => setIsModalOpen(true)} color="#fff" size="16px" />
       </div>
-      <div className="bg-red-default text-white w-5 h-10 transition ease duration-100 hover:brightness-95 absolute bottom-16 -right-5 z=10 flex justify-center items-center rounded-tr-md rounded-br-md">
+      <div className="bg-red-default text-white w-5 h-10 transition ease duration-100 hover:brightness-95 absolute bottom-[70px] -right-5 z-10 flex justify-center items-center rounded-tr-md rounded-br-md">
         <DeleteBtn handleDelete={handelDeleteDeck} color="#fff" size="16px" />
+      </div>
+      <div
+        className={`${
+          card.isChecked ? "bg-blue-dark" : "bg-blue-light"
+        } text-white w-5 h-10 transition ease duration-100 hover:brightness-95 absolute bottom-5 -right-5 z-10 flex justify-center items-center rounded-tr-md rounded-br-md`}
+      >
+        <CheckButton
+          handleCheck={handleChecked}
+          color="#fff"
+          size="16px"
+          isChecked={card.isChecked}
+        />
       </div>
       <Link
         to={`/deck/${card._id}`}

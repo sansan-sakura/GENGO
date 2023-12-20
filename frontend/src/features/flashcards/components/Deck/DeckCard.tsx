@@ -8,6 +8,7 @@ import { useDeleteFlashcard } from "../../hooks/flashcard/useDeleteFlashcard";
 import { Toaster } from "react-hot-toast";
 import { CardType } from "../../../../types/flashcardTypes";
 import { Spinner } from "../../../../ui/Spinner";
+
 const labels = ["very hard", "hard", "okay", "easy"];
 const labelsColors = ["bg-red-dark", "bg-blue-dark", "bg-green-dark", "bg-yellow-default"];
 
@@ -88,7 +89,6 @@ export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
           </div>
         </div>
         {isChecked ? (
-          // <div className="flex flex-col items-center justify-center w-fit">
           <div className="flex flex-wrap gap-1 justify-end w-40 sm:w-full sm:gap-4">
             {labels.map((label, i) => (
               <Label
@@ -101,7 +101,6 @@ export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
             ))}
           </div>
         ) : (
-          // </div>
           <button
             onClick={() => setIsChecked(true)}
             className="button ml-auto  py-0.5 sm:py-1 px-4 sm:px-6 bg-blue-default font-semibold text-white text-base sm:text-lg"

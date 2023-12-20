@@ -7,6 +7,7 @@ const deckSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
     isDone: { type: Boolean, default: false },
+    isChecked: { type: Boolean, default: false },
     category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" }, //user can edit
     reviewed_date: { type: [Date], default: undefined },
     last_reviewed_date: { type: Date, required: true, default: Date.now },
