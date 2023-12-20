@@ -14,6 +14,7 @@ export type DeckType = {
   _id?: string;
   createdAt: string;
   title: string;
+  isChecked?: boolean;
   cards?: Array<CardType>;
   isDone?: boolean;
   category: CategoryType;
@@ -22,8 +23,9 @@ export type DeckType = {
 };
 
 export type NewDeckType = {
-  title: string;
-  category: string;
+  title?: string;
+  category?: string;
+  isChecked?: boolean;
 };
 
 export type CategoryType = {
