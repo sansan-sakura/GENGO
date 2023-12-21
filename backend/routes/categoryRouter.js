@@ -10,8 +10,8 @@ router
   .post(authentificateUser, categoryController.createCategory);
 router
   .route("/:id")
-  .get(categoryController.getCategory)
-  .delete(categoryController.deleteCategory)
-  .put(categoryController.updateCategory);
+  .get(authentificateUser, categoryController.getCategory)
+  .delete(authentificateUser, categoryController.deleteCategory)
+  .put(authentificateUser, categoryController.updateCategory);
 
 module.exports = router;

@@ -4,7 +4,6 @@ import { findToken } from "../utils/apiHelpers";
 
 export async function getCategories() {
   const accessToken = findToken();
-
   if (!accessToken) return alert("Please check in first");
   try {
     const res = await fetch(CATEGORY_URL, {
@@ -15,18 +14,18 @@ export async function getCategories() {
       },
     });
     const data = await res.json();
-    console.log(data);
-    if (!data) return console.error("something went wrong with category fetching 💥");
+    if (data.status === "fail" || data.status === "error") {
+      alert(data.message);
+      throw new Error(data.message);
+    }
     return data;
   } catch (err) {
     console.log(err);
-    throw new Error("Couldn't get categories");
   }
 }
 
 export async function createCategory(body: NewCategory) {
   const accessToken = findToken();
-
   if (!accessToken) return alert("Please check in first");
   try {
     const res = await fetch(CATEGORY_URL, {
@@ -34,12 +33,11 @@ export async function createCategory(body: NewCategory) {
       headers: { Authorization: accessToken, "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
-
     const data = await res.json();
-    if (!data) return console.error("something went wrong with a category creating 💥");
+    if (data.status !== "success") throw new Error(data.message);
     return data;
   } catch (err) {
-    throw new Error("Couldn't create a category");
+    throw new Error(err.message);
   }
 }
 
@@ -52,10 +50,11 @@ export async function deleteCategory(id: number | string) {
       headers: { Authorization: accessToken },
     });
     const data = await res.json();
-    if (!data) return console.error("something went wrong with a category deleting💥");
+    if (data.status !== "success") throw new Error(data.message);
+    console.log(data);
     return data;
   } catch (err) {
-    throw new Error("Couldn't delete a category");
+    throw new Error(err.message);
   }
 }
 
@@ -70,9 +69,9 @@ export async function updateCategory(id: number | string, body: { category: stri
     });
 
     const data = await res.json();
-    if (!data) return console.error("something went wrong with a category updating 💥");
+    if (data.status !== "success") throw new Error(data.message);
     return data;
   } catch (err) {
-    throw new Error("Couldn't update a category");
+    throw new Error(err.message);
   }
 }

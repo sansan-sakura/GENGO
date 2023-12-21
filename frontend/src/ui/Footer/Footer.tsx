@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Hanko } from "../Hanko";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { currentUserState } from "../../states/atoms/userAtoms";
 
 export const Footer = () => {
-  const setUser = useSetRecoilState(currentUserState);
+  const [currentUser, setUser] = useRecoilState(currentUserState);
   const navigate = useNavigate();
   const handleLogOut = () => {
     localStorage.removeItem("userName");
@@ -12,24 +12,26 @@ export const Footer = () => {
     setUser({ name: "", login: false });
     navigate("/");
   };
+
   return (
     <footer className="bg-gray-50 px-8 py-4">
       <div className="flex gap-6 text-sm mb-14">
         <Link to="/about">
-          <p className="transition border-b-4 border-b-gray-50 duration-200 hover:border-b-red-light text-sm sm:text-lg">
+          <p className="transition border-b-4 border-b-gray-50 duration-200 hover:border-b-red-light text-sm sm:text-base">
             About
           </p>
         </Link>
         <Link to="/contact">
-          <p className="transition border-b-gray-50 duration-200 border-b-4 hover:border-b-yellow-light text-sm sm:text-lg">
+          <p className="transition border-b-gray-50 duration-200 border-b-4 hover:border-b-yellow-light text-sm sm:text-base">
             Contect
           </p>
         </Link>
+
         <button
-          onClick={handleLogOut}
-          className="transition border-b-gray-50 duration-200 border-b-4 hover:border-b-sky-default block text-sm sm:text-lg"
+          onClick={currentUser.login ? handleLogOut : () => navigate("/login")}
+          className="transition border-b-gray-50 duration-200 border-b-4 hover:border-b-sky-default block text-sm sm:text-base"
         >
-          Log out
+          {currentUser.login ? "Log out" : "Log in"}
         </button>
       </div>
       <div className="flex  items-end justify-end gap-5">

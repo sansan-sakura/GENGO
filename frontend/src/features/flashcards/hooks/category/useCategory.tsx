@@ -6,7 +6,6 @@ export function useCategory() {
     queryKey: ["category"],
     queryFn: getCategories,
   });
-
   const categories = data?.data?.categories as CategoryType[];
   return { isPending, categories, error };
 }

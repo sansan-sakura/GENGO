@@ -18,7 +18,8 @@ export const createUser = async (formData: CreateUser) => {
       alert("Created a new User");
       return data;
     } else {
-      return data;
+      console.log(data);
+      throw new Error(data.message);
     }
   } catch (err) {
     console.error(err);
@@ -36,14 +37,13 @@ export const loginUser = async (formData: LoginBody) => {
       body: JSON.stringify({ email: formData.email, password: formData.password }),
     });
     const data = await res.json();
-    console.log(data);
 
     if (res.status === 200) {
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("userName", data.name);
       return data;
     } else {
-      return data;
+      throw new Error(data.message);
     }
   } catch (err) {
     console.error(err);

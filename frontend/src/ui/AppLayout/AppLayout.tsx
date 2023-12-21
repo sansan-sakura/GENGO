@@ -1,10 +1,23 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Aside } from "../Aside/Aside";
 import { BreadCrumble } from "../BreadCrumble";
 import { Footer } from "../Footer";
 import { Header } from "../Header";
 
+import { useSetRecoilState } from "recoil";
+import { currentUserState } from "../../states/atoms/userAtoms";
+import { useEffect } from "react";
+
 export const AppLayout = () => {
+  const navigate = useNavigate();
+  const setCurrentUser = useSetRecoilState(currentUserState);
+  useEffect(() => {
+    const user = localStorage.getItem("userName");
+    if (user) setCurrentUser({ name: user, login: true });
+    else {
+      navigate("/login");
+    }
+  }, []);
   return (
     <>
       <div className="lg:grid lg:grid-cols-8   lg:gap-0 min-h-screen h-screen min-w-screen">

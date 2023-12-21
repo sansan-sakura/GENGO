@@ -5,6 +5,7 @@ import { RecoilRoot } from "recoil";
 import App from "./App.tsx";
 import "./styles/index.css";
 import "./styles/reset.css";
+import ErrorBoundary from "./ui/ErrorBoundary/index.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,10 +17,12 @@ const queryClient = new QueryClient({
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RecoilRoot>
-        <App />
-      </RecoilRoot>
-    </QueryClientProvider>
+    <ErrorBoundary fallback={<p>There was an error</p>}>
+      <QueryClientProvider client={queryClient}>
+        <RecoilRoot>
+          <App />
+        </RecoilRoot>
+      </QueryClientProvider>
+    </ErrorBoundary>
   </React.StrictMode>
 );

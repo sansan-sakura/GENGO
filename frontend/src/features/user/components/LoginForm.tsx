@@ -16,13 +16,10 @@ export const LoginForm = () => {
     setError(false);
     const formData = new FormData(event?.currentTarget);
     const formJson = Object.fromEntries((formData as any).entries());
-    console.log(formData, formJson);
-
     const loginData = {
       email: formJson.email,
       password: formJson.password,
     };
-
     const logined = await loginUser(loginData);
 
     if (logined.notFound || logined.err) {
