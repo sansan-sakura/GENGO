@@ -8,6 +8,6 @@ module.exports = catchAsync(async (req, res, next) => {
     req.body.name = user;
     next();
   } else {
-    return new AppError("Please log in first", 401);
+    return next(new AppError("Please log in first", 401));
   }
 });

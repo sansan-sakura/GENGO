@@ -1,27 +1,19 @@
+import { useState } from "react";
+import { Toaster } from "react-hot-toast";
+import { Link } from "react-router-dom";
+
 import { CategoryLabel } from "../Category/CategoryLabel";
 import { DeckType } from "../../../../types/flashcardTypes";
-import { Link } from "react-router-dom";
 import { EditBtn } from "../../../../ui/EditBtn";
-import { useMemo, useState } from "react";
 import { Modal } from "../../../../ui/Modal";
 import { EditDeckModal } from "./EditDeckModal";
 import { DeleteBtn } from "../../../../ui/DeleteBtn";
 import { useDeleteDeck } from "../../hooks/deck/useDeleteDeck";
-import { Toaster } from "react-hot-toast";
 import { CheckButton } from "../../../../ui/CheckButton";
 import { useEditDeck } from "../../hooks/deck/useEditDeck";
-import { categoryColorsState } from "../../../../states/atoms/flashcardAtoms";
-import { useRecoilValue } from "recoil";
 import { useChooseCategoryColor } from "../../hooks/category/useChooseCategoryColor";
 
-const bgColors = [
-  "bg-red-light",
-  "bg-yellow-light",
-  "bg-green-dark",
-  "bg-blue-light",
-  "bg-blue-default",
-  "bg-green-light",
-];
+import { bgColors } from "../../../../statics/colors";
 
 export const Card = ({ card, index }: { card: DeckType; index: number }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -1,10 +1,9 @@
-import { CategoryType } from "../../../../types/flashcardTypes";
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
+
+import { CategoryType } from "../../../../types/flashcardTypes";
 import { SubModal } from "../../../../ui/SubModal";
-
 import { EditCategoryModalOption } from "./EditCategoryModalOption";
-
 import { InputSubModalField } from "./InputSubModalField";
 
 export const EditCategoryInputField = ({ categories }: { categories: CategoryType[] }) => {

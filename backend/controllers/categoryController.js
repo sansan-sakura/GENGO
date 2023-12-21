@@ -26,7 +26,6 @@ exports.createCategory = catchAsync(async (req, res, next) => {
   const userStorage = await User.findOne({ accessToken: accessToken });
   if (!userStorage)
     return res.status(400).json({ status: false, message: "There is no user with the ID" });
-
   const { category } = req.body;
   const newCategory = await Category.create({ category: category, user: userStorage });
   res.status(201).json({

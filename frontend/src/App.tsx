@@ -12,9 +12,6 @@ import { Contact } from "./pages/Contact";
 import { SignUp } from "./pages/SignUp";
 import { Login } from "./pages/Login";
 import { LoginSignUpLayout } from "./ui/LoginSignUpLayout";
-import { useSetRecoilState } from "recoil";
-import { currentUserState } from "./states/atoms/userAtoms";
-import { useEffect } from "react";
 
 const router = createBrowserRouter([
   { path: "/", element: <WelcomePage />, errorElement: <Error /> },
@@ -65,12 +62,6 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const setCurrentUser = useSetRecoilState(currentUserState);
-  useEffect(() => {
-    const user = localStorage.getItem("userName");
-    if (user) setCurrentUser({ name: user, login: true });
-  }, []);
-
   return <RouterProvider router={router} />;
 }
 

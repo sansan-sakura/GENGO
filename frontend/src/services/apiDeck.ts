@@ -24,10 +24,13 @@ export async function getDecksWithCategopry(categoryId: string, query: string) {
         },
       }
     );
-    console.log(res);
+
     const data = await res.json();
-    console.log(data, "🌝", categoryId === "all");
-    if (!data) return console.error("something went wrong with decks fetching 💥");
+
+    if (data.status === "fail" || data.status === "error") {
+      alert(data.message);
+      throw new Error(data.message);
+    }
     return data;
   } catch (err) {
     throw new Error("Couldn't get decks");
@@ -37,7 +40,7 @@ export async function getDecksWithCategopry(categoryId: string, query: string) {
 export async function getDatesOfDecks(categoryId: string, query: string) {
   const accessToken = findToken();
   if (!accessToken) return alert("Please check in first");
-  console.log(categoryId);
+
   try {
     const res = await fetch(
       categoryId === "all"
@@ -52,8 +55,11 @@ export async function getDatesOfDecks(categoryId: string, query: string) {
       }
     );
     const data = await res.json();
-    console.log(data);
-    if (!data) return console.error("something went wrong with deck's dates fetching 💥");
+
+    if (data.status === "fail" || data.status === "error") {
+      alert(data.message);
+      throw new Error(data.message);
+    }
     return data;
   } catch (err) {
     throw new Error("Couldn't get dates");
@@ -73,7 +79,10 @@ export async function getDeck(id: number | string | undefined) {
       },
     });
     const data = await res.json();
-    if (!data) return console.error("something went wrong with a deck fetching 💥");
+    if (data.status === "fail" || data.status === "error") {
+      alert(data.message);
+      throw new Error(data.message);
+    }
     return data;
   } catch (err) {
     throw new Error("Couldn't get a deck");
@@ -91,10 +100,10 @@ export async function createDeck(body: NewDeckType) {
     });
 
     const data = await res.json();
-    if (!data) return console.error("something went wrong with a deck creating 💥");
+    if (data.status !== "success") throw new Error(data.message);
     return data;
   } catch (err) {
-    throw new Error("Couldn't create a deck");
+    throw new Error(err.message);
   }
 }
 
@@ -107,10 +116,10 @@ export async function deleteDeck(id: number | string) {
       headers: { Authorization: accessToken },
     });
     const data = await res.json();
-    if (!data) return console.error("something went wrong with a deck deleting💥");
+    if (data.status !== "success") throw new Error(data.message);
     return data;
   } catch (err) {
-    throw new Error("Couldn't delete a deck");
+    throw new Error(err.message);
   }
 }
 
@@ -125,9 +134,9 @@ export async function updateDeck(id: number | string, body: NewDeckType) {
     });
 
     const data = await res.json();
-    if (!data) return console.error("something went wrong with a deck updating 💥");
+    if (data.status !== "success") throw new Error(data.message);
     return data;
   } catch (err) {
-    throw new Error("Couldn't update a deck");
+    throw new Error(err.message);
   }
 }

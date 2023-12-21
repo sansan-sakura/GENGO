@@ -1,6 +1,5 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { ContentFrame } from "../../../../ui/ContentFrame";
-import { Pagination } from "../Deck/Pagination";
+import { useMemo } from "react";
 
 import {
   allDecksPerPageState,
@@ -11,13 +10,15 @@ import {
   searchQueryCreatedAt,
   searchQueryStatus,
 } from "../../../../states/atoms/flashcardAtoms";
+
 import { EditBtn } from "../../../../ui/EditBtn";
 import { modalIDstate, modalState } from "../../../../states/atoms/commonAtoms";
 import { Modal } from "../../../../ui/Modal";
+import { ContentFrame } from "../../../../ui/ContentFrame";
+import { Pagination } from "../Deck/Pagination";
 import { EditCategoryInputField } from "../Category/EditCategoryInputField";
 import { CreateDeckInputField } from "../Deck/CreateDeckInputField";
 import { SelectCategory } from "../Category/SelectCategory";
-import { useMemo } from "react";
 import { useDecksWithCategory } from "../../hooks/deck/useDecksWithCategory";
 import { Error } from "../../../../ui/Error";
 import { DeckType } from "../../../../types/flashcardTypes";

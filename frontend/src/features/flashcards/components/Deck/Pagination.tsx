@@ -17,6 +17,7 @@ export const Pagination = () => {
   const { isPending, decksDates, error } = useDecksDates(categoryId, query);
 
   const cardNumPerPage = useRecoilValue(flashcardsNumsPerPage);
+
   const cardNum: number | undefined = useMemo(() => {
     return decksDates?.data?.deck?.length;
   }, [decksDates]);

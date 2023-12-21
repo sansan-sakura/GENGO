@@ -119,7 +119,7 @@ exports.getDeck = catchAsync(async (req, res, next) => {
   const deck = await Deck.findById(req.params.id).populate("category").populate("cards");
   res.status(201).json({
     status: "success",
-    cards: deck.card,
+    cards: deck.cards,
     data: {
       deck,
     },

@@ -12,8 +12,8 @@ router
 
 router
   .route("/:id")
-  .get(flashcardController.getFlashcard)
-  .delete(flashcardController.deleteFlashcard)
-  .put(flashcardController.updateFlashcard);
+  .get(authentificateUser, flashcardController.getFlashcard)
+  .delete(authentificateUser, flashcardController.deleteFlashcard)
+  .put(authentificateUser, flashcardController.updateFlashcard);
 
 module.exports = router;

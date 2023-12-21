@@ -5,7 +5,11 @@ const AppError = require("../utils/appError");
 
 const deckSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true },
+    title: {
+      type: String,
+      required: true,
+      minlength: [3, "A category must be more than 3 charactors 🚦"],
+    },
     isDone: { type: Boolean, default: false },
     isChecked: { type: Boolean, default: false },
     category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" }, //user can edit

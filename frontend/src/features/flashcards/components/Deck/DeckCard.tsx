@@ -8,9 +8,7 @@ import { useDeleteFlashcard } from "../../hooks/flashcard/useDeleteFlashcard";
 import { Toaster } from "react-hot-toast";
 import { CardType } from "../../../../types/flashcardTypes";
 import { Spinner } from "../../../../ui/Spinner";
-
-const labels = ["very hard", "hard", "okay", "easy"];
-const labelsColors = ["bg-red-dark", "bg-blue-dark", "bg-green-dark", "bg-yellow-default"];
+import { labels, labelsColors } from "../../../../statics/colors";
 
 export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
   const [isChecked, setIsChecked] = useState(false);
@@ -27,6 +25,7 @@ export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
   }, [cards, setCurrentCard, currentIndex]);
 
   if (currentCard === undefined) return <Spinner />;
+
   const { answer, question, status, _id } = currentCard;
 
   const handleClick = () => {

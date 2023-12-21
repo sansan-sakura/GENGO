@@ -9,7 +9,7 @@ export const EditBtn = ({
   size?: string;
 }) => {
   return (
-    <button className="w-fit text-end text-xl text-gray-500  " onClick={handleEdit}>
+    <button className="w-fit text-end text-xl text-gray-500" onClick={handleEdit}>
       <CiEdit color={color} fontSize={size} />
     </button>
   );

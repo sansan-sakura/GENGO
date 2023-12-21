@@ -15,8 +15,8 @@ router.route("/category/:id").get(authentificateUser, deckController.getDecksByC
 
 router
   .route("/:id")
-  .get(deckController.getDeck)
-  .delete(deckController.deleteDeck)
-  .put(deckController.updateDeck);
+  .get(authentificateUser, deckController.getDeck)
+  .delete(authentificateUser, deckController.deleteDeck)
+  .put(authentificateUser, deckController.updateDeck);
 
 module.exports = router;
