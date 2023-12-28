@@ -51,7 +51,7 @@ export async function deleteCategory(id: number | string) {
     });
     const data = await res.json();
     if (data.status !== "success") throw new Error(data.message);
-    console.log(data);
+
     return data;
   } catch (err) {
     throw new Error(err.message);

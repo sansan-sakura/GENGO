@@ -10,6 +10,7 @@ export const Footer = () => {
   const [currentUser, setUser] = useRecoilState(currentUserState);
   const { isPending, data } = useUser();
   const navigate = useNavigate();
+
   const handleLogOut = () => {
     localStorage.removeItem("userName");
     localStorage.removeItem("accessToken");
@@ -47,7 +48,7 @@ export const Footer = () => {
       </div>
       <div className="flex  items-end justify-end gap-5">
         <small className="text-xs sm:text-sm text-start sm:text-center">
-          GENGO was created and is maintained by Sakura Tanaka
+          GENGO was created by Sakura
         </small>
 
         <Hanko size="sm" src="/sakura.webp" />

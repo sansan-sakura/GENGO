@@ -1,4 +1,4 @@
-import { FormLabel, Input, Textarea, Typography } from "@mui/joy";
+import { FormLabel, Input, Typography } from "@mui/joy";
 
 import { useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
@@ -18,7 +18,7 @@ export const GoalInputField = ({
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(storedValue);
-  const { isEditing: isUserEditing, editUser } = useEditUser();
+  const { editUser } = useEditUser();
 
   const handleUpdateGoal = () => {
     if (objKey !== "password" && (value === "" || value === storedValue)) return;

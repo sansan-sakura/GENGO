@@ -19,7 +19,6 @@ export const createUser = async (formData: CreateUser) => {
       alert("Created a new User");
       return data;
     } else {
-      console.log(data);
       throw new Error(data.message);
     }
   } catch (err) {
@@ -68,7 +67,7 @@ export async function getUser() {
       alert(data.message);
       throw new Error(data.message);
     }
-    console.log(data);
+
     return data;
   } catch (err) {
     throw new Error("Couldn't get a deck");

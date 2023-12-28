@@ -16,7 +16,6 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 
 exports.createUser = catchAsync(async (req, res, next) => {
   const { name, email, password, passwordConfirm } = req.body;
-  console.log(req.body);
 
   if (!name || !email || !password || !passwordConfirm) {
     return next(new AppError("All fields need to be filled !!", 400));
@@ -46,7 +45,6 @@ exports.loginUser = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (user?.password && bcrypt.compareSync(req.body.password, user.password)) {
-    console.log("checking");
     res.status(200).json({ status: true, name: user.name, accessToken: user.accessToken });
   } else {
     return next(new AppError("No User found", 404));

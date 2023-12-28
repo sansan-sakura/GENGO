@@ -1,10 +1,13 @@
 import { Calendar, Goals } from "../../features/dashboard";
+import ErrorBoundary from "../../ui/ErrorBoundary";
 
 export const Dashboard = () => {
   return (
-    <section className="flex flex-col gap-12 section-layout">
-      <Goals />
-      {/* <Calendar />   Leave this withour calender for v1 */}
-    </section>
+    <ErrorBoundary fallback={<p>Error</p>}>
+      <section className="flex flex-col gap-12 section-layout">
+        <Goals />
+        {/* <Calendar />   Leave this withour calender for v1 */}
+      </section>
+    </ErrorBoundary>
   );
 };
