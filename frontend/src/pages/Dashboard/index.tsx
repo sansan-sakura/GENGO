@@ -1,4 +1,4 @@
-import { Calendar, Goals } from "../../features/dashboard";
+import { Goals } from "../../features/dashboard";
 import ErrorBoundary from "../../ui/ErrorBoundary";
 
 export const Dashboard = () => {
