@@ -4,7 +4,6 @@ import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
 
 export const CalenderHeader = ({ selectedMonth, year, monthHandler, onMonth }) => {
-  console.log(selectedMonth);
   const [monthIndex, setMonthIndex] = useState(selectedMonth);
 
   const decreaseMonth = () => {

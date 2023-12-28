@@ -16,6 +16,7 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 
 exports.createUser = catchAsync(async (req, res, next) => {
   const { name, email, password, passwordConfirm } = req.body;
+  console.log(req.body);
 
   if (!name || !email || !password || !passwordConfirm) {
     return next(new AppError("All fields need to be filled !!", 400));
@@ -75,12 +76,27 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
 });
 
 exports.updateUser = catchAsync(async (req, res, next) => {
-  console.log(req.body);
   const accessToken = req.headers.authorization;
-  const user = await User.findOneAndUpdate({ accessToken: accessToken }, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  const { password, passwordConfirm } = req.body;
+  const salt = bcrypt.genSaltSync(10);
+  let user;
+  if (password || passwordConfirm) {
+    user = await User.findOneAndUpdate(
+      { accessToken: accessToken },
+      {
+        password: bcrypt.hashSync(password, salt),
+        passwordConfirm: bcrypt.hashSync(passwordConfirm, salt),
+      },
+      {
+        new: true,
+      }
+    );
+  } else {
+    user = await User.findOneAndUpdate({ accessToken: accessToken }, req.body, {
+      runValidators: true,
+      new: true,
+    });
+  }
   if (!user)
     return res.status(400).json({ status: false, message: "There is no user with the ID" });
 
