@@ -1,17 +1,18 @@
-import { Typography } from "@mui/joy";
-import { InputLabel, TextField } from "@mui/material";
+import { FormLabel, Input, Textarea, Typography } from "@mui/joy";
+
 import { useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 
 import { useEditUser } from "../../../../hooks/useEditUser";
+import { z } from "zod";
 
 export const GoalInputField = ({
   storedValue,
   label,
   objKey,
 }: {
-  storedValue: string;
+  storedValue?: string;
   label: string;
   objKey: string;
 }) => {
@@ -20,9 +21,13 @@ export const GoalInputField = ({
   const { isEditing: isUserEditing, editUser } = useEditUser();
 
   const handleUpdateGoal = () => {
-    if (value === "" || value === storedValue) return;
+    if (objKey !== "password" && (value === "" || value === storedValue)) return;
+    if (objKey === "password" && value.length < 8)
+      return alert("Password should be longer than 8 letters");
+
+    if (objKey === "name" && value.length < 3) return alert("Name should be longer than 3 letters");
     const newGoal = { [objKey]: value };
-    console.log(newGoal, objKey);
+
     editUser(newGoal);
   };
 
@@ -30,36 +35,54 @@ export const GoalInputField = ({
     <div className="w-full">
       {isEditing ? (
         <div className="grid gap-2 relative">
-          <TextField
-            variant="outlined"
-            defaultValue={value}
-            label={label}
-            onChange={(e) => setValue(e.target.value)}
-            InputProps={{
-              endAdornment: (
-                <button
-                  onClick={() => {
-                    setIsEditing((prev) => !prev);
-                    handleUpdateGoal();
-                  }}
-                >
-                  <CheckIcon sx={{ width: "18px", color: "#888" }} />
-                </button>
-              ),
+          <FormLabel
+            sx={{
+              mb: 1.5,
+              fontWeight: "xl",
+              textTransform: "uppercase",
+              fontSize: "xs",
+              letterSpacing: "0.1em",
             }}
+          >
+            {label}
+          </FormLabel>
+          <Input
+            defaultValue={value}
+            size="sm"
+            variant="plain"
+            onChange={(e) => setValue(e.target.value)}
+            endDecorator={
+              <button
+                onClick={() => {
+                  setIsEditing((prev) => !prev);
+                  handleUpdateGoal();
+                }}
+              >
+                <CheckIcon sx={{ width: "18px", color: "green" }} />
+              </button>
+            }
           />
         </div>
       ) : (
         <>
-          <InputLabel sx={{ fontSize: "14px" }}>{label}</InputLabel>
+          <div className=" flex items-center gap-2">
+            <FormLabel
+              sx={{
+                fontWeight: "xl",
+                textTransform: "uppercase",
+                fontSize: "xs",
+                letterSpacing: "0.1em",
+              }}
+            >
+              {label}
+            </FormLabel>
+            <button onClick={() => setIsEditing((prev) => !prev)}>
+              <ModeEditOutlineIcon sx={{ width: "15px", color: "#888" }} />
+            </button>
+          </div>
           <Typography
             sx={{ wordBreak: "break-word", marginTop: "6px" }}
             onClick={() => setIsEditing(true)}
-            endDecorator={
-              <button onClick={() => setIsEditing((prev) => !prev)}>
-                <ModeEditOutlineIcon sx={{ width: "18px", color: "#888" }} />
-              </button>
-            }
           >
             {value}
           </Typography>

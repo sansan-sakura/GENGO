@@ -12,16 +12,42 @@ import { Contact } from "./pages/Contact";
 import { SignUp } from "./pages/SignUp";
 import { Login } from "./pages/Login";
 import { LoginSignUpLayout } from "./ui/LoginSignUpLayout";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 
-const theme = createTheme({
-  typography: {
-    fontFamily: ["Poppins", "serif"].join(","),
-    fontSize: 16,
-    h2: {
-      fontSize: "60px",
-      fontWeight: "bold",
-    },
+import { CssVarsProvider, extendTheme } from "@mui/joy/styles";
+
+const palette = {
+  primary: {
+    solidBg: " #4A69BD",
+    solidHoverBg: "#92A5D7",
+    solidActiveBg: "#25355F",
+  },
+  neutral: {
+    solidBg: "#7B5D1E",
+    solidHoverBg: "#FAD589",
+    solidActiveBg: "#F6B93B",
+  },
+  success: {
+    solidBg: "#78E08F",
+    solidHoverBg: "#AEECBC",
+    solidActiveBg: "#3C7048",
+  },
+  danger: {
+    solidBg: "#E55039",
+    solidHoverBg: "#F5B9B0",
+    solidActiveBg: "#B7402E",
+  },
+  warning: {
+    solidBg: "#30525E",
+    solidHoverBg: "#A0C8D7",
+    solidActiveBg: "#60A3BC",
+  },
+};
+
+const theme = extendTheme({
+  fontFamily: { display: '"Poppins", var(--joy-fontFamily-fallback)' },
+  colorSchemes: {
+    light: { palette },
+    dark: { palette },
   },
 });
 
@@ -75,9 +101,9 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
+    <CssVarsProvider theme={theme}>
       <RouterProvider router={router} />;
-    </ThemeProvider>
+    </CssVarsProvider>
   );
 }
 

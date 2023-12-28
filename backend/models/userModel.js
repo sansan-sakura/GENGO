@@ -34,6 +34,10 @@ const userSchema = new mongoose.Schema(
     monthlyGoal: { type: String, default: "Goal 🎯" },
     yearlyGoal: { type: String, default: "Goal 🎯" },
     generalGoal: { type: String, default: "Goal 🎯" },
+    theme: {
+      type: String,
+      default: "warning",
+    },
     // passwordChangedAt: Date,
     // resetToken: String,
     // passwordResetExpires: Date,
