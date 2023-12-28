@@ -12,6 +12,18 @@ import { Contact } from "./pages/Contact";
 import { SignUp } from "./pages/SignUp";
 import { Login } from "./pages/Login";
 import { LoginSignUpLayout } from "./ui/LoginSignUpLayout";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: ["Poppins", "serif"].join(","),
+    fontSize: 16,
+    h2: {
+      fontSize: "60px",
+      fontWeight: "bold",
+    },
+  },
+});
 
 const router = createBrowserRouter([
   { path: "/", element: <WelcomePage />, errorElement: <Error /> },
@@ -62,7 +74,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />;
+    </ThemeProvider>
+  );
 }
 
 export default App;

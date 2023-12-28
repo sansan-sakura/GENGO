@@ -10,11 +10,11 @@ export const DaysOfMonth = ({ monthDays, now, month }) => {
     return (
       <span
         key={i}
-        className={`day ${i === 0 ? "first-day" : ""}
-              ${day === currentDate ? "today" : ""}
+        className={`font-semi-bold ${i === 0 ? "text-green-500" : ""}
+              ${day === currentDate ? "text-blue-500" : ""}
               ${
                 (i + dayToBeginTheMonthFrom) % 7 === 0 || (i + dayToBeginTheMonthFrom) % 7 === 6
-                  ? "holiday"
+                  ? "text-red-500"
                   : ""
               }
               `}
