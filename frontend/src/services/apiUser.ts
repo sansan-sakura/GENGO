@@ -1,5 +1,6 @@
-import { CREATE_USER_API, LOGIN_USER_API } from "../statics/fetchUrls";
+import { CREATE_USER_API, LOGIN_USER_API, UPDATE_GET_USER_API } from "../statics/fetchUrls";
 import { CreateUser, LoginBody } from "../types/userType";
+import { findToken } from "../utils/apiHelpers";
 
 export const createUser = async (formData: CreateUser) => {
   try {
@@ -50,3 +51,44 @@ export const loginUser = async (formData: LoginBody) => {
     return { err: true, message: err };
   }
 };
+
+export async function getUser() {
+  const accessToken = findToken();
+  if (!accessToken) return alert("Please check in first");
+  try {
+    const res = await fetch(UPDATE_GET_USER_API, {
+      method: "GET",
+      headers: {
+        Authorization: accessToken,
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    if (data.status === "fail" || data.status === "error") {
+      alert(data.message);
+      throw new Error(data.message);
+    }
+    console.log(data);
+    return data;
+  } catch (err) {
+    throw new Error("Couldn't get a deck");
+  }
+}
+
+export async function updateUser(body) {
+  const accessToken = findToken();
+  if (!accessToken) return alert("Please check in first");
+  try {
+    const res = await fetch(UPDATE_GET_USER_API, {
+      method: "PUT",
+      headers: { Authorization: accessToken, "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    const data = await res.json();
+    if (data.status !== "success") throw new Error(data.message);
+    return data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}

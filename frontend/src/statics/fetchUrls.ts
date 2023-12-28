@@ -22,6 +22,6 @@ export const CATEGORY_URL = `${API_ROOT_URL}api/v1/category`;
 export const CATEGORY_ID_URL = (id: number | string) => `${API_ROOT_URL}api/v1/category/${id}`;
 
 export const CREATE_USER_API = `${API_ROOT_URL}api/v1/user/signup`;
-export const UPDATE_USER_API = (id: string) => `${API_ROOT_URL}api/v1/user/${id}`;
+export const UPDATE_GET_USER_API = `${API_ROOT_URL}api/v1/user/account`;
 export const GET_ALL_USERS_API = `${API_ROOT_URL}api/v1/user`;
 export const LOGIN_USER_API = `${API_ROOT_URL}api/v1/user/login`;

@@ -20,7 +20,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
   if (!name || !email || !password || !passwordConfirm) {
     return next(new AppError("All fields need to be filled !!", 400));
   }
-  console.log(User);
+
   const existingUser = await User.findOne({
     $or: [{ name }, { email }],
   });
@@ -42,9 +42,8 @@ exports.createUser = catchAsync(async (req, res, next) => {
 });
 
 exports.loginUser = catchAsync(async (req, res, next) => {
-  console.log(req.body);
   const user = await User.findOne({ email: req.body.email });
-  console.log(user);
+
   if (user?.password && bcrypt.compareSync(req.body.password, user.password)) {
     console.log("checking");
     res.status(200).json({ status: true, name: user.name, accessToken: user.accessToken });
@@ -54,17 +53,21 @@ exports.loginUser = catchAsync(async (req, res, next) => {
 });
 
 exports.getUser = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.params.id);
+  const accessToken = req.headers.authorization;
+  const userStorage = await User.findOne({ accessToken: accessToken });
+  if (!userStorage)
+    return res.status(400).json({ status: false, message: "There is no user with the ID" });
+
   res.status(201).json({
     status: "success",
     data: {
-      user,
+      data: userStorage,
     },
   });
 });
 
 exports.deleteUser = catchAsync(async (req, res, next) => {
-  const newUser = await User.findByIdAndDelete(req.params.id);
+  const deletedUser = await User.findByIdAndDelete(req.params.id);
   res.json({
     status: "success",
     data: null,
@@ -72,14 +75,14 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
 });
 
 exports.updateUser = catchAsync(async (req, res, next) => {
-  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+  console.log(req.body);
+  const accessToken = req.headers.authorization;
+  const user = await User.findOneAndUpdate({ accessToken: accessToken }, req.body, {
     new: true,
     runValidators: true,
   });
-
-  if (!user) {
-    return next(new AppError("No User found with that ID", 404));
-  }
+  if (!user)
+    return res.status(400).json({ status: false, message: "There is no user with the ID" });
 
   res.status(201).json({
     status: "success",
