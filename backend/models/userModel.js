@@ -38,9 +38,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "warning",
     },
-    // passwordChangedAt: Date,
-    // resetToken: String,
-    // passwordResetExpires: Date,
   },
   {
     timestamps: true,

@@ -7,7 +7,7 @@ const handleValidationErrorDB = (err) => {
 };
 
 module.exports = (err, req, res, next) => {
-  err.statusCode = err.statusCode || 500;
+  err.statusCode = err.statusCode;
   err.status = err.status || "error";
   let error = { ...err };
 

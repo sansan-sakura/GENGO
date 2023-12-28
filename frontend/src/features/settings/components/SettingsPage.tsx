@@ -4,10 +4,10 @@ import { Spinner } from "../../../ui/Spinner";
 import { GoalInputField } from "../../dashboard/components/Goals/GoalInputField";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 import { useState } from "react";
-import CheckIcon from "@mui/icons-material/Check";
+
 import { useEditUser } from "../../../hooks/useEditUser";
 import { z } from "zod";
-import { Box, FormControl, FormLabel, Input, RadioGroup, Sheet, Radio } from "@mui/joy";
+import { Box, FormLabel, Input, RadioGroup, Sheet, Radio } from "@mui/joy";
 import { radioClasses } from "@mui/joy/Radio";
 import { Toaster } from "react-hot-toast";
 import Done from "@mui/icons-material/Done";
@@ -18,7 +18,7 @@ export const SettingsPage = () => {
   const [confirmValue, setConfirmValue] = useState("");
   const [theme, setTheme] = useState("");
   const { isPending, data } = useUser();
-  const { isEditing: isUserEditing, editUser } = useEditUser();
+  const { editUser } = useEditUser();
   if (isPending) return <Spinner />;
   const userData = data.data.data;
 
