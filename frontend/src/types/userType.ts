@@ -32,3 +32,16 @@ export type CurrentUser = {
   name: string;
   login: boolean;
 };
+
+export type User = {
+  name?: string;
+  email?: string;
+  password?: string;
+  passwordConfiorm?: string;
+  todayGoal?: string;
+  weeklyGoal?: string;
+  yearlyGoal?: string;
+  monthlyGoal?: string;
+  generalGoal?: string;
+  theme?: string;
+};
