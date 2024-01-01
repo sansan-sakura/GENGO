@@ -102,7 +102,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <CssVarsProvider theme={theme}>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </CssVarsProvider>
   );
 }

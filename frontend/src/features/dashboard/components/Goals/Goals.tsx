@@ -31,14 +31,14 @@ export const Goals = () => {
                 objKey="weeklyGoal"
               />
             </div>
-            <div className="w-64 min-h-[20px]">
+            <div className="w-full min-h-[20px]">
               <GoalInputField
                 storedValue={goals.monthlyGoal}
                 label="Monthly Goal"
                 objKey="monthlyGoal"
               />
             </div>
-            <div className="w-64 min-h-[20px]">
+            <div className="w-full min-h-[20px]">
               <GoalInputField
                 storedValue={goals.yearlyGoal}
                 label="Yearly Goal"

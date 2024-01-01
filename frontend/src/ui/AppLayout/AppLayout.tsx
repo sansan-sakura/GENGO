@@ -19,8 +19,8 @@ export const AppLayout = () => {
     }
   }, []);
   return (
-    <>
-      <div className="lg:grid lg:grid-cols-8   lg:gap-0 min-h-screen h-screen min-w-screen">
+    <div className="min-h-screen h-fit">
+      <div className="lg:grid lg:grid-cols-8 lg:gap-0 min-h-screen h-full max-h-fit min-w-screen">
         <div className="hidden lg:block lg:col-span-2 xl:col-span-2">
           <Aside />
         </div>
@@ -42,6 +42,6 @@ export const AppLayout = () => {
           </div>
         </main>
       </div>
-    </>
+    </div>
   );
 };
