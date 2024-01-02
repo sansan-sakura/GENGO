@@ -23,6 +23,7 @@ export const Header = () => {
 
     return () => clearInterval(timer);
   });
+
   if (isPending) return <Spinner />;
 
   const theme = data.data.data.theme;
