@@ -11,9 +11,11 @@ export const Aside = () => {
   if (isPending) return <Spinner />;
 
   const theme = data.data.data.theme;
+
   const buttons = buttonData.map((button) => (
     <ButtonOutline name={button.name} bg={button.bgColor} key={button.name} path={button.path} />
   ));
+
   return (
     <aside className=" lg:min-h-screen lg:h-full w-full lg:border-r-2 lg:min-w-[240px]">
       <div className="hidden  py-20 lg:flex flex-col gap-8 items-center">

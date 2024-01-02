@@ -34,7 +34,7 @@ export const Footer = () => {
             className="transition 
           border-b-transparent duration-200 border-b-4 hover:border-b-yellow-light text-sm sm:text-base"
           >
-            Contect
+            Contact
           </p>
         </Link>
 
