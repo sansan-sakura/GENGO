@@ -2,29 +2,61 @@ import { ButtonOutline } from "../ButtonOutline";
 import { Hanko } from "../Hanko";
 import { Logo } from "../Logo";
 import { navButton as buttonData } from "../../statics/uiContent";
-import { useUser } from "../../hooks/useUser";
-import { Spinner } from "../Spinner";
-import { themebgColors } from "../../statics/colors";
+import { IoMdClose } from "react-icons/io";
+import { Dispatch, useCallback, useEffect, useRef, useState } from "react";
 
-export const Aside = () => {
-  const { isPending, data } = useUser();
-  if (isPending) return <Spinner />;
+type Props = {
+  setIsNavOpen: Dispatch<React.SetStateAction<boolean>>;
+  isNavOpen: boolean;
+};
 
-  const theme = data.data.data.theme;
+export const Aside = ({ setIsNavOpen, isNavOpen }: Props) => {
+  const asideRef = useRef<HTMLDivElement | null>(null);
+
+  const handleClick = useCallback(
+    (e: MouseEvent) => {
+      asideRef.current !== null &&
+        !asideRef?.current?.contains(e.target as Node) &&
+        setIsNavOpen(false);
+    },
+    [asideRef, setIsNavOpen]
+  );
+
+  useEffect(() => {
+    isNavOpen
+      ? document.addEventListener("mousedown", handleClick)
+      : document.removeEventListener("mousedown", handleClick);
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, [isNavOpen, handleClick]);
 
   const buttons = buttonData.map((button) => (
-    <ButtonOutline name={button.name} bg={button.bgColor} key={button.name} path={button.path} />
+    <ButtonOutline
+      name={button.name}
+      bg={button.bgColor}
+      key={button.name}
+      path={button.path}
+      onClick={() => setIsNavOpen(false)}
+    />
   ));
 
   return (
-    <aside className=" lg:min-h-screen lg:h-full w-full lg:border-r-2 lg:min-w-[240px]">
-      <div className="hidden  py-20 lg:flex flex-col gap-8 items-center">
-        <Logo />
-        <Hanko />
-      </div>
-      <div className={`bg-gray-50  lg:bg-white  ${themebgColors[theme]}`}>
-        <div className="py-4 flex lg:flex-col w-fit gap-3 mx-auto">{buttons}</div>
-      </div>
-    </aside>
+    <div className="min-h-screen min-w-screen  bg-gray-400/50 fixed top-0 right-0 left-0 z-[100]">
+      <aside
+        className="min-h-screen h-full border-r-2 w-full sm:w-[300px] bg-white z-[100] relative animate-slideIn"
+        ref={asideRef}
+      >
+        <button className="absolute top-4 right-4" onClick={() => setIsNavOpen(false)}>
+          <IoMdClose className="w-8 h-8 " />
+        </button>
+        <div className="py-20 flex flex-col gap-8 items-center  z-[100]">
+          <Logo />
+          <Hanko />
+        </div>
+
+        <div className="py-4 flex flex-col w-fit gap-3 mx-auto">{buttons}</div>
+      </aside>
+    </div>
   );
 };

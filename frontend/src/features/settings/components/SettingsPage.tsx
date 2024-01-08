@@ -21,7 +21,7 @@ export const SettingsPage = () => {
   const { editUser } = useEditUser();
   if (isPending) return <Spinner />;
   const userData = data.data.data;
-
+  console.log("settings");
   const handleUpdatePassword = () => {
     const PASSWORD_SCHEMA = z
       .object({
@@ -44,27 +44,26 @@ export const SettingsPage = () => {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value, theme);
     setTheme(event.target.value);
     editUser({ theme: event.target.value });
   };
 
   return (
-    <div className="w-2/3 mx-auto">
+    <div className="w-full sm:w-2/3 md:w-1/2 mx-auto">
       <Toaster />
       <ContentFrame>
         <div className="w-full">
           <div>
-            <div className="w-full border-b border-b-slate-400 pb-8">
-              <Box sx={{ resize: "horizontal", overflow: "auto", px: 2 }}>
+            <div className="w-full border-b border-b-slate-400 pb-12">
+              <Box sx={{ resize: "horizontal", overflow: "hidden", px: 2 }}>
                 <FormLabel
                   id="theme color"
                   sx={{
-                    mb: 1.5,
+                    mb: 2.5,
                     fontWeight: "xl",
                     textTransform: "uppercase",
-                    fontSize: "xs",
-                    letterSpacing: "0.1em",
+                    fontSize: "md",
+                    letterSpacing: "0.5px",
                   }}
                 >
                   Theme Color
@@ -120,48 +119,66 @@ export const SettingsPage = () => {
                 </RadioGroup>
               </Box>
             </div>
-            <div className="grid gap-6  pt-3">
+            <div className="grid gap-6  pt-12">
               <div className="px-4">
-                <GoalInputField storedValue={userData.email} label="EMAIL" objKey="email" />
+                <GoalInputField
+                  storedValue={userData.email}
+                  label="EMAIL"
+                  objKey="email"
+                  centerText={false}
+                />
               </div>
               <div className="px-4">
-                <GoalInputField storedValue={userData.name} label="NAME" objKey="name" />
+                <GoalInputField
+                  storedValue={userData.name}
+                  label="NAME"
+                  objKey="name"
+                  centerText={false}
+                />
               </div>
               <div className=" flex items-center gap-2 flex-col px-4">
-                <div className="w-full flex items-center text-start gap-2 ">
+                <div className="w-full flex items-center text-start gap-6 ">
                   <FormLabel
                     sx={{
                       fontWeight: "xl",
                       textTransform: "uppercase",
-                      fontSize: "xs",
-                      letterSpacing: "0.1em",
+                      fontSize: "md",
+                      letterSpacing: "0.5px",
                     }}
                   >
                     PASSWORD
                   </FormLabel>
                   <button onClick={() => setIsEditing((prev) => !prev)}>
-                    <ModeEditOutlineIcon sx={{ width: "16px", color: "#888" }} />
+                    <ModeEditOutlineIcon
+                      sx={{
+                        width: "20px",
+                        color: "#888",
+                        transition: "all .3s ease",
+                        "&:hover": { color: "#555" },
+                      }}
+                    />
                   </button>
                 </div>
                 {isEditing && (
-                  <div className="flex flex-col gap-2">
-                    <div className="flex flex-col  sm:flex-row  gap-2 relative">
+                  <div className="flex flex-col gap-6 mt-6">
+                    <div className="flex flex-col  sm:flex-row  gap-4 relative">
                       <Input
                         onChange={(e) => setValue(e.target.value)}
-                        size="sm"
-                        variant="plain"
+                        size="md"
+                        variant="outlined"
                         placeholder="password"
                       />
 
                       <Input
                         onChange={(e) => setConfirmValue(e.target.value)}
-                        size="sm"
-                        variant="plain"
+                        size="md"
+                        variant="outlined"
                         placeholder="password confirm"
+                        sx={{ fontSize: "18px" }}
                       />
                     </div>
                     <button
-                      className="button text-xs mt-2 w-[160px] mx-auto bg-red-light"
+                      className="button text-xs mt-2 w-[160px] mx-auto"
                       onClick={() => {
                         handleUpdatePassword();
                         setIsEditing((prev) => !prev);

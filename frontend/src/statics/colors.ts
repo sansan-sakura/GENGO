@@ -25,6 +25,14 @@ export const themeTextColors = {
   warning: "text-sky-default",
 };
 
+export const themeNavColors = {
+  primary: "text-white md:text-blue-dark",
+  neutral: "text-white md:text-yellow-default",
+  success: "text-white md:text-green-dark",
+  danger: "text-white md:text-red-dark",
+  warning: "text-white md:text-sky-default",
+};
+
 export const themebgColors = {
   primary: "bg-blue-100",
   neutral: "bg-yellow-100",

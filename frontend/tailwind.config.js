@@ -34,6 +34,17 @@ export default {
           dark: "#30525E",
         },
       },
+      keyframes: {
+        slideIn: {
+          "0%": {
+            transform: "translateX(-100px) ",
+          },
+          "100%": { transform: "translate X(0) " },
+        },
+      },
+      animation: {
+        slideIn: "slideIn .8s ease ",
+      },
     },
   },
   plugins: [],

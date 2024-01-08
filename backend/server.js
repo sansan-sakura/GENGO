@@ -9,7 +9,7 @@ process.on("uncaughtException", (err) => {
   process.exit(1);
 });
 
-const mongoUrl = process.env.MONGO_URL;
+const mongoUrl = "mongodb://localhost:27017/project-happy-thoughts"; //process.env.MONGO_URL;
 
 mongoose.set("strictQuery", false);
 mongoose.connect(mongoUrl).then((con) => console.log(`Mongo DB Connected: ${con.connection.host}`));
