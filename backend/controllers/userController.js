@@ -52,11 +52,12 @@ exports.loginUser = catchAsync(async (req, res, next) => {
 });
 
 exports.getUser = catchAsync(async (req, res, next) => {
+  console.log(req.headers, "getuser");
   const accessToken = req.headers.authorization;
   const userStorage = await User.findOne({ accessToken: accessToken });
   if (!userStorage)
     return res.status(400).json({ status: false, message: "There is no user with the ID" });
-
+  console.log(userStorage);
   res.status(201).json({
     status: "success",
     data: {
@@ -74,6 +75,7 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
 });
 
 exports.updateUser = catchAsync(async (req, res, next) => {
+  console.log("update", req.body);
   const accessToken = req.headers.authorization;
   const { password, passwordConfirm } = req.body;
   const salt = bcrypt.genSaltSync(10);

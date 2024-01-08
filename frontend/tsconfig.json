@@ -20,15 +20,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-
+    "baseUrl": "src",
     "paths": {
-      "@ui/*": ["./ui/*"],
-      "@pages/*": ["./pages/*"],
-      "@hooks/*": ["./hooks/*"],
-      "@state/*": ["./api/*"],
-      "@utils/*": ["./utils/*"],
-      "@features/*": ["./features*"],
-      "@services/*": ["./services/*"]
+      "@/*": ["*"]
     }
   },
   "include": ["src"],

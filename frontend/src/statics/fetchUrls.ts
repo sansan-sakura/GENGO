@@ -1,6 +1,6 @@
-const API_ROOT_URL = "https://gengo.onrender.com";
+const API_ROOT_URL = "http://localhost:8080/";
 //"http://localhost:8080/";
-// https://gengo.onrender.com
+// https://gengo.onrender.com/
 
 export const FLASHCARD_BY_ID_URL = (id: number | string) => `${API_ROOT_URL}api/v1/flashcard/${id}`;
 export const FLASHCARD_CREATE_URL = `${API_ROOT_URL}api/v1/flashcard`;

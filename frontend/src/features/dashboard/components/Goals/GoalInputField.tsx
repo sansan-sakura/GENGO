@@ -11,10 +11,12 @@ export const GoalInputField = ({
   storedValue,
   label,
   objKey,
+  centerText = true,
 }: {
   storedValue?: string;
   label: string;
   objKey: string;
+  centerText?: boolean;
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(storedValue);
@@ -32,24 +34,28 @@ export const GoalInputField = ({
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-[600px] mx-auto break-words">
       {isEditing ? (
-        <div className="grid gap-2 relative">
+        <div
+          className={`flex flex-col ${
+            centerText ? "justify-center items-center" : ""
+          } gap-4 relative`}
+        >
           <FormLabel
             sx={{
-              mb: 1.5,
               fontWeight: "xl",
               textTransform: "uppercase",
-              fontSize: "xs",
-              letterSpacing: "0.1em",
+              fontSize: "md",
+              letterSpacing: "0.5px",
             }}
           >
             {label}
           </FormLabel>
           <Input
             defaultValue={value}
-            size="sm"
-            variant="plain"
+            size="md"
+            variant="outlined"
+            sx={{ fontSize: "18px", textAlign: "center" }}
             onChange={(e) => setValue(e.target.value)}
             endDecorator={
               <button
@@ -58,35 +64,42 @@ export const GoalInputField = ({
                   handleUpdateGoal();
                 }}
               >
-                <CheckIcon sx={{ width: "18px", color: "green" }} />
+                <CheckIcon sx={{ width: "22px", color: "green" }} />
               </button>
             }
           />
         </div>
       ) : (
-        <>
-          <div className=" flex items-center gap-2">
+        <div className={`flex flex-col ${centerText ? "justify-center text-center" : ""} `}>
+          <div className={`flex gap-4 items-center w-full  ${centerText ? "justify-center" : ""}`}>
             <FormLabel
               sx={{
                 fontWeight: "xl",
                 textTransform: "uppercase",
-                fontSize: "xs",
-                letterSpacing: "0.1em",
+                fontSize: "md",
+                letterSpacing: "0.5px",
               }}
             >
               {label}
             </FormLabel>
             <button onClick={() => setIsEditing((prev) => !prev)}>
-              <ModeEditOutlineIcon sx={{ width: "15px", color: "#888" }} />
+              <ModeEditOutlineIcon
+                sx={{
+                  width: "18px",
+                  color: "#888",
+                  transition: "all .3s ease",
+                  "&:hover": { color: "#555" },
+                }}
+              />
             </button>
           </div>
           <Typography
-            sx={{ wordBreak: "break-word", marginTop: "6px" }}
+            sx={{ wordBreak: "break-word", marginTop: "18px", fontSize: "18px" }}
             onClick={() => setIsEditing(true)}
           >
             {value}
           </Typography>
-        </>
+        </div>
       )}
     </div>
   );
