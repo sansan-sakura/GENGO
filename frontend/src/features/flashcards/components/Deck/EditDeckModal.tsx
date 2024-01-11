@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useEditDeck } from "../../hooks/deck/useEditDeck";
-import { Toaster } from "react-hot-toast";
+
 import { SelectCategory } from "../Category/SelectCategory";
-import { searchQueryCategory } from "../../../../states/atoms/flashcardAtoms";
-import { useRecoilValue } from "recoil";
+
+import { Input } from "../../../../ui/shadcn/Input";
+import { ButtonSubmit } from "../../../../ui/buttons/ButtonSubmit";
+import { Label } from "../../../../ui/shadcn/Label";
 
 type Props = {
   id: string | undefined;
@@ -13,7 +15,7 @@ type Props = {
 
 export const EditDeckModal = ({ id, title, category }: Props) => {
   const [titleValue, settitleValue] = useState(title);
-  const categoryValue = useRecoilValue(searchQueryCategory);
+  const [categoryValue, setCategoryValue] = useState(category);
   const { isEditing, editDeck } = useEditDeck();
   const handleEdit = () => {
     if (id === undefined) return;
@@ -22,35 +24,29 @@ export const EditDeckModal = ({ id, title, category }: Props) => {
     editDeck({ id, newData });
   };
   return (
-    <div className="flex flex-col">
-      <Toaster />
-
-      <h2 className="text-base sm:text-xl text-center font-semibold mb-2 text-red-dark">
-        Edit Deck
-      </h2>
-      <label htmlFor="category" className="text-base sm:text-lg font-semibold">
-        category
-      </label>
-      <SelectCategory currentCategory={category} key="editDeck" />
-      <label htmlFor="title" className="text-base sm:text-lg font-semibold mt-3 sm:mt-6">
-        title
-      </label>
-      <textarea
-        id="title"
-        cols={20}
-        rows={3}
-        value={titleValue}
-        onChange={(e) => settitleValue(e.target.value)}
-        className="border border-slate-500 rounded w-52 sm:w-[300px] py-2 px-3 mb-3 sm:mb-6 mt-2 text-sm sm:text-base"
-      />
-
-      <button
-        disabled={isEditing}
-        className="button bg-red-light font-semibold"
-        onClick={handleEdit}
-      >
-        Edit
-      </button>
+    <div className="flex flex-col gap-4">
+      <div className="grid gap-2">
+        <Label htmlFor="category" className="text-xs sm:text-sm font-semibold">
+          category
+        </Label>
+        <SelectCategory
+          currentCategory={categoryValue}
+          key="editDeck"
+          onSetCategory={setCategoryValue}
+        />
+      </div>
+      <div className="grid gap-2">
+        <Label htmlFor="title" className="text-xs sm:text-sm font-semibold">
+          title
+        </Label>
+        <Input
+          id="title"
+          value={titleValue}
+          onChange={(e) => settitleValue(e.target.value)}
+          className=""
+        />
+      </div>
+      <ButtonSubmit text="Edit" onClick={handleEdit} isLoading={isEditing} />
     </div>
   );
 };

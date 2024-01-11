@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { SelectCategory } from "../Category/SelectCategory";
 import { useCreateDeck } from "../../hooks/deck/useCreateDeck";
-import { searchQueryCategory } from "../../../../states/atoms/flashcardAtoms";
-import { useRecoilValue } from "recoil";
-import { Toaster } from "react-hot-toast";
+
+import { Input } from "../../../../ui/shadcn/Input";
+
+import { ButtonSubmit } from "../../../../ui/buttons/ButtonSubmit";
 
 export const CreateDeckInputField = () => {
   const { isCreating, createDeck } = useCreateDeck();
-  const categoryId = useRecoilValue(searchQueryCategory);
+
+  const [categoryId, setCategoryId] = useState("");
   const [title, setTitle] = useState("");
   const [error, setError] = useState(false);
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
@@ -20,30 +22,24 @@ export const CreateDeckInputField = () => {
 
   return (
     <form className="p-3">
-      <Toaster />
-      <h2 className="text-center mb-4 text-lg sm:mb-8 sm:text-2xl font-semibold text-red-dark">
-        Create a new Deck
-      </h2>
-      <div className="flex flex-col justify-around gap-3 sm:gap-6">
+      <div className="flex flex-col gap-3 sm:gap-6 items-center">
         <div className="grid  gap-2 sm:gap-4 ">
-          <h3 className="ml-2 text-sm sm:text-lg">Title</h3>
-          <input
+          <h3 className="ml-2 text-sm m:text-base font-semibold">Title</h3>
+          {error && <p className="text-xs text-red-dark">Please fill first</p>}
+          <Input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="h-8 text-sm sm:h-10 w-full rounded-full border-none bg-white pe-10 ps-4 sm:text-lg shadow-sm sm:w-56"
+            className="w-full"
             type="text"
             disabled={isCreating}
             placeholder="Title..."
           />
         </div>
         <div className="grid gap-2 sm:gap-4 ">
-          <h3 className="ml-2 text-sm sm:text-lg">Choose Category</h3>
-          <SelectCategory key="createDeck" />
+          <h3 className="ml-2 text-sm sm:text-base font-semibold">Choose Category</h3>
+          <SelectCategory key="createDeck" onSetCategory={setCategoryId} />
         </div>
-        <button className="button mx-auto" onClick={handleSubmit}>
-          Create
-        </button>
-        {error && <p>Please fill first</p>}
+        <ButtonSubmit text="Create" onClick={handleSubmit} isLoading={isCreating} />
       </div>
     </form>
   );

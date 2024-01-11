@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { AppLayout } from "./ui/AppLayout";
-import { Error } from "./ui/Error";
+import { AppLayout } from "./ui/layouts/AppLayout";
+import { Error } from "./ui/generic/Error";
 import { WelcomePage } from "./pages/WelcomePage";
 import { Dashboard } from "./pages/Dashboard";
 import { FlashcardPage } from "./pages/FlashcardPage";
@@ -11,7 +11,7 @@ import { Contact } from "./pages/Contact";
 
 import { SignUp } from "./pages/SignUp";
 import { Login } from "./pages/Login";
-import { LoginSignUpLayout } from "./ui/LoginSignUpLayout";
+import { LoginSignUpLayout } from "./ui/layouts/LoginSignUpLayout";
 
 import { CssVarsProvider, extendTheme } from "@mui/joy/styles";
 

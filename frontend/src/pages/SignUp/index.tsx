@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { SignUpForm } from "../../features/user";
-import { Spinner } from "../../ui/Spinner";
-import ErrorBoundary from "../../ui/ErrorBoundary";
+import { Spinner } from "../../ui/generic/Spinner";
+import ErrorBoundary from "../../ui/generic/ErrorBoundary";
 
 export const SignUp = () => {
   return (

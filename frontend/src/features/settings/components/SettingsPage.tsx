@@ -1,7 +1,7 @@
 import { useUser } from "../../../hooks/useUser";
-import { ContentFrame } from "../../../ui/ContentFrame";
-import { Spinner } from "../../../ui/Spinner";
-import { GoalInputField } from "../../dashboard/components/Goals/GoalInputField";
+import { ContentFrame } from "../../../ui/layoutsparts/ContentFrame";
+import { Spinner } from "../../../ui/generic/Spinner";
+
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 import { useState } from "react";
 
@@ -11,6 +11,7 @@ import { Box, FormLabel, Input, RadioGroup, Sheet, Radio } from "@mui/joy";
 import { radioClasses } from "@mui/joy/Radio";
 import { Toaster } from "react-hot-toast";
 import Done from "@mui/icons-material/Done";
+import { InputUser } from "./InputUser";
 
 export const SettingsPage = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -121,7 +122,7 @@ export const SettingsPage = () => {
             </div>
             <div className="grid gap-6  pt-12">
               <div className="px-4">
-                <GoalInputField
+                <InputUser
                   storedValue={userData.email}
                   label="EMAIL"
                   objKey="email"
@@ -129,7 +130,7 @@ export const SettingsPage = () => {
                 />
               </div>
               <div className="px-4">
-                <GoalInputField
+                <InputUser
                   storedValue={userData.name}
                   label="NAME"
                   objKey="name"

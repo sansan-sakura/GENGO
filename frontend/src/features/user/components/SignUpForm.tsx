@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { Key } from "@mui/icons-material";
 import { currentUserState } from "../../../states/atoms/userAtoms";
 import { useSetRecoilState } from "recoil";
+import { Button } from "../../../ui/shadcn/Button";
 
 const initialState = {
   name: { error: false, message: "" },
@@ -140,9 +141,7 @@ export const SignUpForm = () => {
             </FormHelperText>
           </FormControl>
           <div className="flex items-center justify-center">
-            <button className="button  py-1.5 px-4 text-base transition-all duration-300 hover:bg-red-light hover:text-white">
-              Register
-            </button>
+            <Button>Register</Button>
           </div>
           {dbError && <p className="text-red-700 text-base">{dbError.message}</p>}
         </form>

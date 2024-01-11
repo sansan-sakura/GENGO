@@ -1,5 +1,5 @@
 import { Goals } from "../../features/dashboard";
-import ErrorBoundary from "../../ui/ErrorBoundary";
+import ErrorBoundary from "../../ui/generic/ErrorBoundary";
 
 export const Dashboard = () => {
   return (

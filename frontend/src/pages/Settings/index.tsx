@@ -1,8 +1,8 @@
 import { Suspense } from "react";
-import { Spinner } from "../../ui/Spinner";
+import { Spinner } from "../../ui/generic/Spinner";
 import { SettingsPage } from "../../features/settings";
-import ErrorBoundary from "../../ui/ErrorBoundary";
-import { Error } from "../../ui/Error";
+import ErrorBoundary from "../../ui/generic/ErrorBoundary";
+import { Error } from "../../ui/generic/Error";
 
 export const Settings = () => {
   return (

@@ -1,16 +1,16 @@
 export const navButton = [
   {
-    name: "🏠 Dashboard",
-    bgColor: "bg-blue-default",
+    name: "⛺️ Dashboard",
+    bgColor: "bg-blue-dark",
     path: "/dashboard",
   },
   {
-    name: "🗂️ Flashcards",
-    bgColor: "bg-red-default",
+    name: "🚲 Flashcards",
+    bgColor: "bg-red-dark",
     path: "/flashcards",
   },
   {
-    name: "🛠️ Settings",
+    name: "⚙️ Settings",
     bgColor: "bg-yellow-default",
     path: "/settings",
   },

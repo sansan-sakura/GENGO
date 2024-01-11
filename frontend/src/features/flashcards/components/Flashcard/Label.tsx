@@ -1,4 +1,5 @@
 import { updateFlashCard } from "../../../../services/apiFlashcard";
+import { Button } from "../../../../ui/shadcn/Button";
 
 export const Label = ({
   label,
@@ -17,12 +18,12 @@ export const Label = ({
     onNextQuestion();
   };
   return (
-    <button
+    <Button
       value={label}
       onClick={handleClick}
-      className={`${bg} text-white px-2 py-1.5 sm:px-3 rounded hover:brightness-90 transition-all hover:translate-y-1 text-xs sm:text-lg`}
+      className={`${bg} text-white hover:brightness-75 hover:${bg} uppercase`}
     >
       {label}
-    </button>
+    </Button>
   );
 };

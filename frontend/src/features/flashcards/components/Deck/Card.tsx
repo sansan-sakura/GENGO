@@ -1,22 +1,24 @@
-import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 import { CategoryLabel } from "../Category/CategoryLabel";
 import { DeckType } from "../../../../types/flashcardTypes";
-import { EditBtn } from "../../../../ui/EditBtn";
-import { Modal } from "../../../../ui/Modal";
+import { EditBtn } from "../../../../ui/buttons/EditBtn";
+
 import { EditDeckModal } from "./EditDeckModal";
-import { DeleteBtn } from "../../../../ui/DeleteBtn";
+import { DeleteBtn } from "../../../../ui/buttons/DeleteBtn";
 import { useDeleteDeck } from "../../hooks/deck/useDeleteDeck";
-import { CheckButton } from "../../../../ui/CheckButton";
+import { CheckButton } from "../../../../ui/buttons/CheckButton";
 import { useEditDeck } from "../../hooks/deck/useEditDeck";
 import { useChooseCategoryColor } from "../../hooks/category/useChooseCategoryColor";
 
 import { bgColors } from "../../../../statics/colors";
+import { CustomDialog } from "../../../../ui/generic/CustomDialog";
+import { useRecoilState } from "recoil";
+import { modalIDstate } from "../../../../states/atoms/commonAtoms";
 
 export const Card = ({ card, index }: { card: DeckType; index: number }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalId, setModalId] = useRecoilState(modalIDstate);
   const { deleteDeck } = useDeleteDeck();
 
   const cardCategory = card?.category?.category;
@@ -43,7 +45,7 @@ export const Card = ({ card, index }: { card: DeckType; index: number }) => {
     <div className="relative">
       <Toaster />
       <div className="bg-yellow-default text-white w-5 h-10 transition ease duration-100 hover:brightness-95 absolute top-5 -right-5 z-10 flex justify-center items-center rounded-tr-md rounded-br-md">
-        <EditBtn handleEdit={() => setIsModalOpen(true)} color="#fff" size="16px" />
+        <EditBtn handleEdit={() => setModalId(`edit-deck-${card._id}`)} size="16px text-white" />
       </div>
       <div className="bg-red-default text-white w-5 h-10 transition ease duration-100 hover:brightness-95 absolute bottom-[70px] -right-5 z-10 flex justify-center items-center rounded-tr-md rounded-br-md">
         <DeleteBtn handleDelete={handelDeleteDeck} color="#fff" size="16px" />
@@ -62,13 +64,13 @@ export const Card = ({ card, index }: { card: DeckType; index: number }) => {
       </div>
       <Link
         to={`/deck/${card._id}`}
-        className="group relative block  h-44 w-[280px] sm:w-[310px] xl:w-[360px]"
+        className="group relative block  h-44 w-[280px] sm:w-[310px] xl:w-[360px] shadow-lg"
       >
         <span
-          className={`absolute inset-0 border-2 border-dashed border-black ${bgColors[index]} rounded-lg`}
+          className={`absolute inset-0 border-[0.5px] border-dashed border-black ${bgColors[index]} rounded`}
         ></span>
 
-        <div className="relative h-full transform border-2 border-black bg-white  rounded-lg transition-transform group-hover:-translate-x-2 group-hover:-translate-y-2">
+        <div className="relative h-full transform border-[0.5px] border-black bg-amber-50  rounded transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
           <div className="p-2 transition-opacity sm:p-6 lg:p-4 h-full flex flex-col justify-between">
             {card.category ? (
               <CategoryLabel category={card?.category?.category} bgColor={categoryBgColor.color} />
@@ -83,13 +85,10 @@ export const Card = ({ card, index }: { card: DeckType; index: number }) => {
           </div>
         </div>
       </Link>
-      {isModalOpen && (
-        <Modal
-          content={
-            <EditDeckModal id={card._id} title={card.title} category={card?.category?.category} />
-          }
-          setIsOpenModal={setIsModalOpen}
-        />
+      {modalId === `edit-deck-${card._id}` && (
+        <CustomDialog id={`edit-deck-${card._id}`}>
+          <EditDeckModal id={card._id} title={card.title} category={card?.category?._id} />
+        </CustomDialog>
       )}
     </div>
   );

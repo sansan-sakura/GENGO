@@ -1,5 +1,5 @@
 import { LoginForm } from "../../features/user";
-import ErrorBoundary from "../../ui/ErrorBoundary";
+import ErrorBoundary from "../../ui/generic/ErrorBoundary";
 
 export const Login = () => {
   return (

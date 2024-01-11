@@ -1,21 +1,28 @@
 import { useState, useEffect } from "react";
 import { Label } from "../Flashcard/Label";
-import { EditBtn } from "../../../../ui/EditBtn";
-import { Modal } from "../../../../ui/Modal";
+import { EditBtn } from "../../../../ui/buttons/EditBtn";
+
 import { EditFlashCardModal } from "../Flashcard/EditFlashCardModal";
-import { DeleteBtn } from "../../../../ui/DeleteBtn";
+import { DeleteBtn } from "../../../../ui/buttons/DeleteBtn";
 import { useDeleteFlashcard } from "../../hooks/flashcard/useDeleteFlashcard";
 import { Toaster } from "react-hot-toast";
 import { CardType } from "../../../../types/flashcardTypes";
-import { Spinner } from "../../../../ui/Spinner";
+import { Spinner } from "../../../../ui/generic/Spinner";
 import { labels, labelsColors } from "../../../../statics/colors";
+import { Button } from "../../../../ui/shadcn/Button";
+import { useRecoilState } from "recoil";
+import { modalConfirmState, modalIDstate } from "../../../../states/atoms/commonAtoms";
+import { ModalConfirm } from "../../../../ui/generic/ModalConfirm";
+import { CustomDialog } from "../../../../ui/generic/CustomDialog";
 
 export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentCard, setCurrentCard] = useState<CardType>();
   const [isFinished, setIsFinished] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [modalId, setModalId] = useRecoilState(modalIDstate);
+  const [isOpenModalConfirm, setIsOpenModalConfirm] = useRecoilState(modalConfirmState);
 
   const { deleteFlashcard } = useDeleteFlashcard();
 
@@ -35,8 +42,6 @@ export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
   };
 
   const handleDelete = () => {
-    const confirmDelete = confirm("Are you sure to delete this flashcard?");
-    if (!confirmDelete) return null;
     deleteFlashcard(_id);
   };
 
@@ -47,73 +52,69 @@ export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
 
   if (isFinished)
     return (
-      <div className="flex flex-col items-center grow justify-center text-center">
-        <p className="text-blue-default font-semibold text-lg sm:text-2xl">
+      <div className="flex flex-col items-center grow justify-center text-center gap-10">
+        <p className="text-blue-dark font-semibold text-lg sm:text-xl">
           This deck has no more cards to review
         </p>
-        <p className="text-green-dark font-semibold text-base sm:text-lg mt-2">
-          Do you want to review again?
-        </p>
-        <button
-          onClick={handlePlayAgain}
-          className="button mt-4 px-6 sm:px-8 bg-red-default text-white font-bold"
-        >
+
+        <Button onClick={handlePlayAgain} className=" uppercase">
           Again
-        </button>
+        </Button>
       </div>
     );
 
   return (
     <>
       <Toaster />
-      <div className="w-full grow border border-green-dark py-6 px-2 sm:py-24 sm:px-6 flex flex-col justify-between items-center gap-10 sm:gap-16 mt-1 rounded">
-        {!isChecked ? (
-          <>
-            <h3 className="text-lg sm:text-2xl mt-6 sm:mt-0">{question}</h3>
-          </>
-        ) : (
-          <div className="flex flex-col justify-between w-full grow">
-            <h3 className="text-;\lg sm:text-2xl text-center mt-10">{answer}</h3>
-            <p className="text-end mr-4">last status: {status}</p>
-          </div>
-        )}
-      </div>
-      <div className="flex flex-row gap-2 mt-4 sm:mt-8 mb-2 justify-between px-1 sm:px-4">
-        <div className="flex gap-4">
-          <div className="bg-red-default text-white w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition ease duration-100 hover:brightness-95">
-            <EditBtn handleEdit={() => setIsModalOpen(true)} color="#fff" size="28px" />
-          </div>
-          <div className="bg-blue-default text-white w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition ease duration-100 hover:brightness-95">
-            <DeleteBtn handleDelete={handleDelete} color="#fff" size="28px" />
-          </div>
+      <div className="w-full py-6 px-2 flex flex-col  items-center gap-10 sm:gap-16 mt-1 relative h-full grow">
+        <div className="flex gap-4 items-center absolute top-0 right-0">
+          <EditBtn
+            handleEdit={() => setModalId(`edit-flashcard/${_id}`)}
+            size="text-3xl text-gray-600"
+          />
+          <DeleteBtn
+            handleDelete={() => setIsOpenModalConfirm(true)}
+            size="text-[26px] text-gray-600"
+          />
         </div>
-        {isChecked ? (
-          <div className="flex flex-wrap gap-1 justify-end w-40 sm:w-full sm:gap-4">
-            {labels.map((label, i) => (
-              <Label
-                key={label}
-                label={label}
-                bg={labelsColors[i]}
-                id={_id}
-                onNextQuestion={handleClick}
-              />
-            ))}
-          </div>
-        ) : (
-          <button
-            onClick={() => setIsChecked(true)}
-            className="button ml-auto  py-0.5 sm:py-1 px-4 sm:px-6 bg-blue-default font-semibold text-white text-base sm:text-lg"
-          >
-            Check
-          </button>
-        )}
+        <div className="flex flex-col w-full gap-20 min-h-full justify-between items-center h-full grow pt-10">
+          {!isChecked ? (
+            <>
+              <h3 className="text-lg sm:text-xl mt-6 sm:mt-0">{question}</h3>
+              <Button onClick={() => setIsChecked(true)} className="ml-auto w-fit">
+                Check
+              </Button>
+            </>
+          ) : (
+            <>
+              <h3 className="text-lg sm:text-2xl text-center">{answer}</h3>
+
+              <div className="flex gap-1 justify-end w-40 sm:w-full  flex-col">
+                <p className="text-sm text-end">last status: {status}</p>
+                <div className="flex flex-wrap gap-1 justify-end w-40 sm:w-full sm:gap-4 ">
+                  {labels.map((label, i) => (
+                    <Label
+                      key={label}
+                      label={label}
+                      bg={labelsColors[i]}
+                      id={_id}
+                      onNextQuestion={handleClick}
+                    />
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+        </div>
       </div>
-      {isModalOpen && (
-        <Modal
-          content={<EditFlashCardModal answer={answer} question={question} id={_id} />}
-          setIsOpenModal={setIsModalOpen}
-        />
+
+      {modalId === `edit-flashcard/${_id}` && (
+        <CustomDialog header="Edit Flashcard" id={`edit-flashcard/${_id}`}>
+          <EditFlashCardModal answer={answer} question={question} id={_id} />
+        </CustomDialog>
       )}
+
+      {isOpenModalConfirm && <ModalConfirm header="Delete This Flashcard" onClick={handleDelete} />}
     </>
   );
 };
