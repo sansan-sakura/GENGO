@@ -1,32 +1,33 @@
 import { useState } from "react";
-import { Toaster } from "react-hot-toast";
 
 import { CategoryType } from "../../../../types/flashcardTypes";
-import { SubModal } from "../../../../ui/SubModal";
+
 import { EditCategoryModalOption } from "./EditCategoryModalOption";
 import { InputSubModalField } from "./InputSubModalField";
+
+import { Dialog, DialogContent } from "../../../../ui/shadcn/Dialog";
+import { ButtonSubmit } from "../../../../ui/buttons/ButtonSubmit";
 
 export const EditCategoryInputField = ({ categories }: { categories: CategoryType[] }) => {
   const [isSubOpen, setIsSubOpen] = useState(false);
   return (
     <>
-      <Toaster />
       {isSubOpen && (
-        <SubModal
-          content={<InputSubModalField onClose={setIsSubOpen} />}
-          setIsSubOpen={setIsSubOpen}
-        />
+        <Dialog open={isSubOpen} onOpenChange={() => setIsSubOpen((prev) => !prev)}>
+          <DialogContent>
+            <InputSubModalField onClose={setIsSubOpen} />
+          </DialogContent>
+        </Dialog>
       )}
-      <div className="bg-white p-4 sm:p-10  text-center">
-        <h3 className=" text-red-dark text-lg sm:text-2xl font-semibold">Category Setting</h3>
-        <div className="mt-4">
-          {categories.map((cate) => (
-            <EditCategoryModalOption cate={cate} key={cate._id} />
-          ))}
+      <div className="p-2 sm:p-10  text-center">
+        <div className="my-4 max-h-[280px] overflow-scroll">
+          {categories.length > 0 ? (
+            categories.map((cate) => <EditCategoryModalOption cate={cate} key={cate._id} />)
+          ) : (
+            <p>No category has been created</p>
+          )}
         </div>
-        <button className="button mt-6" onClick={() => setIsSubOpen(true)}>
-          Create a new Category
-        </button>
+        <ButtonSubmit onClick={() => setIsSubOpen(true)} text="Create a new Category" />
       </div>
     </>
   );

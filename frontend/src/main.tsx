@@ -5,7 +5,7 @@ import { RecoilRoot } from "recoil";
 import App from "./App.tsx";
 import "./styles/index.css";
 import "./styles/reset.css";
-import ErrorBoundary from "./ui/ErrorBoundary/index.tsx";
+import ErrorBoundary from "./ui/generic/ErrorBoundary/index.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {

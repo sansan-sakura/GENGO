@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Toaster } from "react-hot-toast";
 import { useCreateFlashcard } from "../../hooks/flashcard/useCreateFlashcard";
+import { Label } from "../../../../ui/shadcn/Label";
+import { ButtonSubmit } from "../../../../ui/buttons/ButtonSubmit";
 
 export const CreateFlashCardModal = ({ id }: { id: string | undefined }) => {
   const [questionValue, setQuestionValue] = useState("");
@@ -17,39 +18,29 @@ export const CreateFlashCardModal = ({ id }: { id: string | undefined }) => {
   };
 
   return (
-    <div>
-      <div className="flex flex-col">
-        <Toaster />
-        <h2 className="text-xl text-center font-semibold">New Flashcard</h2>
-        <label htmlFor="question" className="text-lg font-semibold">
-          Question
-        </label>
-        <textarea
-          id="question"
-          cols={20}
-          rows={3}
-          value={questionValue}
-          onChange={(e) => setQuestionValue(e.target.value)}
-          className="border border-slate-500 rounded w-[300px] py-2 px-3 mb-6 mt-2"
-        />
-        <label htmlFor="answer" className="text-lg font-semibold">
-          Answer
-        </label>
-        <textarea
-          cols={20}
-          rows={3}
-          value={answerValue}
-          onChange={(e) => setAnswerValue(e.target.value)}
-          className="border border-slate-500 rounded w-[300px] py-2 px-3 mb-6 mt-2"
-        />
-        <button
-          disabled={isCreating}
-          className="button bg-red-light font-semibold"
-          onClick={handleEdit}
-        >
-          add
-        </button>
-      </div>
+    <div className="flex flex-col px-2 mx-auto">
+      <Label htmlFor="question" className="text-xs sm:text-sm font-semibold">
+        Question
+      </Label>
+      <textarea
+        id="question"
+        cols={20}
+        rows={3}
+        value={questionValue}
+        onChange={(e) => setQuestionValue(e.target.value)}
+        className="border border-slate-500 rounded w-[300px] py-2 px-3 mb-6 mt-2"
+      />
+      <Label htmlFor="answer" className="text-xs sm:text-sm font-semibold">
+        Answer
+      </Label>
+      <textarea
+        cols={20}
+        rows={3}
+        value={answerValue}
+        onChange={(e) => setAnswerValue(e.target.value)}
+        className="border border-slate-500 rounded w-[300px] py-2 px-3 mb-6 mt-2"
+      />
+      <ButtonSubmit isLoading={isCreating} onClick={handleEdit} text="Add" />
     </div>
   );
 };

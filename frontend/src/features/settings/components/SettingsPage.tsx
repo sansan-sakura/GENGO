@@ -1,6 +1,6 @@
 import { useUser } from "../../../hooks/useUser";
-import { ContentFrame } from "../../../ui/ContentFrame";
-import { Spinner } from "../../../ui/Spinner";
+import { ContentFrame } from "../../../ui/layoutsparts/ContentFrame";
+import { Spinner } from "../../../ui/generic/Spinner";
 import { GoalInputField } from "../../dashboard/components/Goals/GoalInputField";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 import { useState } from "react";

@@ -9,10 +9,10 @@
 
 @layer components {
   .section-layout {
-    @apply w-full max-w-[1000px] mt-6 lg:mt-12;
+    @apply w-full max-w-[1000px] h-full mt-8 flex items-center flex-col;
   }
 
   .button {
-    @apply flex justify-center items-center text-sm p-1.5 md:p-2 rounded-md transform border sm:border-2 border-black bg-white transition-transform  hover:translate-y-1 sm:text-lg;
+    @apply flex justify-center items-center text-sm p-1.5 md:p-2 rounded-md transform text-white bg-red-dark transition-transform  hover:translate-y-0.5 sm:text-lg hover:bg-red-dark/70;
   }
 }

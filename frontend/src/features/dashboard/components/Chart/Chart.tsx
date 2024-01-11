@@ -1,4 +1,4 @@
-import { ContentFrame } from "../../../../ui/ContentFrame";
+import { ContentFrame } from "../../../../ui/layoutsparts/ContentFrame";
 
 import {
   Chart as ChartJS,

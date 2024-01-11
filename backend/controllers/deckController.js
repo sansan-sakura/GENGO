@@ -22,7 +22,7 @@ exports.getAllDecks = catchAsync(async (req, res, next) => {
     .paginate();
 
   const deck = await features.query;
-
+  console.log(deck);
   res.status(200).json({
     status: "200",
     results: deck.length,
@@ -44,7 +44,7 @@ exports.getDatesOfDeck = catchAsync(async (req, res, next) => {
   );
 
   const deck = await features.query;
-
+  console.log(deck);
   res.status(200).json({
     status: "200",
     results: deck.length,
@@ -63,7 +63,7 @@ exports.getAllDatesOfDeck = catchAsync(async (req, res, next) => {
   );
 
   const deck = await features.query;
-
+  console.log(deck);
   res.status(200).json({
     status: "200",
     results: deck.length,
@@ -72,8 +72,10 @@ exports.getAllDatesOfDeck = catchAsync(async (req, res, next) => {
 });
 
 exports.getDecksByCategory = catchAsync(async (req, res, next) => {
+  console.log(req.body, req.params);
   const searchObj =
     req.params.id === "all" ? {} : { category: mongoose.Types.ObjectId(req.params.id) };
+  console.log(searchObj);
   const features = new APIFeatures(
     Deck.find({ category: mongoose.Types.ObjectId(req.params.id) })
       .populate("category")
@@ -86,7 +88,7 @@ exports.getDecksByCategory = catchAsync(async (req, res, next) => {
     .paginate();
 
   const deck = await features.query;
-
+  console.log(deck);
   res.status(200).json({
     status: "200",
     results: deck.length,

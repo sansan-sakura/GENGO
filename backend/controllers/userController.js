@@ -16,6 +16,7 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 
 exports.createUser = catchAsync(async (req, res, next) => {
   const { name, email, password, passwordConfirm } = req.body;
+  console.log(req.body);
 
   if (!name || !email || !password || !passwordConfirm) {
     return next(new AppError("All fields need to be filled !!", 400));

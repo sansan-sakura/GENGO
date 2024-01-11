@@ -11,20 +11,29 @@ import {
   searchQueryStatus,
 } from "../../../../states/atoms/flashcardAtoms";
 
-import { EditBtn } from "../../../../ui/EditBtn";
+import { EditBtn } from "../../../../ui/buttons/EditBtn";
 import { modalIDstate, modalState } from "../../../../states/atoms/commonAtoms";
-import { Modal } from "../../../../ui/Modal";
-import { ContentFrame } from "../../../../ui/ContentFrame";
+import { Modal } from "../../../../ui/generic/Modal";
+import { ContentFrame } from "../../../../ui/layoutsparts/ContentFrame";
 import { Pagination } from "../Deck/Pagination";
 import { EditCategoryInputField } from "../Category/EditCategoryInputField";
 import { CreateDeckInputField } from "../Deck/CreateDeckInputField";
 import { SelectCategory } from "../Category/SelectCategory";
 import { useDecksWithCategory } from "../../hooks/deck/useDecksWithCategory";
-import { Error } from "../../../../ui/Error";
+import { Error } from "../../../../ui/generic/Error";
 import { DeckType } from "../../../../types/flashcardTypes";
 import { Card } from "../Deck/Card";
-import { Spinner } from "../../../../ui/Spinner";
+import { Spinner } from "../../../../ui/generic/Spinner";
 import { useCategory } from "../../hooks/category/useCategory";
+import { CustomDialog } from "../../../../ui/generic/CustomDialog";
+import { Button } from "../../../../ui/shadcn/Button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../../../../ui/shadcn/Slect";
 
 export const FlashcardsBoard = () => {
   const setCategories = useSetRecoilState(categoriesState);
@@ -43,7 +52,7 @@ export const FlashcardsBoard = () => {
   const [modalID, setModalID] = useRecoilState(modalIDstate);
 
   const setCards = useSetRecoilState(allDecksPerPageState);
-
+  console.log(queryCategory);
   const query = useMemo(
     () =>
       `page=${currentPage}&limit=${cardsNumPerPage}${
@@ -61,62 +70,67 @@ export const FlashcardsBoard = () => {
   setCards(decksWithQueries);
   setCategories(categories);
 
-  function handleSetQuery(e: React.ChangeEvent<HTMLSelectElement>, label: string) {
+  function handleSetQuery(value: string, label: string) {
     const handler = label === "status" ? setSearchQueryStatus : setSearchQueryCreatedAt;
-    handler(e.target.value);
+    const sortedValue = label === "status" && value === "false" ? "" : value;
+    handler(sortedValue);
   }
 
   return (
     <>
       {isModalOpen && modalID === "edit_category" && (
-        <Modal
-          setIsOpenModal={setIsModalOpen}
-          setModalID={setModalID}
-          content={<EditCategoryInputField categories={categories} />}
-        />
+        <CustomDialog id="edit_category" header="Edit Category">
+          <EditCategoryInputField categories={categories} />
+        </CustomDialog>
       )}
+
       {isModalOpen && modalID === "create_deck" && (
-        <Modal
-          setIsOpenModal={setIsModalOpen}
-          setModalID={setModalID}
-          content={<CreateDeckInputField />}
-        />
+        <CustomDialog id="create_deck" header="Create New Deck">
+          <CreateDeckInputField />
+        </CustomDialog>
       )}
       <ContentFrame>
         <div className="w-full">
-          <div className="flex justify-around w-fit mx-auto p-3 gap-2  bg-gray-50 mb-6 md:mb-10 sm:p-6 sm:gap-3  rounded border-2">
+          <div className="flex justify-around w-fit mx-auto p-2 gap-2.5 mb-6 md:mb-10 sm:p-6 sm:gap-3  rounded border-2">
             <div className="flex flex-col gap-2 sm:gap-6">
               <div className="flex flex-col gap-2">
-                <label className="text-xs sm:text-base md:text-lg">Status</label>
-                <select
+                <label className="text-xs md:text-sm font-semibold">Status</label>
+                <Select
                   value={queryStatus}
-                  onChange={(e) => handleSetQuery(e, "status")}
-                  className="text-xs h-8 sm:h-10 w-full rounded-full border-none bg-white pe-10 ps-4 sm:text-sm shadow-sm sm:w-56"
+                  onValueChange={(value) => handleSetQuery(value, "status")}
                 >
-                  <option disabled>status</option>
-                  <option value="true">Done</option>
-                  <option value="">Not Yet</option>
-                </select>
+                  <SelectTrigger className="w-[140px] sm:w-[180px]">
+                    <SelectValue placeholder="status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="true">Done</SelectItem>
+                    <SelectItem value="false">Not Yet</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <div className="flex flex-col gap-2">
-                <label className="text-xs sm:text-base md:text-lg">Created Date</label>
-                <select
+                <label className="text-xs md:text-sm font-semibold">Created Date</label>
+                <Select
                   value={queryCreatedAt}
-                  onChange={(e) => handleSetQuery(e, "createdAt")}
-                  className="text-xs h-8 sm:h-10 w-full rounded-full border-none bg-white pe-10 ps-4 sm:text-sm shadow-sm sm:w-56"
+                  onValueChange={(value) => handleSetQuery(value, "createdAt")}
                 >
-                  <option disabled>Created Date</option>
-                  <option value="-createdAt">Newer</option>
-                  <option value="createdAt">Older</option>
-                </select>
+                  <SelectTrigger className="w-[140px] sm:w-[180px]">
+                    <SelectValue placeholder="Created Date" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="-createdAt">Newer</SelectItem>
+                    <SelectItem value="createdAt">Older</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
             <div className="flex flex-col justify-between">
               <div className="flex flex-col gap-2">
                 <div className="flex justify-start gap-2">
-                  <label className="text-xs sm:text-base md:text-lg">Catergory</label>
+                  <label className="text-xs md:text-sm font-semibold">Catergory</label>
                   <EditBtn
+                    size="text-sm sm:text-base"
                     handleEdit={() => {
                       setIsModalOpen(true);
                       setModalID("edit_category");
@@ -125,22 +139,22 @@ export const FlashcardsBoard = () => {
                 </div>
                 <SelectCategory key="searchBoard" type="search" />
               </div>
-              <button
-                className="button mt-4 sm:mt-0"
+              <Button
+                className=" mt-4 sm:mt-0"
                 onClick={() => {
                   setIsModalOpen(true);
                   setModalID("create_deck");
                 }}
               >
                 Create a New Deck
-              </button>
+              </Button>
             </div>
           </div>
           <div className="grid md:grid-cols-2 gap-6 lg:gap-8 justify-items-center">
             {decksWithQueries.length !== 0 ? (
               decksWithQueries?.map((card, i) => <Card card={card} key={i} index={i} />)
             ) : (
-              <p className="pt-6 text-sm sm:text-base">NOT AVAILABLE 🎭</p>
+              <p className="pt-6 text-sm sm:text-base">Please Add Deck</p>
             )}
           </div>
           <div className="w-full flex justify-center pt-8">

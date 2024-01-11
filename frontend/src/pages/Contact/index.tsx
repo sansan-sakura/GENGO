@@ -1,4 +1,4 @@
-import { ContentFrame } from "../../ui/ContentFrame";
+import { ContentFrame } from "../../ui/layoutsparts/ContentFrame";
 import { VscGithub } from "react-icons/vsc";
 import { PiLinkedinLogo } from "react-icons/pi";
 

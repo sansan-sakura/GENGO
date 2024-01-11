@@ -1,37 +1,51 @@
 import { useRecoilValue, useRecoilState } from "recoil";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { categoriesState, searchQueryCategory } from "../../../../states/atoms/flashcardAtoms";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../../../../ui/shadcn/Slect";
 
 export const SelectCategory = ({
   currentCategory,
   type,
+  onSetCategory = null,
 }: {
   currentCategory?: string;
   type?: "search";
+  onSetCategory?: Dispatch<SetStateAction<string>>;
 }) => {
   const [categoryId, setSearchQueryCategory] = useRecoilState(searchQueryCategory);
   const categories = useRecoilValue(categoriesState);
   const [currentValue, setCurrentValue] = useState(
     categories.length !== 0 && currentCategory
       ? currentCategory
-      : categories.filter((obj) => obj._id === categoryId)[0]?.category
+      : categories.filter((obj) => obj._id === categoryId)[0]?.id
   );
+
   return (
-    <select
-      value={currentValue}
-      onChange={(e) => {
-        type === "search" && setSearchQueryCategory(e.target.value);
-        setCurrentValue(e.target.value);
+    <Select
+      defaultValue={currentValue}
+      onValueChange={(value) => {
+        type === "search" && setSearchQueryCategory(value);
+        setCurrentValue(value);
+        onSetCategory && onSetCategory(value);
       }}
-      className="text-xs h-8  sm:h-10 w-full rounded-full border-none bg-white pe-10 ps-4 sm:text-sm shadow-sm sm:w-56"
     >
-      <option disabled>Choose catgory</option>
-      <option value="all">All</option>
-      {categories?.map((cate) => (
-        <option key={cate._id} value={cate._id}>
-          {cate.category}
-        </option>
-      ))}
-    </select>
+      <SelectTrigger className="w-[160px] sm:w-[180px]">
+        <SelectValue placeholder="Choose catgory" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="all">All</SelectItem>
+        {categories?.map((cate) => (
+          <SelectItem key={cate._id} value={cate._id}>
+            {cate.category}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 };

@@ -1,19 +1,22 @@
-import { ContentFrame } from "../../../../ui/ContentFrame";
+import { ContentFrame } from "../../../../ui/layoutsparts/ContentFrame";
 import { useState } from "react";
 import { DeckCard } from "./DeckCard";
 import { useParams } from "react-router-dom";
 import { useDeck } from "../../hooks/deck/useDeck";
-import { Error } from "../../../../ui/Error";
-import { AddBtn } from "../../../../ui/AddBtn";
-import { Modal } from "../../../../ui/Modal";
+import { Error } from "../../../../ui/generic/Error";
+import { AddBtn } from "../../../../ui/buttons/AddBtn";
+import { Modal } from "../../../../ui/generic/Modal";
 import { CreateFlashCardModal } from "../Flashcard/CreateFlashCardModal";
-import { Spinner } from "../../../../ui/Spinner";
+import { Spinner } from "../../../../ui/generic/Spinner";
 import { useChooseCategoryColor } from "../../hooks/category/useChooseCategoryColor";
+import { Button } from "../../../../ui/shadcn/Button";
+import { useRecoilState } from "recoil";
+import { modalIDstate } from "../../../../states/atoms/commonAtoms";
+import { CustomDialog } from "../../../../ui/generic/CustomDialog";
 
 export const Deck = () => {
   const [isStarted, setIsStarted] = useState(false);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalId, setModalId] = useRecoilState(modalIDstate);
 
   const { id } = useParams();
   const { isLoading, deck, error } = useDeck(id);
@@ -29,22 +32,19 @@ export const Deck = () => {
       <ContentFrame>
         <div className="pt-3 px-4 flex flex-col justify-between w-full min-h-[300px] md:min-w-[700px] md:min-h-[450px] max-w-[600px]">
           {!isStarted ? (
-            <>
-              <h3 className="text-3xl font-semibold text-center mt-10">{currentDeck.title}</h3>
+            <div className="flex h-full items-center flex-col grow justify-center gap-10">
+              <h3 className="text-2xl text-center">{currentDeck.title}</h3>
 
-              <button
-                onClick={() => setIsStarted(true)}
-                className="button mx-auto py-1 px-6 sm:py-2 sm:px-10 bg-green-dark font-semibold text-white text-lg"
-              >
+              <Button onClick={() => setIsStarted(true)} className="w-fit mx-auto" size="lg">
                 Start
-              </button>
-            </>
+              </Button>
+            </div>
           ) : deck.data.deck.cards.length !== 0 ? (
             <DeckCard cards={currentDeck.cards} />
           ) : (
             <div className="w-full h-full flex items-center justify-center grow">
-              <div className="border-2 border-red-light py-4 px-6 rounded-md text-xl fond-bold ">
-                <p>Please add flashcard 📝</p>
+              <div className=" text-base fond-bold ">
+                <p>Please add flashcard</p>
               </div>
             </div>
           )}
@@ -52,35 +52,30 @@ export const Deck = () => {
       </ContentFrame>
 
       {/* Flashcard editing bar */}
-      <div className="w-full flex items-center justify-between px-6">
-        <div className="grid w-fit my-4 sm:my-10 border justify-items-center items-center border-stone-300 rounded-lg py-1 px-1">
-          {currentDeck?.category?.category ? (
+      <div className="w-full max-w-[600px] mx-auto flex items-center justify-between px-6">
+        <div className="grid gap-4">
+          {currentDeck?.category?.category && (
             <p
               className={`bg-${
                 categoryBgColor?.color ? categoryBgColor.color : "red-light"
-              } py-1 px-2 rounded`}
+              } py-1 px-2 rounded w-fit`}
             >
               {currentDeck?.category?.category}
             </p>
-          ) : (
-            ""
           )}
-
-          <div className="py-4 px-3 text-xs">
-            <p>Finished: {currentDeck.isDone ? "Finished" : "Not Yet"}</p>
-            <p>Created: {currentDeck.createdAt?.split("T")[0]}</p>
-            <p>Last reviewed: {currentDeck.last_reviewed_date?.split("T")[0]}</p>
-          </div>
+          <p className="text-xs">Last reviewed: {currentDeck.last_reviewed_date?.split("T")[0]}</p>
         </div>
         <div className="grid justify-items-center gap-2">
-          <div className="bg-yellow-default text-white w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition ease duration-100 hover:brightness-95">
-            <AddBtn handleEdit={() => setIsModalOpen(true)} color="#fff" size="28px" />
+          <div className="bg-blue-dark text-white w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition ease duration-100 hover:brightness-95">
+            <AddBtn handleEdit={() => setModalId("create-flashcard")} color="#fff" size="24px" />
           </div>
           <span className="text-[8px] sm:text-[10px]">new Flashcard</span>
         </div>
       </div>
-      {isModalOpen && (
-        <Modal content={<CreateFlashCardModal id={id} />} setIsOpenModal={setIsModalOpen} />
+      {modalId === "create-flashcard" && (
+        <CustomDialog id="create-flashcard" header="Create Flashcard">
+          <CreateFlashCardModal id={id} />
+        </CustomDialog>
       )}
     </>
   );

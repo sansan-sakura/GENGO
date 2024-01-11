@@ -8,8 +8,8 @@ import {
 } from "../../../../states/atoms/flashcardAtoms";
 import { useDecksDates } from "../../../../hooks/useDatesDecks";
 import { useMemo } from "react";
-import { Spinner } from "../../../../ui/Spinner";
-import { Error } from "../../../../ui/Error";
+import { Spinner } from "../../../../ui/generic/Spinner";
+import { Error } from "../../../../ui/generic/Error";
 
 export const Pagination = () => {
   const query = useRecoilValue(searchQuery);

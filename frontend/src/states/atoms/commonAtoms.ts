@@ -9,3 +9,8 @@ export const modalIDstate = atom<string>({
   key: "modalId",
   default: "",
 });
+
+export const modalConfirmState = atom<boolean>({
+  key: "modalConfirm",
+  default: false,
+});
