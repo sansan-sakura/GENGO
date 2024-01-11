@@ -1,5 +1,5 @@
 import { CREATE_USER_API, LOGIN_USER_API, UPDATE_GET_USER_API } from "../statics/fetchUrls";
-import { CreateUser, LoginBody } from "../types/userType";
+import { CreateUser, LoginBody, UpdateUserBody } from "../types/userType";
 import { findToken } from "../utils/apiHelpers";
 
 export const createUser = async (formData: CreateUser) => {
@@ -75,8 +75,7 @@ export async function getUser() {
   }
 }
 
-export async function updateUser(body) {
-  console.log("update user");
+export async function updateUser(body: UpdateUserBody) {
   const accessToken = findToken();
   if (!accessToken) return alert("Please check in first");
   try {

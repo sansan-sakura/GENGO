@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Label } from "../Flashcard/Label";
 import { EditBtn } from "../../../../ui/buttons/EditBtn";
-import { Modal } from "../../../../ui/generic/Modal";
+
 import { EditFlashCardModal } from "../Flashcard/EditFlashCardModal";
 import { DeleteBtn } from "../../../../ui/buttons/DeleteBtn";
 import { useDeleteFlashcard } from "../../hooks/flashcard/useDeleteFlashcard";
@@ -20,7 +20,7 @@ export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentCard, setCurrentCard] = useState<CardType>();
   const [isFinished, setIsFinished] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [modalId, setModalId] = useRecoilState(modalIDstate);
   const [isOpenModalConfirm, setIsOpenModalConfirm] = useRecoilState(modalConfirmState);
 

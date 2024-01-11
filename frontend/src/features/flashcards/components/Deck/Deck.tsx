@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useDeck } from "../../hooks/deck/useDeck";
 import { Error } from "../../../../ui/generic/Error";
 import { AddBtn } from "../../../../ui/buttons/AddBtn";
-import { Modal } from "../../../../ui/generic/Modal";
+
 import { CreateFlashCardModal } from "../Flashcard/CreateFlashCardModal";
 import { Spinner } from "../../../../ui/generic/Spinner";
 import { useChooseCategoryColor } from "../../hooks/category/useChooseCategoryColor";

@@ -13,7 +13,7 @@ import {
 
 import { EditBtn } from "../../../../ui/buttons/EditBtn";
 import { modalIDstate, modalState } from "../../../../states/atoms/commonAtoms";
-import { Modal } from "../../../../ui/generic/Modal";
+
 import { ContentFrame } from "../../../../ui/layoutsparts/ContentFrame";
 import { Pagination } from "../Deck/Pagination";
 import { EditCategoryInputField } from "../Category/EditCategoryInputField";

@@ -94,7 +94,6 @@ exports.updateUser = catchAsync(async (req, res, next) => {
     );
   } else {
     user = await User.findOneAndUpdate({ accessToken: accessToken }, req.body, {
-      runValidators: true,
       new: true,
     });
   }

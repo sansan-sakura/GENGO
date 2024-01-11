@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useEditDeck } from "../../hooks/deck/useEditDeck";
-import { Toaster } from "react-hot-toast";
+
 import { SelectCategory } from "../Category/SelectCategory";
-import { searchQueryCategory } from "../../../../states/atoms/flashcardAtoms";
-import { useRecoilValue } from "recoil";
+
 import { Input } from "../../../../ui/shadcn/Input";
 import { ButtonSubmit } from "../../../../ui/buttons/ButtonSubmit";
 import { Label } from "../../../../ui/shadcn/Label";

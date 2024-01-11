@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Hanko } from "../../generic/Hanko";
+import { Particle } from "../../animation/Particle";
 
 export const LoginSignUpLayout = () => {
   return (
@@ -7,12 +8,15 @@ export const LoginSignUpLayout = () => {
       <div className="bg-red-light w-full h-full flex md:pt-32 justify-center row-start-2 md:row-auto">
         <div className=" flex flex-col md:h-[340px] pt-10 gap-4 md:justify-between md:pt-0 items-center">
           <Hanko />
-          <h1 className="h-fit md:-rotate-90 font-display font-bold text-5xl md:text-[100px] text-amber-50">
+          <h1 className="h-fit md:-rotate-90 font-display font-bold text-5xl md:text-[100px] text-amber-50 z-10">
             GENGO
           </h1>
         </div>
       </div>
-      <Outlet />
+      <div className="z-10 bg-amber-50/80 w-fit h-fit mx-auto">
+        <Outlet />
+      </div>
+      <Particle />
     </div>
   );
 };

@@ -1,11 +1,10 @@
-import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 import { CategoryLabel } from "../Category/CategoryLabel";
 import { DeckType } from "../../../../types/flashcardTypes";
 import { EditBtn } from "../../../../ui/buttons/EditBtn";
-import { Modal } from "../../../../ui/generic/Modal";
+
 import { EditDeckModal } from "./EditDeckModal";
 import { DeleteBtn } from "../../../../ui/buttons/DeleteBtn";
 import { useDeleteDeck } from "../../hooks/deck/useDeleteDeck";
@@ -46,7 +45,7 @@ export const Card = ({ card, index }: { card: DeckType; index: number }) => {
     <div className="relative">
       <Toaster />
       <div className="bg-yellow-default text-white w-5 h-10 transition ease duration-100 hover:brightness-95 absolute top-5 -right-5 z-10 flex justify-center items-center rounded-tr-md rounded-br-md">
-        <EditBtn handleEdit={() => setModalId(`edit-deck-${card._id}`)} color="#fff" size="16px" />
+        <EditBtn handleEdit={() => setModalId(`edit-deck-${card._id}`)} size="16px text-white" />
       </div>
       <div className="bg-red-default text-white w-5 h-10 transition ease duration-100 hover:brightness-95 absolute bottom-[70px] -right-5 z-10 flex justify-center items-center rounded-tr-md rounded-br-md">
         <DeleteBtn handleDelete={handelDeleteDeck} color="#fff" size="16px" />
@@ -65,7 +64,7 @@ export const Card = ({ card, index }: { card: DeckType; index: number }) => {
       </div>
       <Link
         to={`/deck/${card._id}`}
-        className="group relative block  h-44 w-[280px] sm:w-[310px] xl:w-[360px]"
+        className="group relative block  h-44 w-[280px] sm:w-[310px] xl:w-[360px] shadow-lg"
       >
         <span
           className={`absolute inset-0 border-[0.5px] border-dashed border-black ${bgColors[index]} rounded`}
