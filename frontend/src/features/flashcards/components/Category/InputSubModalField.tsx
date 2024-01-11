@@ -13,7 +13,7 @@ export const InputSubModalField = ({
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
   defaultValue?: string;
 }) => {
-  const [editingValue, setEditingValue] = useState<string>(defaultValue);
+  const [editingValue, setEditingValue] = useState<string>(defaultValue ?? "");
   const { isEditing, editCategory } = useEditCategory();
   const { isCreating, createCategory } = useCreateCategory();
   const [error, setError] = useState(false);

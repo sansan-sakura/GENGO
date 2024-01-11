@@ -73,7 +73,10 @@ export const Card = ({ card, index }: { card: DeckType; index: number }) => {
         <div className="relative h-full transform border-[0.5px] border-black bg-amber-50  rounded transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
           <div className="p-2 transition-opacity sm:p-6 lg:p-4 h-full flex flex-col justify-between">
             {card.category ? (
-              <CategoryLabel category={card?.category?.category} bgColor={categoryBgColor.color} />
+              <CategoryLabel
+                category={card?.category?.category}
+                bgColor={categoryBgColor?.color ?? ""}
+              />
             ) : (
               <p></p>
             )}

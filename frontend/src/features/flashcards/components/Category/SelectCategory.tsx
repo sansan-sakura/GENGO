@@ -12,7 +12,7 @@ import {
 export const SelectCategory = ({
   currentCategory,
   type,
-  onSetCategory = null,
+  onSetCategory,
 }: {
   currentCategory?: string;
   type?: "search";
@@ -23,7 +23,7 @@ export const SelectCategory = ({
   const [currentValue, setCurrentValue] = useState(
     categories.length !== 0 && currentCategory
       ? currentCategory
-      : categories.filter((obj) => obj._id === categoryId)[0]?.id
+      : categories?.filter((obj) => obj._id === categoryId)[0]?.id
   );
 
   return (
@@ -40,11 +40,12 @@ export const SelectCategory = ({
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="all">All</SelectItem>
-        {categories?.map((cate) => (
-          <SelectItem key={cate._id} value={cate._id}>
-            {cate.category}
-          </SelectItem>
-        ))}
+        {categories &&
+          categories?.map((cate) => (
+            <SelectItem key={cate?._id} value={cate?._id}>
+              {cate?.category}
+            </SelectItem>
+          ))}
       </SelectContent>
     </Select>
   );

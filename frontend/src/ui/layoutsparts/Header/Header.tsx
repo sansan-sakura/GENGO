@@ -15,7 +15,7 @@ export const Header = () => {
   return (
     <>
       {isNavOpen && <Aside setIsNavOpen={setIsNavOpen} isNavOpen={isNavOpen} />}
-      <header className="bg-amber-50 border-b ">
+      <header className="bg-amber-50/50 border-b ">
         <div className="mx-4 sm:mx-auto max-w-[1200px] py-6 sm:py-8 flex justify-center items-center">
           <div className="flex items-center justify-between gap-12 max-w-[1200px] w-full mx-auto px-6">
             <div className="flex items-center gap-10">
