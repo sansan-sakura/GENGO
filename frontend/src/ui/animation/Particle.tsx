@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
-import type { Container } from "@tsparticles/engine";
+import type { Container, IOptions, RecursivePartial } from "@tsparticles/engine";
 import { loadFull } from "tsparticles";
 
 import { ISourceOptions } from "@tsparticles/engine";
@@ -27,7 +27,7 @@ export const Particle = () => {
     console.log(container);
   };
 
-  const options: ISourceOptions = useMemo(
+  const options: any = useMemo(
     () => ({
       background: {
         color: {
