@@ -8,6 +8,7 @@ const APIFeatures = require("../utils/apiFeature");
 const { default: mongoose } = require("mongoose");
 
 exports.getAllDecks = catchAsync(async (req, res, next) => {
+  console.log("all deck gettttt");
   const accessToken = req.headers.authorization;
   const userStorage = await User.findOne({ accessToken: accessToken });
   if (!userStorage)
@@ -22,7 +23,7 @@ exports.getAllDecks = catchAsync(async (req, res, next) => {
     .paginate();
 
   const deck = await features.query;
-  console.log(deck);
+
   res.status(200).json({
     status: "200",
     results: deck.length,
@@ -31,6 +32,7 @@ exports.getAllDecks = catchAsync(async (req, res, next) => {
 });
 
 exports.getDatesOfDeck = catchAsync(async (req, res, next) => {
+  console.log("deck gettttt");
   const features = new APIFeatures(
     Deck.find({ category: mongoose.Types.ObjectId(req.params.id) })
       .populate("category")
@@ -44,7 +46,7 @@ exports.getDatesOfDeck = catchAsync(async (req, res, next) => {
   );
 
   const deck = await features.query;
-  console.log(deck);
+
   res.status(200).json({
     status: "200",
     results: deck.length,
@@ -53,6 +55,7 @@ exports.getDatesOfDeck = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllDatesOfDeck = catchAsync(async (req, res, next) => {
+  console.log("dates decks");
   const features = new APIFeatures(
     Deck.find().populate("category").populate("cards").select({
       createdAt: 1,
@@ -63,7 +66,7 @@ exports.getAllDatesOfDeck = catchAsync(async (req, res, next) => {
   );
 
   const deck = await features.query;
-  console.log(deck);
+
   res.status(200).json({
     status: "200",
     results: deck.length,
@@ -72,10 +75,9 @@ exports.getAllDatesOfDeck = catchAsync(async (req, res, next) => {
 });
 
 exports.getDecksByCategory = catchAsync(async (req, res, next) => {
-  console.log(req.body, req.params);
+  console.log("category");
   const searchObj =
     req.params.id === "all" ? {} : { category: mongoose.Types.ObjectId(req.params.id) };
-  console.log(searchObj);
   const features = new APIFeatures(
     Deck.find({ category: mongoose.Types.ObjectId(req.params.id) })
       .populate("category")
@@ -97,18 +99,21 @@ exports.getDecksByCategory = catchAsync(async (req, res, next) => {
 });
 
 exports.createDeck = catchAsync(async (req, res, next) => {
+  console.log("create deck");
   const accessToken = req.headers.authorization;
   const userStorage = await User.findOne({ accessToken: accessToken });
   if (!userStorage)
     return res.status(400).json({ status: false, message: "There is no user with the ID" });
-
   const { title, category } = req.body;
+  console.log(req.body, title, category);
+
   const body =
-    category === "all"
+    category === "all" || category === "" || !category
       ? { title: title, user: userStorage }
       : { title: title, user: userStorage, category: category };
-
+  console.log(body, "boddduuuuuu");
   const newDeck = await Deck.create(body);
+  console.log(newDeck, "newDeck");
   res.status(201).json({
     status: "success",
     data: {

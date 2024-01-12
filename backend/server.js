@@ -9,12 +9,12 @@ process.on("uncaughtException", (err) => {
   process.exit(1);
 });
 
-const mongoUrl = "mongodb://localhost:27017/project-gengo"; //process.env.MONGO_URL;
+const mongoUrl = process.env.MONGO_URL; // "mongodb://localhost:27017/project-gengo"
 
 mongoose.set("strictQuery", false);
 mongoose.connect(mongoUrl).then((con) => console.log(`Mongo DB Connected: ${con.connection.host}`));
 
-const port = process.env.PORT || 9000;
+const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

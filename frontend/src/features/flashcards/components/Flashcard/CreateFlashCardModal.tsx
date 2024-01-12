@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useCreateFlashcard } from "../../hooks/flashcard/useCreateFlashcard";
 import { Label } from "../../../../ui/shadcn/Label";
 import { ButtonSubmit } from "../../../../ui/buttons/ButtonSubmit";
+import { Textarea } from "../../../../ui/shadcn/Textarea";
 
 export const CreateFlashCardModal = ({ id }: { id: string | undefined }) => {
   const [questionValue, setQuestionValue] = useState("");
@@ -22,10 +23,8 @@ export const CreateFlashCardModal = ({ id }: { id: string | undefined }) => {
       <Label htmlFor="question" className="text-xs sm:text-sm font-semibold">
         Question
       </Label>
-      <textarea
+      <Textarea
         id="question"
-        cols={20}
-        rows={3}
         value={questionValue}
         onChange={(e) => setQuestionValue(e.target.value)}
         className="border border-slate-500 rounded w-[300px] py-2 px-3 mb-6 mt-2"
@@ -33,9 +32,7 @@ export const CreateFlashCardModal = ({ id }: { id: string | undefined }) => {
       <Label htmlFor="answer" className="text-xs sm:text-sm font-semibold">
         Answer
       </Label>
-      <textarea
-        cols={20}
-        rows={3}
+      <Textarea
         value={answerValue}
         onChange={(e) => setAnswerValue(e.target.value)}
         className="border border-slate-500 rounded w-[300px] py-2 px-3 mb-6 mt-2"

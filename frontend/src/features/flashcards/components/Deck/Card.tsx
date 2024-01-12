@@ -15,20 +15,22 @@ import { useChooseCategoryColor } from "../../hooks/category/useChooseCategoryCo
 import { bgColors } from "../../../../statics/colors";
 import { CustomDialog } from "../../../../ui/generic/CustomDialog";
 import { useRecoilState } from "recoil";
-import { modalIDstate } from "../../../../states/atoms/commonAtoms";
+import { modalConfirmIdState, modalIDstate } from "../../../../states/atoms/commonAtoms";
+import { ModalConfirm } from "../../../../ui/generic/ModalConfirm";
 
 export const Card = ({ card, index }: { card: DeckType; index: number }) => {
   const [modalId, setModalId] = useRecoilState(modalIDstate);
-  const { deleteDeck } = useDeleteDeck();
-
+  const [modalConfirmId, setModalConfirmId] = useRecoilState(modalConfirmIdState);
+  const { deleteDeck, isDeleting } = useDeleteDeck();
+  console.log();
   const cardCategory = card?.category?.category;
 
   const categoryBgColor = useChooseCategoryColor(cardCategory);
 
   const handelDeleteDeck = () => {
+    console.log(card._id, card.title);
     if (card._id === undefined) return;
-    const confirmDelete = confirm("Are you sure to delete this deck?");
-    if (!confirmDelete) return null;
+
     deleteDeck(card._id);
   };
 
@@ -48,7 +50,11 @@ export const Card = ({ card, index }: { card: DeckType; index: number }) => {
         <EditBtn handleEdit={() => setModalId(`edit-deck-${card._id}`)} size="16px text-white" />
       </div>
       <div className="bg-red-default text-white w-5 h-10 transition ease duration-100 hover:brightness-95 absolute bottom-[70px] -right-5 z-10 flex justify-center items-center rounded-tr-md rounded-br-md">
-        <DeleteBtn handleDelete={handelDeleteDeck} color="#fff" size="16px" />
+        <DeleteBtn
+          handleDelete={() => setModalConfirmId(`delete-deck-${card._id}`)}
+          color="#fff"
+          size="16px"
+        />
       </div>
       <div
         className={`${
@@ -73,10 +79,7 @@ export const Card = ({ card, index }: { card: DeckType; index: number }) => {
         <div className="relative h-full transform border-[0.5px] border-black bg-amber-50  rounded transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
           <div className="p-2 transition-opacity sm:p-6 lg:p-4 h-full flex flex-col justify-between">
             {card.category ? (
-              <CategoryLabel
-                category={card?.category?.category}
-                bgColor={categoryBgColor?.color ?? ""}
-              />
+              <CategoryLabel category={card?.category?.category} bgColor={categoryBgColor?.color} />
             ) : (
               <p></p>
             )}
@@ -92,6 +95,14 @@ export const Card = ({ card, index }: { card: DeckType; index: number }) => {
         <CustomDialog id={`edit-deck-${card._id}`}>
           <EditDeckModal id={card._id} title={card.title} category={card?.category?._id} />
         </CustomDialog>
+      )}
+      {modalConfirmId === `delete-deck-${card._id}` && (
+        <ModalConfirm
+          header="Delete This Deck"
+          onClick={handelDeleteDeck}
+          isLoading={isDeleting}
+          id={`delete-deck-${card._id}`}
+        />
       )}
     </div>
   );

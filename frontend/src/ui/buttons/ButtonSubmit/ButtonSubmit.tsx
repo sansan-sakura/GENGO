@@ -8,11 +8,12 @@ type Props = {
   onClick: (e: React.FormEvent<HTMLButtonElement>) => void;
   size?: "default" | "sm" | "lg" | "icon";
   variant?: "link" | "outline" | "default" | "secondary" | "destructive" | "ghost";
-
+  center?: boolean;
   isLoading?: boolean;
 };
 export const ButtonSubmit = ({
   text,
+  center = true,
   size = "default",
   variant = "secondary",
   onClick,
@@ -31,7 +32,12 @@ export const ButtonSubmit = ({
     closeModalOnSubmit();
   }, [onClick, isLoading, modalConfirmId, modalId, setModalConfirmId, setMdoalId]);
   return (
-    <Button size={size} variant={variant} onClick={onClick} className="mx-auto uppercase">
+    <Button
+      size={size}
+      variant={variant}
+      onClick={onClick}
+      className={`${center ? "mx-auto" : ""} uppercase`}
+    >
       {text}
     </Button>
   );

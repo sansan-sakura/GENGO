@@ -24,7 +24,7 @@ export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
   const [modalId, setModalId] = useRecoilState(modalIDstate);
   const [isOpenModalConfirm, setIsOpenModalConfirm] = useRecoilState(modalConfirmState);
 
-  const { deleteFlashcard } = useDeleteFlashcard();
+  const { deleteFlashcard, isDeleting } = useDeleteFlashcard();
 
   useEffect(() => {
     if (cards.length === 0 || cards === undefined) return;
@@ -114,7 +114,13 @@ export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
         </CustomDialog>
       )}
 
-      {isOpenModalConfirm && <ModalConfirm header="Delete This Flashcard" onClick={handleDelete} />}
+      {isOpenModalConfirm && (
+        <ModalConfirm
+          header="Delete This Flashcard"
+          onClick={handleDelete}
+          isLoading={isDeleting}
+        />
+      )}
     </>
   );
 };
