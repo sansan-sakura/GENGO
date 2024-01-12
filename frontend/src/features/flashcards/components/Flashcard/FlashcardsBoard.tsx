@@ -68,7 +68,7 @@ export const FlashcardsBoard = () => {
   if (error || categoryError) return <Error />;
   const decksWithQueries: DeckType[] = decksWithQuery.data ? decksWithQuery?.data?.deck : [];
   setCards(decksWithQueries);
-  setCategories(categories);
+  categories && setCategories(categories);
 
   function handleSetQuery(value: string, label: string) {
     const handler = label === "status" ? setSearchQueryStatus : setSearchQueryCreatedAt;

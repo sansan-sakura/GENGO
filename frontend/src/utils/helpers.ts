@@ -34,12 +34,12 @@ export const showTime = () => {
 };
 
 const colors = [
-  "red-light",
-  "blue-light",
-  "green-default",
-  "yellow-light",
-  "red-default",
-  "sky-default",
+  "bg-red-light",
+  "bg-blue-light",
+  "bg-green-default",
+  "bg-yellow-light",
+  "bg-red-default",
+  "bg-sky-default",
 ];
 
 export const chooseColors = (category: Array<CategoryType>) => {

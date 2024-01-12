@@ -101,6 +101,7 @@ export async function createDeck(body: NewDeckType) {
     });
 
     const data = await res.json();
+    console.log(data);
     if (data.status !== "success") throw new Error(data.message);
     return data;
   } catch (err) {
