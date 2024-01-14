@@ -16,17 +16,17 @@ export const Footer = () => {
 
   return (
     <footer className={`px-8 py-4 border-t `}>
-      <div className=" w-full max-w-[1200px] mx-auto">
+      <div className=" w-full max-w-[1200px] mx-auto font-display font-bold">
         <div className="flex gap-6 text-sm mb-4">
           <Link to="/about">
-            <p className="transition border-b-4 border-b-transparent duration-200 hover:border-b-red-dark text-sm sm:text-base">
+            <p className="transition border-b-2 border-b-transparent duration-200 hover:border-b-red-dark text-sm sm:text-base">
               About
             </p>
           </Link>
           <Link to="/contact">
             <p
               className="transition 
-          border-b-transparent duration-200 border-b-4 hover:border-b-yellow-default text-sm sm:text-base"
+          border-b-transparent duration-200 border-b-2 hover:border-b-yellow-default text-sm sm:text-base"
             >
               Contact
             </p>
@@ -35,7 +35,7 @@ export const Footer = () => {
           <button
             onClick={currentUser.login ? handleLogOut : () => navigate("/login")}
             className="transition 
-          border-b-transparent duration-200 border-b-4 hover:border-b-blue-dark block text-sm sm:text-base"
+          border-b-transparent duration-200 border-b-2 hover:border-b-blue-dark block text-sm sm:text-base"
           >
             {currentUser.login ? "Log out" : "Log in"}
           </button>

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Input } from "../../shadcn/Input";
 const initialErrorState = { status: false, message: "" };
 
 export const SearchInput = () => {
@@ -61,8 +62,8 @@ export const SearchInput = () => {
             Search
           </label>
 
-          <input
-            className="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56"
+          <Input
+            className="w-full sm:w-56 border-black border-[0.5px]"
             id="search"
             type="search"
             placeholder="Search words..."

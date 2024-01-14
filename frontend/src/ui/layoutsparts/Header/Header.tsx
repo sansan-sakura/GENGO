@@ -3,9 +3,10 @@ import { getDate, showTime } from "../../../utils/helpers";
 import { SearchInput } from "../../generic/SearchInput/SearchInput";
 import { currentThemeAtom, currentUserState } from "../../../states/atoms/userAtoms";
 import { useRecoilValue } from "recoil";
-import { themeColors, themeNavColors, themeTextColors } from "../../../statics/colors";
+import { themeColors } from "../../../statics/colors";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { Aside } from "../Aside/Aside";
+// import { Youglish } from "../Youglish/Youglish";
 
 export const Header = () => {
   const currentUser = useRecoilValue(currentUserState);
@@ -15,7 +16,8 @@ export const Header = () => {
   return (
     <>
       {isNavOpen && <Aside setIsNavOpen={setIsNavOpen} isNavOpen={isNavOpen} />}
-      <header className="bg-amber-50/50 border-b ">
+      {/* <Youglish /> */}
+      <header className="bg-amber-50/10  ">
         <div className="mx-4 sm:mx-auto max-w-[1200px] py-6 sm:py-8 flex justify-center items-center">
           <div className="flex items-center justify-between gap-12 max-w-[1200px] w-full mx-auto px-6">
             <div className="flex items-center gap-10">
@@ -24,11 +26,11 @@ export const Header = () => {
                 className={`w-10 h-10 sm:w-14 sm:h-14 rounded-full flex items-center justify-center ${themeColors[theme]} md:bg-transparent hover:brightness-[90%] transition-all duration-300`}
               >
                 <RxHamburgerMenu
-                  className={`w-5 h-5 sm:w-6 sm:h-6 md:w-10 md:h-10  ${themeNavColors[theme]}`}
+                  className={`w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white md:text-black`}
                 />
               </button>
 
-              <DatesClock theme={theme} />
+              <DatesClock />
             </div>
             <div className="flex items-center justify-end gap-4">
               <div className="flex items-center gap-4">
@@ -51,7 +53,7 @@ export const Header = () => {
   );
 };
 
-function DatesClock({ theme }: { theme: string }) {
+function DatesClock() {
   const [time, setTime] = useState(showTime());
   const {
     current: [weekDay, date],
@@ -67,15 +69,11 @@ function DatesClock({ theme }: { theme: string }) {
   });
   return (
     <div className="items-center  gap-10 hidden lg:flex">
-      <div
-        className={`text-base flex flex-col bg-white px-1.5 py-1  font-bold items-center rounded-lg  shadow-sm  ${themeTextColors[theme]}`}
-      >
+      <div className={`text-base flex flex-col px-1.5 py-1  items-center font-display`}>
         <span>{date}</span>
         <span>{time}</span>
       </div>
-      <h2 className={`text-3xl md:text-[40px] font-bold  font-display ${themeTextColors[theme]}`}>
-        {weekDay}
-      </h2>
+      <h2 className={`md:text-[30px] font-display`}>{weekDay}</h2>
     </div>
   );
 }

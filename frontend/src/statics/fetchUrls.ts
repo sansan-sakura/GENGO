@@ -1,4 +1,4 @@
-const API_ROOT_URL = "https://gengo.onrender.com/";
+const API_ROOT_URL = "http://localhost:8080/";
 //"http://localhost:8080/";
 // https://gengo.onrender.com/
 

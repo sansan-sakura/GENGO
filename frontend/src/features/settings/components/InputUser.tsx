@@ -1,11 +1,11 @@
-import { FormLabel, Input, Typography } from "@mui/joy";
-
 import { useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 
 import { useEditUser } from "../../../hooks/useEditUser";
 import { User } from "../../../types/userType";
+import { Label } from "../../../ui/shadcn/Label";
+import { Input } from "../../../ui/shadcn/Input";
 
 export const InputUser = ({
   storedValue,
@@ -41,52 +41,33 @@ export const InputUser = ({
             centerText ? "justify-center items-center" : ""
           } gap-4 relative`}
         >
-          <FormLabel
-            sx={{
-              fontWeight: "xl",
-              textTransform: "uppercase",
-              fontSize: "md",
-              letterSpacing: "0.5px",
-            }}
-          >
-            {label}
-          </FormLabel>
-
-          <Input
-            defaultValue={value}
-            size="md"
-            variant="outlined"
-            sx={{ fontSize: "18px", textAlign: "center" }}
-            onChange={(e) => setValue(e.target.value)}
-            endDecorator={
-              <button
-                onClick={() => {
-                  setIsEditing((prev) => !prev);
-                  handleUpdateGoal();
-                }}
-              >
-                <CheckIcon sx={{ width: "22px", color: "green" }} />
-              </button>
-            }
-          />
+          <Label className="font-semibold uppercase text-sm">{label}</Label>
+          <div className="grid grid-cols-[1fr_auto] gap-2 items-center">
+            <Input
+              defaultValue={value}
+              className="text-base w-full"
+              onChange={(e) => setValue(e.target.value)}
+            />
+            <button
+              className="bg-blue-dark w-8 h-8 rounded-full hover:bg-blue-dark/80 transition-colors "
+              onClick={() => {
+                setIsEditing((prev) => !prev);
+                handleUpdateGoal();
+              }}
+            >
+              <CheckIcon sx={{ width: "22px", color: "#fff" }} />
+            </button>
+          </div>
         </div>
       ) : (
         <div className={`flex flex-col ${centerText ? "justify-center text-center" : ""} `}>
           <div className={`flex gap-4 items-center w-full  ${centerText ? "justify-center" : ""}`}>
-            <FormLabel
-              sx={{
-                fontWeight: "xl",
-                textTransform: "uppercase",
-                fontSize: "md",
-                letterSpacing: "0.5px",
-              }}
-            >
-              {label}
-            </FormLabel>
+            <Label className="font-semibold uppercase text-sm">{label}</Label>
+
             <button onClick={() => setIsEditing((prev) => !prev)}>
               <ModeEditOutlineIcon
                 sx={{
-                  width: "18px",
+                  width: "16px",
                   color: "#888",
                   transition: "all .3s ease",
                   "&:hover": { color: "#555" },
@@ -94,12 +75,7 @@ export const InputUser = ({
               />
             </button>
           </div>
-          <Typography
-            sx={{ wordBreak: "break-word", marginTop: "18px", fontSize: "18px" }}
-            onClick={() => setIsEditing(true)}
-          >
-            {value}
-          </Typography>
+          <p className="mt-4 text-base">{value}</p>
         </div>
       )}
     </div>

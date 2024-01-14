@@ -5,7 +5,7 @@ import { EditBtn } from "../../../../ui/buttons/EditBtn";
 import { EditFlashCardModal } from "../Flashcard/EditFlashCardModal";
 import { DeleteBtn } from "../../../../ui/buttons/DeleteBtn";
 import { useDeleteFlashcard } from "../../hooks/flashcard/useDeleteFlashcard";
-import { Toaster } from "react-hot-toast";
+
 import { CardType } from "../../../../types/flashcardTypes";
 import { Spinner } from "../../../../ui/generic/Spinner";
 import { labels, labelsColors } from "../../../../statics/colors";
@@ -65,7 +65,6 @@ export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
 
   return (
     <>
-      <Toaster />
       <div className="w-full py-6 px-2 flex flex-col  items-center gap-10 sm:gap-16 mt-1 relative h-full grow">
         <div className="flex gap-4 items-center absolute top-0 right-0">
           <EditBtn
@@ -81,6 +80,7 @@ export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
           {!isChecked ? (
             <>
               <h3 className="text-lg sm:text-xl mt-6 sm:mt-0">{question}</h3>
+              <div dangerouslySetInnerHTML={{ __html: question }}></div>
               <Button onClick={() => setIsChecked(true)} className="ml-auto w-fit">
                 Check
               </Button>
@@ -88,7 +88,7 @@ export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
           ) : (
             <>
               <h3 className="text-lg sm:text-2xl text-center">{answer}</h3>
-
+              <div dangerouslySetInnerHTML={{ __html: answer }}></div>
               <div className="flex gap-1 justify-end w-40 sm:w-full  flex-col">
                 <p className="text-sm text-end">last status: {status}</p>
                 <div className="flex flex-wrap gap-1 justify-end w-40 sm:w-full sm:gap-4 ">

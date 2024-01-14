@@ -9,10 +9,6 @@
 
 @layer components {
   .section-layout {
-    @apply w-full max-w-[1000px] h-full mt-8 flex items-center flex-col;
-  }
-
-  .button {
-    @apply flex justify-center items-center text-sm p-1.5 md:p-2 rounded-md transform text-white bg-red-dark transition-transform  hover:translate-y-0.5 sm:text-lg hover:bg-red-dark/70;
+    @apply mx-auto w-full max-w-[1000px] h-full flex items-center flex-col;
   }
 }

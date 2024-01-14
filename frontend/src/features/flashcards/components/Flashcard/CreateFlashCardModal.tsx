@@ -3,6 +3,8 @@ import { useCreateFlashcard } from "../../hooks/flashcard/useCreateFlashcard";
 import { Label } from "../../../../ui/shadcn/Label";
 import { ButtonSubmit } from "../../../../ui/buttons/ButtonSubmit";
 import { Textarea } from "../../../../ui/shadcn/Textarea";
+import { Editor } from "@tiptap/react";
+import SimpleTiptap from "../../../../ui/generic/Editer/SimpleTiptap";
 
 export const CreateFlashCardModal = ({ id }: { id: string | undefined }) => {
   const [questionValue, setQuestionValue] = useState("");
@@ -23,7 +25,9 @@ export const CreateFlashCardModal = ({ id }: { id: string | undefined }) => {
       <Label htmlFor="question" className="text-xs sm:text-sm font-semibold">
         Question
       </Label>
-      <Textarea
+      <SimpleTiptap onSetValue={setAnswerValue} defaultValue={answerValue} />
+      <SimpleTiptap onSetValue={setQuestionValue} defaultValue={questionValue} />
+      {/* <Textarea
         id="question"
         value={questionValue}
         onChange={(e) => setQuestionValue(e.target.value)}
@@ -36,7 +40,7 @@ export const CreateFlashCardModal = ({ id }: { id: string | undefined }) => {
         value={answerValue}
         onChange={(e) => setAnswerValue(e.target.value)}
         className="border border-slate-500 rounded w-[300px] py-2 px-3 mb-6 mt-2"
-      />
+      /> */}
       <ButtonSubmit isLoading={isCreating} onClick={handleEdit} text="Add" />
     </div>
   );

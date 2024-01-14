@@ -52,7 +52,6 @@ export const FlashcardsBoard = () => {
   const [modalID, setModalID] = useRecoilState(modalIDstate);
 
   const setCards = useSetRecoilState(allDecksPerPageState);
-  console.log(queryCategory);
   const query = useMemo(
     () =>
       `page=${currentPage}&limit=${cardsNumPerPage}${
@@ -90,9 +89,9 @@ export const FlashcardsBoard = () => {
         </CustomDialog>
       )}
       <ContentFrame>
-        <div className="w-full">
-          <div className="flex justify-around w-fit mx-auto p-2 gap-2.5 mb-6 md:mb-10 sm:p-6 sm:gap-3  rounded border-2">
-            <div className="flex flex-col gap-2 sm:gap-6">
+        <div className="w-full mx-auto">
+          <div className="flex justify-around w-fit mx-auto p-2 gap-2.5 mb-6 md:mb-10 sm:p-6 sm:gap-3  rounded ">
+            <div className="flex flex-col lg:flex-row gap-2 sm:gap-3">
               <div className="flex flex-col gap-2">
                 <label className="text-xs md:text-sm font-semibold">Status</label>
                 <Select
@@ -125,7 +124,7 @@ export const FlashcardsBoard = () => {
               </div>
             </div>
 
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col  lg:flex-row  justify-between">
               <div className="flex flex-col gap-2">
                 <div className="flex justify-start gap-2">
                   <label className="text-xs md:text-sm font-semibold">Catergory</label>
@@ -140,7 +139,7 @@ export const FlashcardsBoard = () => {
                 <SelectCategory key="searchBoard" type="search" />
               </div>
               <Button
-                className=" mt-4 sm:mt-0"
+                className="mt-4 sm:mt-0 lg:self-end lg:ml-3"
                 onClick={() => {
                   setIsModalOpen(true);
                   setModalID("create_deck");
@@ -150,7 +149,7 @@ export const FlashcardsBoard = () => {
               </Button>
             </div>
           </div>
-          <div className="grid md:grid-cols-2 gap-6 lg:gap-8 justify-items-center">
+          <div className="grid md:grid-cols-2 gap-10 gap-x-14 justify-items-center w-fit mx-auto">
             {decksWithQueries.length !== 0 ? (
               decksWithQueries?.map((card, i) => <Card card={card} key={i} index={i} />)
             ) : (
