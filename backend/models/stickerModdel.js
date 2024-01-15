@@ -4,10 +4,10 @@ const User = require("./userModel");
 const stickerSchema = new mongoose.Schema(
   {
     title: String,
-    position: { x: { type: String, default: "0" }, y: { type: String, default: "0" } },
-    bgColor: String,
-    textColor: String,
-    size: { width: { type: String, default: "340px" }, height: { type: String, default: "130px" } },
+    text: String,
+    position: { x: { type: Number, default: 0 }, y: { type: Number, default: 0 } },
+    colors: { background: String, textColor: String },
+    size: { width: { type: Number, default: 280 }, height: { type: Number, default: 160 } },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

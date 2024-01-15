@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
       },
     },
     accessToken: { type: String, default: () => crypto.randomBytes(128).toString("hex") },
-    sticker: { type: mongoose.Schema.Types.ObjectId, ref: "Sticker" },
+    sticker: [{ type: mongoose.Schema.Types.ObjectId, ref: "Sticker" }],
     todayGoal: { type: String, default: "Goal 🎯" },
     weeklyGoal: { type: String, default: "Goal 🎯" },
     monthlyGoal: { type: String, default: "Goal 🎯" },

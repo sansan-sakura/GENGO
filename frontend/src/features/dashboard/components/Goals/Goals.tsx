@@ -1,49 +1,43 @@
-import { useState } from "react";
-import { useUser } from "../../../../hooks/useUser";
-
 import ErrorBoundary from "../../../../ui/generic/ErrorBoundary";
 import { Spinner } from "../../../../ui/generic/Spinner";
-import { GoalInputField } from "./GoalInputField";
+import { Sticker } from "./Sticker";
+import { useGetStickers } from "../../hooks/useGetSrtickers";
+import { useCreateSticker } from "../../hooks/useCreateSticker";
+import { Error } from "../../../../ui/generic/Error";
+import { ButtonOutline } from "../../../../ui/buttons/ButtonOutline";
+import { Sticker as StickerType } from "@/src/types/userType";
 
 export const Goals = () => {
-  const { isPending, data } = useUser();
-  const [numCard, setNumCard] = useState(0);
+  const { isPending, data, error } = useGetStickers();
+  const { createSticker, errorCreating } = useCreateSticker();
+
   if (isPending) return <Spinner />;
-  const goals = data.data.data;
+  if (error || errorCreating) return <Error />;
+  const stickersArray = data?.data?.stickers ?? [];
 
-  const eventHandler = (e, data) => {
-    console.log("Event Type", e.type);
-    console.log({ e, data });
+  const handleCreateSticker = () => {
+    createSticker({ title: "title" });
   };
+
   return (
-    <ErrorBoundary fallback={<p>error</p>}>
-      <div className="w-full mx-2 mb-16 ">
-        <h2 className="font-display font-bold text-3xl md:text-4xl text-blue-dark mb-12 text-center w-full">
-          My Goals
+    <ErrorBoundary fallback={<Error />}>
+      <div className="w-full mx-2 mb-16 overflow-hidden">
+        <h2 className="font-jp font-thin text-3xl md:text-4xl text-blue-dark mb-12 text-center w-full">
+          メモのーと
         </h2>
-        <button onClick={() => setNumCard((prev) => prev + 1)}>Create sticker</button>
-
+        <ButtonOutline
+          name="Add Sticker"
+          bg="bg-red-dark"
+          onClick={() => {
+            handleCreateSticker();
+          }}
+        />
         <div className="flex flex-col gap-14 md:grid-cols-2 gap-y-6 my-3 w-10/12 h-[60vh] mx-auto relative">
-          <GoalInputField storedValue={goals.todayGoal} label="Today's Goal" objKey="todayGoal" />
-
-          <GoalInputField
-            storedValue={goals.monthlyGoal}
-            label="Monthly Goal"
-            objKey="monthlyGoal"
-          />
-
-          <GoalInputField
-            storedValue={goals.generalGoal}
-            label="General Goal"
-            objKey="generalGoal"
-          />
-          {Array.from({ length: numCard }, (_, i) => (
-            <GoalInputField
-              storedValue={goals.generalGoal}
-              label="General Goal"
-              objKey="generalGoal"
-            />
-          ))}
+          {stickersArray.length > 0 ? (
+            stickersArray.map((item: StickerType) => <Sticker item={item} key={item._id} />)
+          ) : (
+            <p className="text-center text-blue-dark font-semibold">Create your sticker 🦔</p>
+          )}
         </div>
       </div>
     </ErrorBoundary>

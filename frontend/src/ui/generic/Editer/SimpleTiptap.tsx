@@ -23,7 +23,9 @@ export default function SimpleTiptap({ defaultValue = "", onSetValue }: Props) {
     },
     content: defaultValue,
   });
+
   console.log(defaultValue);
+
   return (
     <div>
       {editor && (
