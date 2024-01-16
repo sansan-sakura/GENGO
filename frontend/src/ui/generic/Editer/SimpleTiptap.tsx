@@ -3,18 +3,25 @@ import "./styles.scss";
 import { BubbleMenu, EditorContent, FloatingMenu, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { Dispatch, SetStateAction } from "react";
+import { MenuBar } from "./MenuBar";
 
 type Props = {
   defaultValue?: string;
   onSetValue?: Dispatch<SetStateAction<string>>;
+  onSetValueSet?: React.Dispatch<
+    React.SetStateAction<{
+      title: string;
+      text: string;
+    }>
+  >;
 };
 
-export default function SimpleTiptap({ defaultValue = "", onSetValue }: Props) {
+export default function SimpleTiptap({ defaultValue = "", onSetValue, onSetValueSet }: Props) {
   const editor = useEditor({
     extensions: [StarterKit],
     onUpdate: ({ editor }) => {
       const value = editor.getHTML();
-      onSetValue(value);
+      onSetValue ? onSetValue(value) : onSetValueSet((prev) => ({ ...prev, text: value }));
     },
     editorProps: {
       attributes: {
@@ -24,8 +31,11 @@ export default function SimpleTiptap({ defaultValue = "", onSetValue }: Props) {
     content: defaultValue,
   });
 
+  console.log(defaultValue);
+
   return (
-    <div>
+    <div className=" overflow-y-scroll relative border">
+      {/* <MenuBar editor={editor} /> */}
       {editor && (
         <BubbleMenu className="bubble-menu" tippyOptions={{ duration: 100 }} editor={editor}>
           <button

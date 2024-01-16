@@ -6,7 +6,7 @@ import { User } from "../types/userType";
 export const useEditUser = () => {
   const queryClient = useQueryClient();
   const { mutate: editUser, isPending: isEditing } = useMutation({
-    mutationFn: (newData: User) => updateUser(newData), //TODO: declare type
+    mutationFn: (newData: User) => updateUser(newData),
     onSuccess: () => {
       toast.success("User successfully edited ");
       queryClient.invalidateQueries({ queryKey: ["user"] });

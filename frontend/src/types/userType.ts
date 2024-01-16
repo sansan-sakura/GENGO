@@ -44,4 +44,15 @@ export type User = {
   monthlyGoal?: string;
   generalGoal?: string;
   theme?: string;
+  stickers?: Array<Sticker>;
+};
+
+export type Sticker = {
+  _id?: string;
+  title?: string;
+  text?: string;
+  position?: { x?: number; y?: number };
+  colors?: { background?: string; textColor?: string };
+  size?: { width?: number; height?: number };
+  createdAt?: string;
 };

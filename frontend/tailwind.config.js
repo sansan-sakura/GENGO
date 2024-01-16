@@ -12,6 +12,7 @@ export default {
     fontFamily: {
       display: ["Megrim", "Courier New", "monospace"],
       text: ["Poppins", "Arial", "sans-serif"],
+      jp: ["Hannari", "sans-serif"],
     },
     container: {
       center: true,

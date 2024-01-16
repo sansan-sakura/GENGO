@@ -6,7 +6,7 @@ import { Error } from "../../ui/generic/Error";
 
 export const Settings = () => {
   return (
-    <section className="section-layout">
+    <section className="mt-6">
       <ErrorBoundary fallback={<Error />}>
         <Suspense fallback={<Spinner />}>
           <SettingsPage />

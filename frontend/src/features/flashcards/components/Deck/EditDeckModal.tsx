@@ -24,7 +24,7 @@ export const EditDeckModal = ({ id, title, category }: Props) => {
     editDeck({ id, newData });
   };
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-8 sm:gap-4 items-center">
       <div className="grid gap-2">
         <Label htmlFor="category" className="text-xs sm:text-sm font-semibold">
           category

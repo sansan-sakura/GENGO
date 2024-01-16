@@ -21,7 +21,7 @@ export const Label = ({
     <Button
       value={label}
       onClick={handleClick}
-      className={`${bg} text-white hover:brightness-75 hover:${bg} uppercase`}
+      className={`${bg}  text-white hover:brightness-75 text-[10px] sm:text-base px-2.5 sm:px-3.5 sm:py-2 py-0 hover:${bg} uppercase`}
     >
       {label}
     </Button>

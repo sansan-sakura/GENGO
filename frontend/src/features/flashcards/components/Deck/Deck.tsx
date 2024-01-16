@@ -1,4 +1,3 @@
-import { ContentFrame } from "../../../../ui/layoutsparts/ContentFrame";
 import { useState } from "react";
 import { DeckCard } from "./DeckCard";
 import { useParams } from "react-router-dom";
@@ -29,27 +28,25 @@ export const Deck = () => {
 
   return (
     <>
-      <ContentFrame>
-        <div className="pt-3 px-4 flex flex-col justify-between w-full min-h-[300px] md:min-w-[700px] md:min-h-[450px] max-w-[600px]">
-          {!isStarted ? (
-            <div className="flex h-full items-center flex-col grow justify-center gap-10">
-              <h3 className="text-2xl text-center">{currentDeck.title}</h3>
+      <div className="pt-3 px-4 flex flex-col justify-between w-full min-h-[300px] md:min-w-[700px] md:min-h-[450px] max-w-[600px]">
+        {!isStarted ? (
+          <div className="flex h-full items-center flex-col grow justify-center gap-10">
+            <h3 className="text-2xl text-center">{currentDeck.title}</h3>
 
-              <Button onClick={() => setIsStarted(true)} className="w-fit mx-auto" size="lg">
-                Start
-              </Button>
+            <Button onClick={() => setIsStarted(true)} className="w-fit mx-auto" size="lg">
+              Start
+            </Button>
+          </div>
+        ) : deck.data.deck.cards.length !== 0 ? (
+          <DeckCard cards={currentDeck.cards} />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center grow">
+            <div className=" text-base fond-bold ">
+              <p>Please add flashcard</p>
             </div>
-          ) : deck.data.deck.cards.length !== 0 ? (
-            <DeckCard cards={currentDeck.cards} />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center grow">
-              <div className=" text-base fond-bold ">
-                <p>Please add flashcard</p>
-              </div>
-            </div>
-          )}
-        </div>
-      </ContentFrame>
+          </div>
+        )}
+      </div>
 
       {/* Flashcard editing bar */}
       <div className="w-full max-w-[600px] mx-auto flex items-center justify-between px-6">

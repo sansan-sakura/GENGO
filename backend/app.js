@@ -50,11 +50,14 @@ const flashcardRouter = require("./routes/flashcardRouter");
 const categoryRouter = require("./routes/categoryRouter");
 const deckRouter = require("./routes/deckRouter");
 const userRouter = require("./routes/userRouter");
+const stickerRouter = require("./routes/stickerRouter");
 
 app.use("/api/v1/deck", deckRouter);
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/flashcard", flashcardRouter);
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/sticker", stickerRouter);
+
 app.use("/", (req, res) => {
   res.json(listEndpoints(app));
 });

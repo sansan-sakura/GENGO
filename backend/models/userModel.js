@@ -29,6 +29,7 @@ const userSchema = new mongoose.Schema(
       },
     },
     accessToken: { type: String, default: () => crypto.randomBytes(128).toString("hex") },
+    sticker: [{ type: mongoose.Schema.Types.ObjectId, ref: "Sticker" }],
     todayGoal: { type: String, default: "Goal 🎯" },
     weeklyGoal: { type: String, default: "Goal 🎯" },
     monthlyGoal: { type: String, default: "Goal 🎯" },
@@ -47,3 +48,13 @@ const userSchema = new mongoose.Schema(
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;
+
+/* 
+sticker {
+title:string,
+position:{x:number,y:number},
+bgColor:string,
+textColor:string,
+test:string
+size:{width:string,height:string}
+}*/

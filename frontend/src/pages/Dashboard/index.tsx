@@ -6,7 +6,7 @@ export const Dashboard = () => {
     <ErrorBoundary fallback={<p>Error</p>}>
       <section className="flex flex-col gap-12 section-layout">
         <Goals />
-        {/* <Calendar />   Leave this withour calender for v1 */}
+        {/* <Calendar />   Leave without calender for v1 */}
       </section>
     </ErrorBoundary>
   );

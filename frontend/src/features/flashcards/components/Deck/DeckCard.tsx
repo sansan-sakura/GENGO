@@ -5,7 +5,7 @@ import { EditBtn } from "../../../../ui/buttons/EditBtn";
 import { EditFlashCardModal } from "../Flashcard/EditFlashCardModal";
 import { DeleteBtn } from "../../../../ui/buttons/DeleteBtn";
 import { useDeleteFlashcard } from "../../hooks/flashcard/useDeleteFlashcard";
-import { Toaster } from "react-hot-toast";
+
 import { CardType } from "../../../../types/flashcardTypes";
 import { Spinner } from "../../../../ui/generic/Spinner";
 import { labels, labelsColors } from "../../../../statics/colors";
@@ -65,7 +65,6 @@ export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
 
   return (
     <>
-      <Toaster />
       <div className="w-full py-6 px-2 flex flex-col  items-center gap-10 sm:gap-16 mt-1 relative h-full grow">
         <div className="flex gap-4 items-center absolute top-0 right-0">
           <EditBtn
@@ -80,18 +79,23 @@ export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
         <div className="flex flex-col w-full gap-20 min-h-full justify-between items-center h-full grow pt-10">
           {!isChecked ? (
             <>
-              <h3 className="text-lg sm:text-xl mt-6 sm:mt-0">{question}</h3>
+              <div
+                className="text-lg sm:text-xl mt-6 sm:mt-0"
+                dangerouslySetInnerHTML={{ __html: question }}
+              />
               <Button onClick={() => setIsChecked(true)} className="ml-auto w-fit">
                 Check
               </Button>
             </>
           ) : (
             <>
-              <h3 className="text-lg sm:text-2xl text-center">{answer}</h3>
-
-              <div className="flex gap-1 justify-end w-40 sm:w-full  flex-col">
+              <div
+                className="text-lg sm:text-2xl text-center"
+                dangerouslySetInnerHTML={{ __html: answer }}
+              />
+              <div className="flex gap-2 justify-end  w-full  flex-col">
                 <p className="text-sm text-end">last status: {status}</p>
-                <div className="flex flex-wrap gap-1 justify-end w-40 sm:w-full sm:gap-4 ">
+                <div className="flex flex-wrap gap-1 justify-end w-full sm:w-full sm:gap-4 ">
                   {labels.map((label, i) => (
                     <Label
                       key={label}

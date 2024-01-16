@@ -1,4 +1,3 @@
-import { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 import { CategoryLabel } from "../Category/CategoryLabel";
@@ -45,7 +44,6 @@ export const Card = ({ card, index }: { card: DeckType; index: number }) => {
 
   return (
     <div className="relative">
-      <Toaster />
       <div className="bg-yellow-default text-white w-5 h-10 transition ease duration-100 hover:brightness-95 absolute top-5 -right-5 z-10 flex justify-center items-center rounded-tr-md rounded-br-md">
         <EditBtn handleEdit={() => setModalId(`edit-deck-${card._id}`)} size="16px text-white" />
       </div>
@@ -92,7 +90,7 @@ export const Card = ({ card, index }: { card: DeckType; index: number }) => {
         </div>
       </Link>
       {modalId === `edit-deck-${card._id}` && (
-        <CustomDialog id={`edit-deck-${card._id}`}>
+        <CustomDialog id={`edit-deck-${card._id}`} header="Edit Deck">
           <EditDeckModal id={card._id} title={card.title} category={card?.category?._id} />
         </CustomDialog>
       )}
