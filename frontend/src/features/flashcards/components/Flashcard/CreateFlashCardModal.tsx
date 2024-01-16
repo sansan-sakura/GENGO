@@ -2,9 +2,7 @@ import { useState } from "react";
 import { useCreateFlashcard } from "../../hooks/flashcard/useCreateFlashcard";
 import { Label } from "../../../../ui/shadcn/Label";
 import { ButtonSubmit } from "../../../../ui/buttons/ButtonSubmit";
-import { Textarea } from "../../../../ui/shadcn/Textarea";
-import { Editor } from "@tiptap/react";
-import SimpleTiptap from "../../../../ui/generic/Editer/SimpleTiptap";
+import Editer from "../../../../ui/generic/Editer/Editer";
 
 export const CreateFlashCardModal = ({ id }: { id: string | undefined }) => {
   const [questionValue, setQuestionValue] = useState("");
@@ -21,27 +19,25 @@ export const CreateFlashCardModal = ({ id }: { id: string | undefined }) => {
   };
 
   return (
-    <div className="flex flex-col px-2 mx-auto">
-      <Label htmlFor="question" className="text-xs sm:text-sm font-semibold">
-        Question
-      </Label>
-      <SimpleTiptap onSetValue={setAnswerValue} defaultValue={answerValue} />
-      <SimpleTiptap onSetValue={setQuestionValue} defaultValue={questionValue} />
-      {/* <Textarea
-        id="question"
-        value={questionValue}
-        onChange={(e) => setQuestionValue(e.target.value)}
-        className="border border-slate-500 rounded w-[300px] py-2 px-3 mb-6 mt-2"
-      />
-      <Label htmlFor="answer" className="text-xs sm:text-sm font-semibold">
-        Answer
-      </Label>
-      <Textarea
-        value={answerValue}
-        onChange={(e) => setAnswerValue(e.target.value)}
-        className="border border-slate-500 rounded w-[300px] py-2 px-3 mb-6 mt-2"
-      /> */}
+    <>
+      <div className="px-2 overflow-x-scroll overflow-y-clip h-max relative scrollbar">
+        <div className="flex justify-between  w-max h-[440px] py-3 gap-4">
+          <div className=" w-[440px] flex flex-col gap-2">
+            <Label htmlFor="question" className="text-xs sm:text-sm font-semibold">
+              Question
+            </Label>
+            <Editer onSetValue={setQuestionValue} defaultValue={questionValue} />
+          </div>
+          <div className=" w-[440px] flex flex-col gap-2">
+            <Label htmlFor="question" className="text-xs sm:text-sm font-semibold">
+              Answer
+            </Label>
+            <Editer onSetValue={setAnswerValue} defaultValue={answerValue} />
+          </div>
+        </div>
+      </div>
+
       <ButtonSubmit isLoading={isCreating} onClick={handleEdit} text="Add" />
-    </div>
+    </>
   );
 };

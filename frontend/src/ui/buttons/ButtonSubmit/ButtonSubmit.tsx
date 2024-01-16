@@ -36,7 +36,7 @@ export const ButtonSubmit = ({
       size={size}
       variant={variant}
       onClick={onClick}
-      className={`${center ? "mx-auto" : ""} uppercase`}
+      className={`${center ? "mx-auto" : ""} uppercase z-50`}
     >
       {text}
     </Button>

@@ -13,8 +13,6 @@ import {
 
 import { EditBtn } from "../../../../ui/buttons/EditBtn";
 import { modalIDstate, modalState } from "../../../../states/atoms/commonAtoms";
-
-import { ContentFrame } from "../../../../ui/layoutsparts/ContentFrame";
 import { Pagination } from "../Deck/Pagination";
 import { EditCategoryInputField } from "../Category/EditCategoryInputField";
 import { CreateDeckInputField } from "../Deck/CreateDeckInputField";
@@ -88,79 +86,81 @@ export const FlashcardsBoard = () => {
           <CreateDeckInputField />
         </CustomDialog>
       )}
-      <ContentFrame>
-        <div className="w-full mx-auto">
-          <div className="flex justify-around w-fit mx-auto p-2 gap-2.5 mb-6 md:mb-10 sm:p-6 sm:gap-3  rounded ">
-            <div className="flex flex-col lg:flex-row gap-2 sm:gap-3">
-              <div className="flex flex-col gap-2">
-                <label className="text-xs md:text-sm font-semibold">Status</label>
-                <Select
-                  value={queryStatus}
-                  onValueChange={(value) => handleSetQuery(value, "status")}
-                >
-                  <SelectTrigger className="w-[140px] sm:w-[180px]">
-                    <SelectValue placeholder="status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="true">Done</SelectItem>
-                    <SelectItem value="false">Not Yet</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex flex-col gap-2">
-                <label className="text-xs md:text-sm font-semibold">Created Date</label>
-                <Select
-                  value={queryCreatedAt}
-                  onValueChange={(value) => handleSetQuery(value, "createdAt")}
-                >
-                  <SelectTrigger className="w-[140px] sm:w-[180px]">
-                    <SelectValue placeholder="Created Date" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="-createdAt">Newer</SelectItem>
-                    <SelectItem value="createdAt">Older</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
 
-            <div className="flex flex-col  lg:flex-row  justify-between">
-              <div className="flex flex-col gap-2">
-                <div className="flex justify-start gap-2">
-                  <label className="text-xs md:text-sm font-semibold">Catergory</label>
-                  <EditBtn
-                    size="text-sm sm:text-base"
-                    handleEdit={() => {
-                      setIsModalOpen(true);
-                      setModalID("edit_category");
-                    }}
-                  />
-                </div>
-                <SelectCategory key="searchBoard" type="search" />
-              </div>
-              <Button
-                className="mt-4 sm:mt-0 lg:self-end lg:ml-3"
-                onClick={() => {
-                  setIsModalOpen(true);
-                  setModalID("create_deck");
-                }}
+      <div className="w-full mx-auto">
+        <h2 className="font-jp font-thin text-xl md:text-2xl text-blue-dark text-center w-full mb-2">
+          フラッシュカード
+        </h2>
+        <div className="flex justify-around w-fit mx-auto p-2 gap-2.5 mb-6 md:mb-10 sm:p-6 sm:gap-3  rounded ">
+          <div className="flex flex-col lg:flex-row gap-2 sm:gap-3">
+            <div className="flex flex-col gap-2">
+              <label className="text-xs md:text-sm font-semibold">Status</label>
+              <Select
+                value={queryStatus}
+                onValueChange={(value) => handleSetQuery(value, "status")}
               >
-                Create a New Deck
-              </Button>
+                <SelectTrigger className="w-[140px] sm:w-[180px]">
+                  <SelectValue placeholder="status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="true">Done</SelectItem>
+                  <SelectItem value="false">Not Yet</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-xs md:text-sm font-semibold">Created Date</label>
+              <Select
+                value={queryCreatedAt}
+                onValueChange={(value) => handleSetQuery(value, "createdAt")}
+              >
+                <SelectTrigger className="w-[140px] sm:w-[180px]">
+                  <SelectValue placeholder="Created Date" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="-createdAt">Newer</SelectItem>
+                  <SelectItem value="createdAt">Older</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
-          <div className="grid md:grid-cols-2 gap-10 gap-x-14 justify-items-center w-fit mx-auto">
-            {decksWithQueries.length !== 0 ? (
-              decksWithQueries?.map((card, i) => <Card card={card} key={i} index={i} />)
-            ) : (
-              <p className="pt-6 text-sm sm:text-base">Please Add Deck</p>
-            )}
-          </div>
-          <div className="w-full flex justify-center pt-8">
-            <Pagination />
+
+          <div className="flex flex-col  lg:flex-row  justify-between">
+            <div className="flex flex-col gap-2">
+              <div className="flex justify-start gap-2">
+                <label className="text-xs md:text-sm font-semibold">Catergory</label>
+                <EditBtn
+                  size="text-sm sm:text-base"
+                  handleEdit={() => {
+                    setIsModalOpen(true);
+                    setModalID("edit_category");
+                  }}
+                />
+              </div>
+              <SelectCategory key="searchBoard" type="search" />
+            </div>
+            <Button
+              className="mt-4 sm:mt-0 lg:self-end lg:ml-3"
+              onClick={() => {
+                setIsModalOpen(true);
+                setModalID("create_deck");
+              }}
+            >
+              Create a New Deck
+            </Button>
           </div>
         </div>
-      </ContentFrame>
+        <div className="grid md:grid-cols-2 gap-10 gap-x-14 justify-items-center w-fit mx-auto">
+          {decksWithQueries.length !== 0 ? (
+            decksWithQueries?.map((card, i) => <Card card={card} key={i} index={i} />)
+          ) : (
+            <p className="pt-6 text-sm sm:text-base">Please Add Deck</p>
+          )}
+        </div>
+        <div className="w-full flex justify-center pt-8">
+          <Pagination />
+        </div>
+      </div>
     </>
   );
 };

@@ -90,7 +90,7 @@ export const Card = ({ card, index }: { card: DeckType; index: number }) => {
         </div>
       </Link>
       {modalId === `edit-deck-${card._id}` && (
-        <CustomDialog id={`edit-deck-${card._id}`}>
+        <CustomDialog id={`edit-deck-${card._id}`} header="Edit Deck">
           <EditDeckModal id={card._id} title={card.title} category={card?.category?._id} />
         </CustomDialog>
       )}

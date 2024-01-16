@@ -7,6 +7,9 @@ export const Contact = () => {
   return (
     <section className="section-layout mx-auto">
       <ContentFrame>
+        <h2 className="font-jp font-thin text-xl md:text-2xl text-blue-dark text-center w-full mb-2">
+          コンタクト
+        </h2>
         <h3 className="mb-10 text-3xl sm:text-5xl font-display">Contact:</h3>
         <Hanko src="/sakura.webp" size="md" />
         <h1 className="mt-4 text-xl sm:text-3xl text-blue-dark font-thin">Sakura Tanaka</h1>

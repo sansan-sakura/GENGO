@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+div:focus-visble {
+  outline: none;
+  border: none;
+}
 /* Prevent font size inflation */
 html {
   height: 100%;

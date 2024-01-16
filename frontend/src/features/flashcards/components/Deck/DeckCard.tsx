@@ -79,19 +79,23 @@ export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
         <div className="flex flex-col w-full gap-20 min-h-full justify-between items-center h-full grow pt-10">
           {!isChecked ? (
             <>
-              <h3 className="text-lg sm:text-xl mt-6 sm:mt-0">{question}</h3>
-              <div dangerouslySetInnerHTML={{ __html: question }}></div>
+              <div
+                className="text-lg sm:text-xl mt-6 sm:mt-0"
+                dangerouslySetInnerHTML={{ __html: question }}
+              />
               <Button onClick={() => setIsChecked(true)} className="ml-auto w-fit">
                 Check
               </Button>
             </>
           ) : (
             <>
-              <h3 className="text-lg sm:text-2xl text-center">{answer}</h3>
-              <div dangerouslySetInnerHTML={{ __html: answer }}></div>
-              <div className="flex gap-1 justify-end w-40 sm:w-full  flex-col">
+              <div
+                className="text-lg sm:text-2xl text-center"
+                dangerouslySetInnerHTML={{ __html: answer }}
+              />
+              <div className="flex gap-2 justify-end  w-full  flex-col">
                 <p className="text-sm text-end">last status: {status}</p>
-                <div className="flex flex-wrap gap-1 justify-end w-40 sm:w-full sm:gap-4 ">
+                <div className="flex flex-wrap gap-1 justify-end w-full sm:w-full sm:gap-4 ">
                   {labels.map((label, i) => (
                     <Label
                       key={label}

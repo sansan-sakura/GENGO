@@ -21,8 +21,8 @@ export const Goals = () => {
 
   return (
     <ErrorBoundary fallback={<Error />}>
-      <div className="w-full mx-2 mb-16 overflow-hidden">
-        <h2 className="font-jp font-thin text-3xl md:text-4xl text-blue-dark mb-12 text-center w-full">
+      <div className="w-full mx-2 mb-16 overflow-x-scroll lg:overflow-hidden">
+        <h2 className="font-jp font-thin text-xl md:text-2xl text-blue-dark mb-2 text-center w-full">
           メモのーと
         </h2>
         <ButtonOutline

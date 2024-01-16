@@ -8,7 +8,6 @@ import { ButtonSubmit } from "../../../../ui/buttons/ButtonSubmit";
 
 export const CreateDeckInputField = () => {
   const { isCreating, createDeck } = useCreateDeck();
-
   const [categoryId, setCategoryId] = useState("");
   const [title, setTitle] = useState("");
   const [error, setError] = useState(false);
@@ -22,7 +21,7 @@ export const CreateDeckInputField = () => {
 
   return (
     <form className="p-3">
-      <div className="flex flex-col gap-3 sm:gap-6 items-center">
+      <div className="flex flex-col gap-8 sm:gap-6 items-center">
         <div className="grid  gap-2 sm:gap-4 ">
           <h3 className="ml-2 text-sm m:text-base font-semibold">Title</h3>
           {error && <p className="text-xs text-red-dark">Please fill first</p>}

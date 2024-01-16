@@ -184,6 +184,7 @@ export const Sticker = ({ item }: { item?: any }) => {
                 />
 
                 <Textarea
+                  className="placeholder:text-white"
                   placeholder="type..."
                   defaultValue={value.text}
                   onChange={(e) => setValue((prev) => ({ ...prev, text: e.target.value }))}

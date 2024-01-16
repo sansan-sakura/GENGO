@@ -3,7 +3,7 @@ import { useEditFlashcard } from "../../hooks/flashcard/useEditFlashcard";
 
 import { Label } from "../../../../ui/shadcn/Label";
 import { ButtonSubmit } from "../../../../ui/buttons/ButtonSubmit";
-import { Textarea } from "../../../../ui/shadcn/Textarea";
+import Editer from "../../../../ui/generic/Editer/Editer";
 
 type Props = {
   question: string;
@@ -21,29 +21,24 @@ export const EditFlashCardModal = ({ question, answer, id }: Props) => {
     editFlashcard({ id, newData });
   };
   return (
-    <div className="flex flex-col items-center">
-      <div className="flex flex-col gap-1">
-        <Label htmlFor="question" className="text-xs sm:text-sm font-semibold">
-          Question
-        </Label>
-        <Textarea
-          id="question"
-          value={questionValue}
-          onChange={(e) => setQuestionValue(e.target.value)}
-          className="border border-slate-500 rounded w-[300px] py-2 px-3 mb-6 mt-2"
-        />
-      </div>
-      <div className="flex flex-col gap-1">
-        <Label htmlFor="answer" className="text-xs sm:text-sm  font-semibold">
-          Answer
-        </Label>
-        <Textarea
-          value={answerValue}
-          onChange={(e) => setAnswerValue(e.target.value)}
-          className="border border-slate-500 rounded w-[300px] py-2 px-3 mb-6 mt-2"
-        />
+    <>
+      <div className="px-2 overflow-x-scroll overflow-y-clip h-max relative scrollbar">
+        <div className="flex justify-between  w-max h-[440px] py-3 gap-4">
+          <div className="flex flex-col gap-2  w-[440px]">
+            <Label htmlFor="question" className="text-xs sm:text-sm font-semibold">
+              Question
+            </Label>
+            <Editer onSetValue={setQuestionValue} defaultValue={questionValue} />
+          </div>
+          <div className="flex flex-col gap-2  w-[440px]">
+            <Label htmlFor="answer" className="text-xs sm:text-sm  font-semibold">
+              Answer
+            </Label>
+            <Editer onSetValue={setAnswerValue} defaultValue={answerValue} />
+          </div>
+        </div>
       </div>
       <ButtonSubmit isLoading={isEditing} text="Edit" onClick={handleEdit} />
-    </div>
+    </>
   );
 };
