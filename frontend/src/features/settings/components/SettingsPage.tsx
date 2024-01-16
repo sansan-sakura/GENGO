@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { z } from "zod";
-import { Box, FormLabel, RadioGroup, Sheet, Radio } from "@mui/joy";
+import { Box, RadioGroup, Sheet, Radio } from "@mui/joy";
 import Done from "@mui/icons-material/Done";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 import { radioClasses } from "@mui/joy/Radio";
 
 import { useUser } from "../../../hooks/useUser";
-import { ContentFrame } from "../../../ui/layoutsparts/ContentFrame";
+
 import { Spinner } from "../../../ui/generic/Spinner";
 import { useEditUser } from "../../../hooks/useEditUser";
 import { InputUser } from "./InputUser";
@@ -56,80 +56,77 @@ export const SettingsPage = () => {
         セッティング
       </h2>
       <div className="w-full">
-        <div>
-          <div className="w-full border-b border-b-slate-400 pb-8">
-            <Box sx={{ resize: "horizontal", overflow: "hidden", px: 2 }}>
-              <Label className="font-semibold uppercase text-sm mb-2 block">Theme Color</Label>
+        <div className="w-full pb-6 flex flex-col items-center mt-8">
+          <Box sx={{ resize: "horizontal", overflow: "hidden", px: 2 }}>
+            <Label className="font-semibold uppercase text-sm mb-4 block text-center">
+              Theme Color
+            </Label>
 
-              <RadioGroup
-                aria-labelledby="theme color"
-                defaultValue="warning"
-                sx={{ gap: 2, flexWrap: "wrap", flexDirection: "row" }}
-                onChange={handleChange}
-              >
-                {(["primary", "neutral", "danger", "success", "warning"] as const).map((color) => (
-                  <Sheet
-                    key={color}
-                    sx={{
-                      position: "relative",
-                      width: 40,
-                      height: 40,
-                      flexShrink: 0,
-                      bgcolor: `${color}.solidActiveBg`,
-                      borderRadius: "50%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
+            <RadioGroup
+              aria-labelledby="theme color"
+              defaultValue="warning"
+              sx={{ gap: 2, flexWrap: "wrap", flexDirection: "row" }}
+              onChange={handleChange}
+            >
+              {(["primary", "neutral", "danger", "success", "warning"] as const).map((color) => (
+                <Sheet
+                  key={color}
+                  sx={{
+                    position: "relative",
+                    width: 40,
+                    height: 40,
+                    flexShrink: 0,
+                    bgcolor: `${color}.solidActiveBg`,
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Radio
+                    overlay
+                    variant="solid"
+                    color={color}
+                    checkedIcon={<Done />}
+                    value={color}
+                    slotProps={{
+                      input: { "aria-label": color },
+                      radio: {
+                        sx: {
+                          display: "contents",
+                          "--variant-borderWidth": "2px",
+                        },
+                      },
                     }}
-                  >
-                    <Radio
-                      overlay
-                      variant="solid"
-                      color={color}
-                      checkedIcon={<Done />}
-                      value={color}
-                      slotProps={{
-                        input: { "aria-label": color },
-                        radio: {
-                          sx: {
-                            display: "contents",
-                            "--variant-borderWidth": "2px",
-                          },
-                        },
-                      }}
-                      sx={{
-                        "--joy-focus-outlineOffset": "4px",
-                        "--joy-palette-focusVisible": (theme) => theme.vars.palette[color][500],
-                        [`& .${radioClasses.action}.${radioClasses.focusVisible}`]: {
-                          outlineWidth: "2px",
-                        },
-                      }}
-                    />
-                  </Sheet>
-                ))}
-              </RadioGroup>
-            </Box>
+                    sx={{
+                      "--joy-focus-outlineOffset": "4px",
+                      "--joy-palette-focusVisible": (theme) => theme.vars.palette[color][500],
+                      [`& .${radioClasses.action}.${radioClasses.focusVisible}`]: {
+                        outlineWidth: "2px",
+                      },
+                    }}
+                  />
+                </Sheet>
+              ))}
+            </RadioGroup>
+          </Box>
+        </div>
+        <div className="grid gap-6 pt-6 items-center">
+          <div className="px-4">
+            <InputUser
+              storedValue={userData.email}
+              label="EMAIL"
+              objKey="email"
+              centerText={false}
+            />
           </div>
-          <div className="grid gap-6  pt-8">
-            <div className="px-4">
-              <InputUser
-                storedValue={userData.email}
-                label="EMAIL"
-                objKey="email"
-                centerText={false}
-              />
-            </div>
-            <div className="px-4">
-              <InputUser
-                storedValue={userData.name}
-                label="NAME"
-                objKey="name"
-                centerText={false}
-              />
-            </div>
-            <div className=" flex items-center gap-2 flex-col px-4">
+          <div className="px-4">
+            <InputUser storedValue={userData.name} label="NAME" objKey="name" centerText={false} />
+          </div>
+          <div className="px-4">
+            <fieldset className=" flex items-center gap-2 flex-col px-4 rounded-md p-2.5 shadow-sm max-w-[500px] mx-auto">
               <div className="w-full flex items-center text-start gap-6 ">
-                <Label className="font-semibold uppercase text-sm">PASSWORD</Label>
+                <legend className="font-semibold uppercase text-sm">PASSWORD</legend>
                 <button onClick={() => setIsEditing((prev) => !prev)}>
                   <ModeEditOutlineIcon
                     sx={{
@@ -142,7 +139,7 @@ export const SettingsPage = () => {
                 </button>
               </div>
               {isEditing && (
-                <div className="flex flex-col gap-6 mt-6">
+                <div className="flex flex-col gap-6 my-3">
                   <div className="flex flex-col  sm:flex-row  gap-4 relative">
                     <Input onChange={(e) => setValue(e.target.value)} placeholder="password" />
 
@@ -162,7 +159,7 @@ export const SettingsPage = () => {
                   </Button>
                 </div>
               )}
-            </div>
+            </fieldset>
           </div>
         </div>
       </div>

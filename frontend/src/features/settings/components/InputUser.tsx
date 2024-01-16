@@ -34,7 +34,7 @@ export const InputUser = ({
   };
 
   return (
-    <div className="w-full max-w-[600px] mx-auto break-words min-h-[80px]">
+    <fieldset className="w-full max-w-[500px] mx-auto break-words min-h-[80px] shadow-sm rounded-md px-2.5 py-3">
       {isEditing ? (
         <div
           className={`flex flex-col ${
@@ -78,6 +78,6 @@ export const InputUser = ({
           <p className="mt-4 text-base">{value}</p>
         </div>
       )}
-    </div>
+    </fieldset>
   );
 };
