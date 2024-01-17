@@ -5,7 +5,7 @@ import ErrorBoundary from "../../ui/generic/ErrorBoundary";
 
 export const FlashcardPage = () => {
   return (
-    <section className="section-layout">
+    <section className="section-layout justify-start">
       <ErrorBoundary fallback={<p>Error</p>}>
         <Suspense fallback={<Spinner />}>
           <FlashcardsBoard />

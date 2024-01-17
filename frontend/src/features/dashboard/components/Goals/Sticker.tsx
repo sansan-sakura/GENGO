@@ -1,30 +1,33 @@
 import { useState } from "react";
+import Draggable from "react-draggable";
+import { ResizableBox } from "react-resizable";
+import { GithubPicker } from "react-color";
+// icon
+import { IoCloseOutline } from "react-icons/io5";
+import { GrDrag } from "react-icons/gr";
 import CheckIcon from "@mui/icons-material/Check";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
+import { IoColorPaletteOutline } from "react-icons/io5";
+import { IoIosResize } from "react-icons/io";
+import { TiDelete } from "react-icons/ti";
+//hooks
+import { useUpdateSticker } from "../../hooks/useUpdateSticker";
+import { useDeleteSticker } from "../../hooks/useDeleteSticker";
 
 import { Label } from "../../../../ui/shadcn/Label";
 import { Textarea } from "../../../../ui/shadcn/Textarea";
 import { Button } from "../../../../ui/shadcn/Button";
-import Draggable from "react-draggable";
-import { ResizableBox } from "react-resizable";
-import { GithubPicker } from "react-color";
-import { IoCloseOutline } from "react-icons/io5";
-import { GrDrag } from "react-icons/gr";
-import { IoColorPaletteOutline } from "react-icons/io5";
 import { Input } from "../../../../ui/shadcn/Input";
-import { IoIosResize } from "react-icons/io";
-import { useUpdateSticker } from "../../hooks/useUpdateSticker";
-
-import { TiDelete } from "react-icons/ti";
-import { useDeleteSticker } from "../../hooks/useDeleteSticker";
 
 export const Sticker = ({ item }: { item?: any }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
+
+  //sticker's styling/position
   const [value, setValue] = useState<{ title: string; text: string }>({
     title: item?.title ?? "",
     text: item?.text ?? "",
   });
-
   const [stickerColor, setStickerColor] = useState<{ background: string; textColor: string }>({
     background: item?.colors?.background ?? "#F5B9B0",
     textColor: item?.colors?.textColor ?? "#fff",
@@ -33,15 +36,16 @@ export const Sticker = ({ item }: { item?: any }) => {
     width: Number(item?.size?.width) ?? 180,
     height: Number(item?.size?.height) ?? 260,
   });
-
   const [stickerPosition, setStickerPosition] = useState<{ x: number; y: number }>({
     x: item?.position?.x ?? 0,
     y: item?.position?.y ?? 0,
   });
+
+  //hooks to call api
   const { isEditing: isStickerEditing, editSticker } = useUpdateSticker();
   const { isDeleting, deleteSticker } = useDeleteSticker();
-  const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
 
+  //hanlders
   const handleUpdateSticker = () => {
     const newSticker = { ...value, colors: { ...stickerColor }, size: { ...stickerSize } };
     editSticker({ id: item._id, newData: newSticker });
@@ -54,10 +58,11 @@ export const Sticker = ({ item }: { item?: any }) => {
   const handleDrag = (e: any, data: any) => {
     setStickerPosition({ x: data.x, y: data.y });
   };
+
   const handleDeleteSticker = () => {
     deleteSticker(item._id);
   };
-  console.log(stickerPosition, item);
+
   const handleUpdatePosition = () => {
     editSticker({ id: item._id, newData: { position: stickerPosition } });
   };

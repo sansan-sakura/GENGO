@@ -14,6 +14,7 @@
     @apply mx-auto w-full max-w-[1000px] min-h-[65vh] h-full flex items-center flex-col justify-center;
   }
 }
+
 .scrollbar {
   scrollbar-width: thin;
   scrollbar-color: var(--secondary) var(--primary);

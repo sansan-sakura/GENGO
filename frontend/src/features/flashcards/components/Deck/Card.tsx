@@ -20,20 +20,18 @@ import { ModalConfirm } from "../../../../ui/generic/ModalConfirm";
 export const Card = ({ card, index }: { card: DeckType; index: number }) => {
   const [modalId, setModalId] = useRecoilState(modalIDstate);
   const [modalConfirmId, setModalConfirmId] = useRecoilState(modalConfirmIdState);
-  const { deleteDeck, isDeleting } = useDeleteDeck();
-  console.log();
-  const cardCategory = card?.category?.category;
 
+  //hooks for api
+  const { deleteDeck, isDeleting } = useDeleteDeck();
+  const { editDeck } = useEditDeck();
+  const cardCategory = card?.category?.category;
   const categoryBgColor = useChooseCategoryColor(cardCategory);
 
+  //handlers
   const handelDeleteDeck = () => {
-    console.log(card._id, card.title);
     if (card._id === undefined) return;
-
     deleteDeck(card._id);
   };
-
-  const { editDeck } = useEditDeck();
 
   const handleChecked = () => {
     const id = card._id;

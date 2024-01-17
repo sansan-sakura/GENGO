@@ -16,7 +16,7 @@ export const Goals = () => {
   const stickersArray = data?.data?.stickers ?? [];
 
   const handleCreateSticker = () => {
-    createSticker({ title: "title" });
+    createSticker({ title: "" });
   };
 
   return (

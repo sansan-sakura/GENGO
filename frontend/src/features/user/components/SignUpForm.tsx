@@ -1,21 +1,14 @@
-import {
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Input,
-  LinearProgress,
-  Typography,
-} from "@mui/joy";
+import { FormControl, FormHelperText, FormLabel, LinearProgress, Typography } from "@mui/joy";
 
 import { checkFormIsValid, selectErrorMessage } from "../actions/apiActions";
 import { FormEvent, useState } from "react";
 import { createUser } from "../../../services/apiUser";
 import { CreateUser, FormError } from "../../../types/userType";
 import { useNavigate } from "react-router-dom";
-import { Key } from "@mui/icons-material";
 import { currentUserState } from "../../../states/atoms/userAtoms";
 import { useSetRecoilState } from "recoil";
 import { Button } from "../../../ui/shadcn/Button";
+import { Input } from "../../../ui/shadcn/Input";
 
 const initialState = {
   name: { error: false, message: "" },
@@ -75,17 +68,7 @@ export const SignUpForm = () => {
         <form className="w-full" onSubmit={hanldleSubmit}>
           <FormControl id="name" className="mb-4" error={formError.name.error}>
             <FormLabel required={true}>Name</FormLabel>
-            <Input
-              name="name"
-              placeholder="言語"
-              className="p-2"
-              sx={{
-                outline: "none",
-                "&:focus": {
-                  border: "2px solid red",
-                },
-              }}
-            />
+            <Input name="name" placeholder="言語" className="p-2" />
             <FormHelperText>{formError.name.error && formError.name.message}</FormHelperText>
           </FormControl>
           <FormControl id="email" className="mb-4" error={formError.email.error}>
@@ -98,7 +81,6 @@ export const SignUpForm = () => {
             <Input
               name="password"
               type="password"
-              startDecorator={<Key />}
               placeholder="password..."
               className="p-2 "
               onChange={(event) => setValue(event.target.value)}
@@ -134,7 +116,7 @@ export const SignUpForm = () => {
               placeholder="password..."
               className="p-2 "
               type="password"
-              startDecorator={<Key />}
+              // startDecorator={<Key />}
             />
             <FormHelperText>
               {formError.passwordConfirm.error && formError.passwordConfirm.message}

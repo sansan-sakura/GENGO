@@ -15,6 +15,8 @@ export const EditCategoryModalOption = ({ cate }: { cate: CategoryType }) => {
   const [isSubOpen, setIsSubOpen] = useState(false);
   const [isConfirmOpen, setConfirmOpen] = useRecoilState(modalConfirmState);
   const { deleteCategory } = useDeleteCategory();
+
+  //handler
   const handledelete = () => {
     deleteCategory(cate._id);
   };

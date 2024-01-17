@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import { loginUser } from "../../../services/apiUser";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FormControl, FormLabel, Input } from "@mui/joy";
+import { FormControl, FormLabel } from "@mui/joy";
 import { currentUserState } from "../../../states/atoms/userAtoms";
 import { useSetRecoilState } from "recoil";
 import { Button } from "../../../ui/shadcn/Button";
+import { Input } from "../../../ui/shadcn/Input";
 
 export const LoginForm = () => {
   const [error, setError] = useState(false);

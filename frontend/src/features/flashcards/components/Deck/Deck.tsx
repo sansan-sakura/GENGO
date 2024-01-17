@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { DeckCard } from "./DeckCard";
+import { useRecoilState } from "recoil";
 import { useParams } from "react-router-dom";
+
+import { DeckCard } from "./DeckCard";
 import { useDeck } from "../../hooks/deck/useDeck";
 import { Error } from "../../../../ui/generic/Error";
 import { AddBtn } from "../../../../ui/buttons/AddBtn";
-
 import { CreateFlashCardModal } from "../Flashcard/CreateFlashCardModal";
 import { Spinner } from "../../../../ui/generic/Spinner";
 import { useChooseCategoryColor } from "../../hooks/category/useChooseCategoryColor";
 import { Button } from "../../../../ui/shadcn/Button";
-import { useRecoilState } from "recoil";
 import { modalIDstate } from "../../../../states/atoms/commonAtoms";
 import { CustomDialog } from "../../../../ui/generic/CustomDialog";
 
