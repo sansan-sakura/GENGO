@@ -1,13 +1,19 @@
 <h1 align="center">
   <a href="">
-    <img src="/frontend/src/assets/gengo.png" alt="Project Banner Image">
+    <img src="/frontend/src/assets/gengo.png" alt="Project Banner Image" width="500px">
   </a>
 </h1>
 
 # Flashcard App Full stack Project
-
-![GENGO](/frontend/src/assets/welcom.png)
-![GENGO](/frontend/src/assets/note.png)
+<div style={{disaply:flex}}>
+  <a href="">
+    <img src="/frontend/src/assets/welcom.png" alt="Project Banner Image" width="500px">
+  </a>
+  <a href="">
+    <img src="/frontend/src/assets/note.png" alt="Project Banner Image" width="500px">
+  </a>
+  </div>
+  
 
 Welcome to the Flashcard app Project! This project is created to provide a simple well-designed flashcard application. It has also a sticker page where a user can make notes for themselves to keep remembering some tasks/goals for their study. Therefore, it is a full-stack application with authentification. For that, I have used a range of technologies and tools to create an interactive and visually appealing web application. 
 
