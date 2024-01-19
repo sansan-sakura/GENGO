@@ -65,13 +65,19 @@ As global state management, I chose to go with Recoil, as I wanted to try new te
 
 #### Other libraries
 
--TipTap            rich editor
--Zod               frontend form validation
--TS particles      nice animation
--React hot toast   testing
--React Draggable   drag and drop for stickers
--React Resizable 
--React icons
+> TipTap            (rich editor)
+
+> Zod               (frontend form validation)
+
+> TS particles     (nice animation)
+
+> React hot toast   (toasting)
+
+> React Draggable   (drag and drop for stickers)
+
+> React Resizable
+
+> React icons
 
 
 ### View It Live
