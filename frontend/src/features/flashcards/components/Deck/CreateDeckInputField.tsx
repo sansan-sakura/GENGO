@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { SelectCategory } from "../Category/SelectCategory";
 import { useCreateDeck } from "../../hooks/deck/useCreateDeck";
-
 import { Input } from "../../../../ui/shadcn/Input";
-
 import { ButtonSubmit } from "../../../../ui/buttons/ButtonSubmit";
 
 export const CreateDeckInputField = () => {
@@ -11,6 +9,7 @@ export const CreateDeckInputField = () => {
   const [categoryId, setCategoryId] = useState("");
   const [title, setTitle] = useState("");
   const [error, setError] = useState(false);
+
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (title === "") return setError(true);

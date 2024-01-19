@@ -11,7 +11,7 @@ export const useUser = () => {
     queryFn: async () => {
       const data = await getUser();
       setCurrentTheme(data?.data?.data?.theme);
-
+      console.log(data);
       return data;
     },
   });

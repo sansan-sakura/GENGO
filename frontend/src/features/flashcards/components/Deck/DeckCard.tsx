@@ -16,14 +16,17 @@ import { ModalConfirm } from "../../../../ui/generic/ModalConfirm";
 import { CustomDialog } from "../../../../ui/generic/CustomDialog";
 
 export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
+  //card status
   const [isChecked, setIsChecked] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentCard, setCurrentCard] = useState<CardType>();
   const [isFinished, setIsFinished] = useState(false);
 
+  //modal
   const [modalId, setModalId] = useRecoilState(modalIDstate);
   const [isOpenModalConfirm, setIsOpenModalConfirm] = useRecoilState(modalConfirmState);
 
+  //hook
   const { deleteFlashcard, isDeleting } = useDeleteFlashcard();
 
   useEffect(() => {
@@ -32,9 +35,9 @@ export const DeckCard = ({ cards }: { cards: Array<CardType> }) => {
   }, [cards, setCurrentCard, currentIndex]);
 
   if (currentCard === undefined) return <Spinner />;
-
   const { answer, question, status, _id } = currentCard;
 
+  //handlers
   const handleClick = () => {
     if (cards.length === currentIndex + 1) setIsFinished(true);
     if (cards.length > currentIndex + 1) setCurrentIndex((prev) => prev + 1);

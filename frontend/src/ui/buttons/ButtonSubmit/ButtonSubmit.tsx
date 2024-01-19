@@ -22,15 +22,16 @@ export const ButtonSubmit = ({
   const [modalId, setMdoalId] = useRecoilState(modalIDstate);
   const [modalConfirmId, setModalConfirmId] = useRecoilState(modalConfirmState);
 
+  //close modal onsubmit
   useEffect(() => {
     if (!isLoading) return;
     const closeModalOnSubmit = () => {
-      console.log(modalId, modalConfirmId);
       modalConfirmId && setModalConfirmId(false);
       modalId !== "" && setMdoalId("");
     };
     closeModalOnSubmit();
   }, [onClick, isLoading, modalConfirmId, modalId, setModalConfirmId, setMdoalId]);
+
   return (
     <Button
       size={size}

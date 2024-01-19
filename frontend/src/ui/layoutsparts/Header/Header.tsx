@@ -6,17 +6,16 @@ import { useRecoilValue } from "recoil";
 import { themeColors } from "../../../statics/colors";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { Aside } from "../Aside/Aside";
-// import { Youglish } from "../Youglish/Youglish";
 
 export const Header = () => {
   const currentUser = useRecoilValue(currentUserState);
   const theme = useRecoilValue(currentThemeAtom);
   const [isNavOpen, setIsNavOpen] = useState(false);
-
+  console.log(theme);
   return (
     <>
       {isNavOpen && <Aside setIsNavOpen={setIsNavOpen} isNavOpen={isNavOpen} />}
-      {/* <Youglish /> */}
+
       <header className="bg-amber-50/10  ">
         <div className="mx-4 sm:mx-auto max-w-[1200px] py-6 sm:py-8 flex justify-center items-center">
           <div className="flex items-center justify-between gap-12 max-w-[1200px] w-full mx-auto px-6">

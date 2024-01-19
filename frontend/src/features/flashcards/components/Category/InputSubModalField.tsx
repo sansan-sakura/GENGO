@@ -18,21 +18,22 @@ export const InputSubModalField = ({
   const { isCreating, createCategory } = useCreateCategory();
   const [error, setError] = useState(false);
 
-  function handleEditSubmit(id: string | number) {
+  //handlers
+  const handleEditSubmit = (id: string | number) => {
     if (editingValue === "") return setError(true);
     const newData = { category: editingValue };
     editCategory({ id, newData });
     setEditingValue("");
     setError(false);
     onClose(false);
-  }
+  };
 
-  function handleCreate() {
+  const handleCreate = () => {
     if (editingValue === "") return setError(true);
     createCategory({ category: editingValue });
     setError(false);
     onClose(false);
-  }
+  };
 
   return (
     <>

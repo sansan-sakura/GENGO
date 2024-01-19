@@ -6,6 +6,7 @@ import { useEditUser } from "../../../hooks/useEditUser";
 import { User } from "../../../types/userType";
 import { Label } from "../../../ui/shadcn/Label";
 import { Input } from "../../../ui/shadcn/Input";
+import { EMAIL_SCHEMA, NAME_SCHEMA } from "../../../utils/zod";
 
 export const InputUser = ({
   storedValue,
@@ -23,14 +24,16 @@ export const InputUser = ({
   const { editUser } = useEditUser();
 
   const handleUpdateGoal = () => {
-    if (objKey !== "password" && (value === "" || value === storedValue)) return;
-    if (objKey === "password" && value.length < 8)
-      return alert("Password should be longer than 8 letters");
-
-    if (objKey === "name" && value.length < 3) return alert("Name should be longer than 3 letters");
-    const newGoal = { [objKey]: value } as User;
-
-    editUser(newGoal);
+    if (value === "" || value === storedValue) return;
+    if (objKey === "name") {
+      const result = NAME_SCHEMA.safeParse(value);
+      if (!result.success) return alert("Please enter valid name");
+    } else if (objKey === "email") {
+      const result = EMAIL_SCHEMA.safeParse(value);
+      if (!result.success) return alert("Please enter valid email");
+    }
+    const newData = { [objKey]: value } as User;
+    editUser(newData);
   };
 
   return (

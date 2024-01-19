@@ -63,7 +63,6 @@ export async function deleteSticker(id: number | string | undefined) {
 }
 
 export async function updateSticker(id: string | undefined, body: Sticker) {
-  console.log(body);
   if (id === undefined) return;
   const accessToken = findToken();
   if (!accessToken) return alert("Please check in first");
@@ -75,7 +74,6 @@ export async function updateSticker(id: string | undefined, body: Sticker) {
     });
     const data = await res.json();
     if (data.status !== "success") throw new Error(data.message);
-    console.log(data);
     return data;
   } catch (err) {
     throw new Error(err.message);

@@ -1,10 +1,8 @@
 import { useState } from "react";
 
 import { CategoryType } from "../../../../types/flashcardTypes";
-
 import { EditCategoryModalOption } from "./EditCategoryModalOption";
 import { InputSubModalField } from "./InputSubModalField";
-
 import { Dialog, DialogContent } from "../../../../ui/shadcn/Dialog";
 import { ButtonSubmit } from "../../../../ui/buttons/ButtonSubmit";
 

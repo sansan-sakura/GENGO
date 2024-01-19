@@ -50,6 +50,9 @@ export const FlashcardsBoard = () => {
   const [modalID, setModalID] = useRecoilState(modalIDstate);
 
   const setCards = useSetRecoilState(allDecksPerPageState);
+
+  // create query to fetch data each time a button is clicked (sort/page transition)
+
   const query = useMemo(
     () =>
       `page=${currentPage}&limit=${cardsNumPerPage}${
@@ -63,31 +66,20 @@ export const FlashcardsBoard = () => {
 
   if (isPending || isCategoryPending) return <Spinner />;
   if (error || categoryError) return <Error />;
+
   const decksWithQueries: DeckType[] = decksWithQuery.data ? decksWithQuery?.data?.deck : [];
   setCards(decksWithQueries);
   categories && setCategories(categories);
 
-  function handleSetQuery(value: string, label: string) {
+  const handleSetQuery = (value: string, label: string) => {
     const handler = label === "status" ? setSearchQueryStatus : setSearchQueryCreatedAt;
     const sortedValue = label === "status" && value === "false" ? "" : value;
     handler(sortedValue);
-  }
+  };
 
   return (
     <>
-      {isModalOpen && modalID === "edit_category" && (
-        <CustomDialog id="edit_category" header="Edit Category">
-          <EditCategoryInputField categories={categories} />
-        </CustomDialog>
-      )}
-
-      {isModalOpen && modalID === "create_deck" && (
-        <CustomDialog id="create_deck" header="Create New Deck">
-          <CreateDeckInputField />
-        </CustomDialog>
-      )}
-
-      <div className="w-full mx-auto">
+      <div className="w-full mx-auto min-h-full">
         <h2 className="font-jp font-thin text-xl md:text-2xl text-blue-dark text-center w-full mb-2">
           フラッシュカード
         </h2>
@@ -161,6 +153,17 @@ export const FlashcardsBoard = () => {
           <Pagination />
         </div>
       </div>
+      {isModalOpen && modalID === "edit_category" && (
+        <CustomDialog id="edit_category" header="Edit Category">
+          <EditCategoryInputField categories={categories} />
+        </CustomDialog>
+      )}
+
+      {isModalOpen && modalID === "create_deck" && (
+        <CustomDialog id="create_deck" header="Create New Deck">
+          <CreateDeckInputField />
+        </CustomDialog>
+      )}
     </>
   );
 };

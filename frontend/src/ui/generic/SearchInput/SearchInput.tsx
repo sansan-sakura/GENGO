@@ -19,6 +19,7 @@ export const SearchInput = () => {
     [popupRef]
   );
 
+  //close popup onclick
   useEffect(() => {
     isPopUpOpen
       ? document.addEventListener("mousedown", handleClick)
@@ -39,6 +40,7 @@ export const SearchInput = () => {
         setSearchResult(data);
         setIsPopUpOpen(true);
       } else {
+        //make error message disappeared in 3000ms
         setHasError({ status: true, message: data.message });
         const deleteError = setTimeout(() => {
           setHasError(initialErrorState);

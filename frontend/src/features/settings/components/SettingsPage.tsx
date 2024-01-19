@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { z } from "zod";
+import { ChangeEvent, useState } from "react";
 import { Box, RadioGroup, Sheet, Radio } from "@mui/joy";
 import Done from "@mui/icons-material/Done";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
@@ -13,40 +12,29 @@ import { InputUser } from "./InputUser";
 import { Label } from "../../../ui/shadcn/Label";
 import { Input } from "../../../ui/shadcn/Input";
 import { Button } from "../../../ui/shadcn/Button";
+import { PASSWORD_SCHEMA } from "../../../utils/zod";
 
 export const SettingsPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState("");
   const [confirmValue, setConfirmValue] = useState("");
-  const [theme, setTheme] = useState("");
+
+  //hooks for api
   const { isPending, data } = useUser();
   const { editUser } = useEditUser();
+
   if (isPending) return <Spinner />;
   const userData = data.data.data;
 
   const handleUpdatePassword = () => {
-    const PASSWORD_SCHEMA = z
-      .object({
-        password: z
-          .string({ required_error: "password is required" })
-          .min(8, { message: "password should be longer than 8 letters" }),
-        passwordConfirm: z
-          .string({ required_error: "please confirm your password" })
-          .min(8, { message: "password should be longer than 8 letters" }),
-      })
-      .refine((data) => data.password === data.passwordConfirm, {
-        path: ["passwordConfirm"],
-        message: "password is not correct",
-      });
     const passwordObj = { password: value, passwordConfirm: confirmValue };
+    //checks if the passwords are correct
     const result = PASSWORD_SCHEMA.safeParse(passwordObj);
-
     if (!result.success) return alert("Please enter correct password");
     editUser(passwordObj);
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTheme(event.target.value);
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     editUser({ theme: event.target.value });
   };
 
@@ -166,14 +154,3 @@ export const SettingsPage = () => {
     </div>
   );
 };
-
-/**
- * theme change
- *
- * lang option (ja/sv/de/en)
- *
- * password/name/email
- *
- *
- * delete account
- */

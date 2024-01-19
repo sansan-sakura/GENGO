@@ -52,7 +52,6 @@ export const loginUser = async (formData: LoginBody) => {
 };
 
 export async function getUser() {
-  console.log("getuser");
   const accessToken = findToken();
   if (!accessToken) return alert("Please check in first");
   try {
@@ -68,7 +67,7 @@ export async function getUser() {
       alert(data.message);
       throw new Error(data.message);
     }
-    console.log(data);
+
     return data;
   } catch (err) {
     throw new Error("Couldn't get a user");
@@ -87,7 +86,7 @@ export async function updateUser(body: UpdateUserBody) {
 
     const data = await res.json();
     if (data.status !== "success") throw new Error(data.message);
-    console.log(data);
+
     return data;
   } catch (err) {
     console.log(err);

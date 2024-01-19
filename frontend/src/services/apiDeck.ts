@@ -91,7 +91,7 @@ export async function getDeck(id: number | string | undefined) {
 
 export async function createDeck(body: NewDeckType) {
   const accessToken = findToken();
-  console.log(body);
+
   if (!accessToken) return alert("Please check in first");
   try {
     const res = await fetch(DECK_CREATE_URL, {
@@ -101,7 +101,7 @@ export async function createDeck(body: NewDeckType) {
     });
 
     const data = await res.json();
-    console.log(data);
+
     if (data.status !== "success") throw new Error(data.message);
     return data;
   } catch (err) {
@@ -126,7 +126,6 @@ export async function deleteDeck(id: number | string) {
 }
 
 export async function updateDeck(id: number | string, body: NewDeckType) {
-  console.log(body);
   const accessToken = findToken();
   if (!accessToken) return alert("Please check in first");
   try {
