@@ -95,7 +95,6 @@ exports.getDecksByCategory = catchAsync(async (req, res, next) => {
 });
 
 exports.createDeck = catchAsync(async (req, res, next) => {
-  c;
   const accessToken = req.headers.authorization;
   const userStorage = await User.findOne({ accessToken: accessToken });
   if (!userStorage)
